@@ -13,6 +13,17 @@
 	<!-- font-awesome -->
 </head>
 <body>
+<style type="text/css">
+	.link-simas{
+		color: white;
+		font-weight: bold;
+		padding-top: 25px;
+	}
+	.link-simas a{
+		color: white;
+		text-decoration: none;
+	}
+</style>
 {% include "menuprincipal.html" %}
 
 	<div class="fondo">
@@ -26,7 +37,16 @@
 
 	</div>
 	<div class="footer">
-		<img src="/static/general/img/site-logo.jpg" alt="Site Logo" class="img-responsive">
+		<div class="row">
+		<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+			<img src="/static/general/img/site-logo.jpg" alt="Site Logo" class="img-responsive">
+		</div>
+		<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+			<p class="link-simas">
+                &copy; 2015 Elaborado y con soporte de <a href="http://simas.org.ni/portafolio/sistemas" target="_blank">SIMAS</a> con el Framework <a href="https://www.djangoproject.com/" target="_blank">Django</a>.
+            </p>
+		</div>
+	</div>
 	</div>
 	<script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
 	<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
