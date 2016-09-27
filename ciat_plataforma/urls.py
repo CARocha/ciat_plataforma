@@ -59,6 +59,11 @@ urlpatterns = patterns('',
     #url para mercados
     url(r'^mercado/$', TemplateView.as_view(template_name="producto/producto.html")),
 
+    #urls para las herramientas
+    url(r'^herramientas/$', TemplateView.as_view(template_name="herramientas.html")),
+    url(r'^herramienta-cacao/$', TemplateView.as_view(template_name="guiascacao/herramienta_cacao.html")),
+    url(r'^herramienta-granos-basico/$', TemplateView.as_view(template_name="granos_basicos/herramienta_granos.html")),
+
     #urls para apps de terceros
     url(r'^admin/', include(admin.site.urls)),
     url(r'^selectable/', include('selectable.urls')),
