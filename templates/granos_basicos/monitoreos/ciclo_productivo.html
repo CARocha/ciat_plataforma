@@ -20,9 +20,9 @@
           <ol class="breadcrumb">
             <li class="active">Monitoreos</li>
             <li class="active">Ciclo Productivo</li>
+            <li class="active">Número de productores {{productores}}</li>
           </ol>
         </h3>
-        <h5>Número de productores {{productores}}</h5>
       </div>
       <div class="panel-body">
         <div class="row">
@@ -47,7 +47,101 @@
 $( "#monitoreo" ).addClass( "in" );
 
 $(function () {
+  $('#grafo1').highcharts({
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: 'Fecha de siembra'
+        },
+        xAxis: {
+            type: 'category'
+        },
+        yAxis: {
+            title: {
+                text: 'Frecuencia'
+            }
 
+        },
+        legend: {
+            enabled: false
+        },
+        plotOptions: {
+            series: {
+                borderWidth: 0,
+                dataLabels: {
+                    enabled: true,
+                    format: '{point.y}'
+                }
+            }
+        },
+
+        tooltip: {
+            headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+            pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y}</b> del total<br/>'
+        },
+
+        series: [{
+            name: 'Semana',
+            colorByPoint: true,
+            data: [
+              {% for k,v in dic_siembra.items %}
+                {
+                    name: 'Semana {{k}}',
+                    y: {{v}},
+                },
+              {% endfor %}
+                  ]
+        }],
+    });
+
+    $('#grafo2').highcharts({
+          chart: {
+              type: 'column'
+          },
+          title: {
+              text: 'Fecha de cosecha'
+          },
+          xAxis: {
+              type: 'category'
+          },
+          yAxis: {
+              title: {
+                  text: 'Frecuencia'
+              }
+
+          },
+          legend: {
+              enabled: false
+          },
+          plotOptions: {
+              series: {
+                  borderWidth: 0,
+                  dataLabels: {
+                      enabled: true,
+                      format: '{point.y}'
+                  }
+              }
+          },
+
+          tooltip: {
+              headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+              pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y}</b> del total<br/>'
+          },
+
+          series: [{
+              name: 'Semana',
+              colorByPoint: true,
+              data: [
+                {% for k,v in dic_cosecha.items %}
+                  {
+                      name: 'Semana {{k}}',
+                      y: {{v}},
+                  },
+                {% endfor %}
+                    ]
+          }],
+      });
 });
 </script>
 {% endblock %}
