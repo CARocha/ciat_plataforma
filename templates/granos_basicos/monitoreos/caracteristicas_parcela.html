@@ -20,34 +20,38 @@
           <ol class="breadcrumb">
             <li class="active">Monitoreos</li>
             <li class="active">Características de la parcela</li>
+            <li class="active">Número de productores {{productores}}</li>
           </ol>
         </h3>
-        <h5>Número de productores {{productores}}</h5>
       </div>
       <div class="panel-body">
         <div class="row">
           <div class="col-md-12">
-            <div id="grafo1" style="min-width: 510px; width: 860px; margin: 0 auto;"></div>
+              <div id="grafo1" style="min-width: 510px; width: 860px; margin: 0 auto;"></div>
           </div>
         </div>
         <div class="row">
           <div class="col-md-12">
-            <div id="grafo2" style="min-width: 510px; width: 860px; margin: 0 auto;"></div>
+              <div id="grafo2" style="min-width: 510px; width: 860px; margin: 0 auto;"></div>
           </div>
         </div>
         <div class="row">
           <div class="col-md-12">
-            <div id="grafo3" style="min-width: 510px; width: 860px; margin: 0 auto;"></div>
+              <div id="grafo3" style="min-width: 510px; width: 860px; margin: 0 auto;"></div>
           </div>
         </div>
         <div class="row">
-          <div class="col-md-6">
-            <div id="grafo4" style="min-width: 210px; width: 390px; margin: 0 auto;"></div>
+          <div class="col-md-12">
+              <div id="grafo4" style="min-width: 510px; width: 860px; margin: 0 auto;"></div>
           </div>
+        </div>
+        <div class="row">
           <div class="col-md-6">
             <div id="grafo5" style="min-width: 210px; width: 390px; margin: 0 auto;"></div>
           </div>
-
+          <div class="col-md-6">
+            <div id="grafo6" style="min-width: 210px; width: 390px; margin: 0 auto;"></div>
+          </div>
         </div>
       </div>
     </div>
@@ -61,182 +65,246 @@ $( "#monitoreo" ).addClass( "in" );
 
 $(function () {
   $('#grafo1').highcharts({
-    chart: {
-      type: 'column'
-    },
-    title: {
-      text: 'Edad de la parcela y profundidad de la capa arable'
-    },
-
-    xAxis: {
-      type: 'category'
-    },
-    yAxis: {
-      title: {
-        text: 'Profundidad (cm)'
-      }
-    },
-    tooltip: {
-      formatter: function() {
-        return ''+
-        this.series.name +': '+ this.y;
-      }
-    },
-    legend: {
-      enabled: false
-    },
-    plotOptions: {
-      series: {
-        borderWidth: 0,
-        dataLabels: {
-          enabled: true,
-          format: '{point.y} cm',
-          color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'black',
-          style: {
-            textShadow: '0 0 3px white'
-          }
-        }
-      }
-    },
-
-    tooltip: {
-      headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
-      pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y} cm</b><br/>'
-    },
-
-    series: [{
-      name: "Promedio",
-      colorByPoint: true,
-      data: [
-        {
-          name: "Menores de 5 años",
-          y: {{parcela_5|default:'0'}},
-        }, {
-          name: "Entre 6 y 20 años",
-          y: {{parcela_6_20|default:'0'}},
-        }, {
-          name: "Mayores de 20 años",
-          y: {{parcela_20|default:'0'}},
+        chart: {
+            type: 'scatter',
+            zoomType: 'xy'
         },
-      ]
-    }],
-  });
-  
-  $('#grafo2').highcharts({
-    chart: {
-      type: 'spline',
-    },
-    title: {
-      text: 'Área Inclinado de la parcela es mayor del 60%'
-    },
-    // subtitle: {
-    //     text: 'According to the Standard Atmosphere Model'
-    // },
-    xAxis: {
-      reversed: false,
+        title: {
+            text: 'Edad parcela y profundidad capa arable'
+        },
+        xAxis: {
+            title: {
+                enabled: true,
+                text: 'Edad en años'
+            },
+            startOnTick: true,
+            endOnTick: true,
+            showLastLabel: true
+        },
+        yAxis: {
+            title: {
+                text: 'Profundidad capa arable (cm)'
+            },
+        },
+        legend: {
+            layout: 'vertical',
+            align: 'left',
+            verticalAlign: 'top',
+            x: 100,
+            y: 70,
+            floating: true,
+            backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF',
+            borderWidth: 1
+        },
+        plotOptions: {
+            scatter: {
+                marker: {
+                    radius: 5,
+                    states: {
+                        hover: {
+                            enabled: true,
+                            lineColor: 'rgb(100,100,100)'
+                        }
+                    }
+                },
+                states: {
+                    hover: {
+                        marker: {
+                            enabled: false
+                        }
+                    }
+                },
+                tooltip: {
+                    pointFormat: '{point.x} años, {point.y} cm'
+                }
+            }
+        },
+        series: [{
+            name: 'parcela',
+            color: 'rgba(223, 83, 83, .5)',
+            data: [{% for value in lista_parcela %}{% for x in value %}[{{x.0}},{{x.1}}],{% endfor %}{% endfor %}]
+
+        }]
+    });
+
+    $('#grafo2').highcharts({
+      chart: {
+        plotBackgroundColor: null,
+        plotBorderWidth: null,
+        plotShadow: false,
+        type: 'pie'
+      },
       title: {
-        enabled: true,
-        text: 'Capa arable'
+        text: 'Distribución por edad de las parcelas'
       },
-      labels: {
-        formatter: function () {
-          return this.value + 'cm';
+      tooltip: {
+        pointFormat: '{series.name}: <b>{point.percentage:.2f}%</b>'
+      },
+      plotOptions: {
+        pie: {
+          allowPointSelect: true,
+          cursor: 'pointer',
+          dataLabels: {
+            enabled: true,
+            format: '{point.percentage:.2f}%',
+            color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'black',
+            style: {
+              textShadow: '0 0 3px white'
+            }
+          },
+          showInLegend: true
         }
+
       },
-      maxPadding: 0.05,
-      showLastLabel: true
-    },
-    yAxis: {
-      title: {
-        text: 'Porcentaje de inclinación'
-      },
-      labels: {
-        formatter: function () {
-          return this.value + '%';
-        }
-      },
-      lineWidth: 2
-    },
-    legend: {
-      enabled: false
-    },
-    tooltip: {
-      headerFormat: '<b>{series.name}</b><br/>',
-      pointFormat: '{point.x} cm: {point.y}%'
-    },
-    plotOptions: {
-      spline: {
-        marker: {
-          enable: false
-        }
-      }
-    },
-    series: [{
-      name: 'Inclinación',
-      data: [
-        {% for value in inclinado %}[{{value.0}},{{value.1}}],{% endfor %}
-      ]
-    }]
-  });
+      series: [{
+        name: "Porcentajes",
+        colorByPoint: true,
+        data: [
+          {
+            name: "< 5 años",
+            y: {{menor_5}}
+          },
+          {
+            name: "6-20 años",
+            y: {{edad_6_20}}
+          },
+          {
+            name: "> 20 años",
+            y: {{mayor_20}}
+          },
+
+
+        ]
+      }]
+    });
 
   $('#grafo3').highcharts({
-    chart: {
-      type: 'spline',
-    },
-    title: {
-      text: 'Área Plano de la parcela es mayor del 60%'
-    },
-    // subtitle: {
-    //     text: 'According to the Standard Atmosphere Model'
-    // },
-    xAxis: {
-      reversed: false,
-      title: {
-        enabled: true,
-        text: 'Capa arable'
-      },
-      labels: {
-        formatter: function () {
-          return this.value + 'cm';
-        }
-      },
-      maxPadding: 0.05,
-      showLastLabel: true
-    },
-    yAxis: {
-      title: {
-        text: 'Porcentaje de inclinación'
-      },
-      labels: {
-        formatter: function () {
-          return this.value + '%';
-        }
-      },
-      lineWidth: 2
-    },
-    legend: {
-      enabled: false
-    },
-    tooltip: {
-      headerFormat: '<b>{series.name}</b><br/>',
-      pointFormat: '{point.x} cm: {point.y}%'
-    },
-    plotOptions: {
-      spline: {
-        marker: {
-          enable: false
-        }
-      }
-    },
-    series: [{
-      name: 'Inclinación',
-      data: [
-        {% for value in plano %}[{{value.0}},{{value.1}}],{% endfor %}
-      ]
-    }]
-  });
+        chart: {
+            type: 'scatter',
+            zoomType: 'xy'
+        },
+        title: {
+            text: 'Relación inclinación y capa arable (% área inclinado > 60%)'
+        },
+        xAxis: {
+            title: {
+                enabled: true,
+                text: '% inclinación inclinado'
+            },
+            startOnTick: true,
+            endOnTick: true,
+            showLastLabel: true
+        },
+        yAxis: {
+            title: {
+                text: 'Profundidad capa arable (cm)'
+            },
+        },
+        legend: {
+            layout: 'vertical',
+            align: 'left',
+            verticalAlign: 'top',
+            x: 100,
+            y: 70,
+            floating: true,
+            backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF',
+            borderWidth: 1
+        },
+        plotOptions: {
+            scatter: {
+                marker: {
+                    radius: 5,
+                    states: {
+                        hover: {
+                            enabled: true,
+                            lineColor: 'rgb(100,100,100)'
+                        }
+                    }
+                },
+                states: {
+                    hover: {
+                        marker: {
+                            enabled: false
+                        }
+                    }
+                },
+                tooltip: {
+                    pointFormat: '{point.x}%, {point.y} cm'
+                }
+            }
+        },
+        series: [{
+            name: 'inclinación vs capa arable',
+            color: 'rgba(223, 83, 83, .5)',
+            data: [{% for value in lista_inclinado %}{% for x in value %}[{{x.0}},{{x.1}}],{% endfor %}{% endfor %}]
 
-  $('#grafo4').highcharts({
+        }]
+    });
+
+    $('#grafo4').highcharts({
+          chart: {
+              type: 'scatter',
+              zoomType: 'xy'
+          },
+          title: {
+              text: 'Relación inclinación y capa arable (% área plano > 60%)'
+          },
+          xAxis: {
+              title: {
+                  enabled: true,
+                  text: '% inclinación plano'
+              },
+              startOnTick: true,
+              endOnTick: true,
+              showLastLabel: true
+          },
+          yAxis: {
+              title: {
+                  text: 'Profundidad capa arable (cm)'
+              },
+          },
+          legend: {
+              layout: 'vertical',
+              align: 'left',
+              verticalAlign: 'top',
+              x: 100,
+              y: 70,
+              floating: true,
+              backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF',
+              borderWidth: 1
+          },
+          plotOptions: {
+              scatter: {
+                  marker: {
+                      radius: 5,
+                      states: {
+                          hover: {
+                              enabled: true,
+                              lineColor: 'rgb(100,100,100)'
+                          }
+                      }
+                  },
+                  states: {
+                      hover: {
+                          marker: {
+                              enabled: false
+                          }
+                      }
+                  },
+                  tooltip: {
+                      pointFormat: '{point.x}%, {point.y} cm'
+                  }
+              }
+          },
+          series: [{
+              name: 'inclinación vs capa arable',
+              color: 'rgba(223, 83, 83, .5)',
+              data: [{% for value in lista_plano %}{% for x in value %}[{{x.0}},{{x.1}}],{% endfor %}{% endfor %}]
+
+          }]
+      });
+
+  $('#grafo5').highcharts({
     chart: {
       plotBackgroundColor: null,
       plotBorderWidth: null,
@@ -280,7 +348,8 @@ $(function () {
       ]
     }]
   });
-  $('#grafo5').highcharts({
+
+  $('#grafo6').highcharts({
     chart: {
       type: 'column'
     },
@@ -298,7 +367,7 @@ $(function () {
     yAxis: {
       min: 0,
       title: {
-        text: 'Porcentajes (%)'
+        text: 'Frecuencia (%)'
       }
     },
     tooltip: {

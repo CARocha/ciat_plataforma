@@ -20,9 +20,9 @@
           <ol class="breadcrumb">
             <li class="active">Monitoreos</li>
             <li class="active">Recursos Económicos</li>
+            <li class="active">Número de productores {{productores}}</li>
           </ol>
         </h3>
-        <h5>Número de productores {{productores}}</h5>
       </div>
       <div class="panel-body">
         <div class="row">
@@ -55,7 +55,7 @@ $(function () {
       type: 'pie'
     },
     title: {
-      text: 'Tipo de recurso (Maíz)'
+      text: 'Recursos económicos'
     },
     tooltip: {
       pointFormat: '{series.name}: <b>{point.percentage:.2f}%</b>'
@@ -80,52 +80,7 @@ $(function () {
       name: "Porcentajes",
       colorByPoint: true,
       data: [
-        {% for x,y in maiz.items %}
-        {
-          name: "{{x}}",
-          y: {{y}}
-        },
-        {% endfor %}
-
-
-      ]
-    }]
-  });
-
-  $('#grafo2').highcharts({
-    chart: {
-      plotBackgroundColor: null,
-      plotBorderWidth: null,
-      plotShadow: false,
-      type: 'pie'
-    },
-    title: {
-      text: 'Tipo de recurso (Frijol)'
-    },
-    tooltip: {
-      pointFormat: '{series.name}: <b>{point.percentage:.2f}%</b>'
-    },
-    plotOptions: {
-      pie: {
-        allowPointSelect: true,
-        cursor: 'pointer',
-        dataLabels: {
-          enabled: true,
-          format: '{point.percentage:.2f}%',
-          color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'black',
-          style: {
-            textShadow: '0 0 3px white'
-          }
-        },
-        showInLegend: true
-      }
-
-    },
-    series: [{
-      name: "Porcentajes",
-      colorByPoint: true,
-      data: [
-        {% for x,y in frijol.items %}
+        {% for x,y in dic.items %}
         {
           name: "{{x}}",
           y: {{y}}
