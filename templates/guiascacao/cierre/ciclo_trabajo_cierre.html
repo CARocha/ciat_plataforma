@@ -1,0 +1,485 @@
+{% extends "guiascacao/base.html" %}
+
+{% load tools %}
+
+{% block extra_js %}
+<script type="text/javascript">
+$(function () {
+
+    $(document).ready(function () {
+
+        // Build the chart
+        $('#grafo1').highcharts({
+            chart: {
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false,
+                type: 'pie'
+            },
+            title: {
+                text: 'Visitas realizadas han servido para aprender nuevas cosas'
+            },
+            tooltip: {
+                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                    enabled: true,
+                    format: '{point.percentage:.1f} %',
+                    style: {
+                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                    }
+                },
+                    showInLegend: true
+                }
+            },
+            series: [{
+                name: '',
+                colorByPoint: true,
+                data: [
+                {% for k,v in pie_1.items %}
+                  {
+                    name: '{{k}}',
+                    y: {{v}} {% if forloop.counter == 1 %},
+                              sliced: true,
+                              selected: true
+                              {% endif %}
+                  },
+                {% endfor %}
+                ]
+            }]
+        });
+    });
+});
+$(function () {
+
+    $(document).ready(function () {
+
+        // Build the chart
+        $('#grafo2').highcharts({
+            chart: {
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false,
+                type: 'pie'
+            },
+            title: {
+                text: 'Visitas que hemos realizados han servido para observar sobre diferentes aspectos de la parcela de cacao'
+            },
+            tooltip: {
+                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                    enabled: true,
+                    format: '{point.percentage:.1f} %',
+                    style: {
+                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                    }
+                },
+                    showInLegend: true
+                }
+            },
+            series: [{
+                name: '',
+                colorByPoint: true,
+                data: [
+                {% for k,v in pie_2.items %}
+                  {
+                    name: '{{k}}',
+                    y: {{v}} {% if forloop.counter == 1 %},
+                              sliced: true,
+                              selected: true
+                              {% endif %}
+                  },
+                {% endfor %}
+                ]
+            }]
+        });
+    });
+});
+$(function () {
+
+    $(document).ready(function () {
+
+        // Build the chart
+        $('#grafo3').highcharts({
+            chart: {
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false,
+                type: 'pie'
+            },
+            title: {
+                text: 'Observaciones y discusiones han servido para mejorar el manejo de las parcela de cacao'
+            },
+            tooltip: {
+                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                    enabled: true,
+                    format: '{point.percentage:.1f} %',
+                    style: {
+                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                    }
+                },
+                    showInLegend: true
+                }
+            },
+            series: [{
+                name: '',
+                colorByPoint: true,
+                data: [
+                {% for k,v in pie_3.items %}
+                  {
+                    name: '{{k}}',
+                    y: {{v}} {% if forloop.counter == 1 %},
+                              sliced: true,
+                              selected: true
+                              {% endif %}
+                  },
+                {% endfor %}
+                ]
+            }]
+        });
+    });
+});
+$(function () {
+
+    $(document).ready(function () {
+
+        // Build the chart
+        $('#grafo4').highcharts({
+            chart: {
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false,
+                type: 'pie'
+            },
+            title: {
+                text: 'Han implementado acciones que se acordaron a partir de las visitas'
+            },
+            tooltip: {
+                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                    enabled: true,
+                    format: '{point.percentage:.1f} %',
+                    style: {
+                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                    }
+                },
+                    showInLegend: true
+                }
+            },
+            series: [{
+                name: '',
+                colorByPoint: true,
+                data: [
+                {% for k,v in pie_4.items %}
+                  {
+                    name: '{{k}}',
+                    y: {{v}} {% if forloop.counter == 1 %},
+                              sliced: true,
+                              selected: true
+                              {% endif %}
+                  },
+                {% endfor %}
+                ]
+            }]
+        });
+    });
+});
+$(function () {
+
+    $(document).ready(function () {
+
+        // Build the chart
+        $('#grafo5').highcharts({
+            chart: {
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false,
+                type: 'pie'
+            },
+            title: {
+                text: 'Qué piensa sobre la frecuencia de las visitas'
+            },
+            tooltip: {
+                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                    enabled: true,
+                    format: '{point.percentage:.1f} %',
+                    style: {
+                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                    }
+                },
+                    showInLegend: true
+                }
+            },
+            series: [{
+                name: '',
+                colorByPoint: true,
+                data: [
+                {% for k,v in pie_5.items %}
+                  {
+                    name: '{{k}}',
+                    y: {{v}} {% if forloop.counter == 1 %},
+                              sliced: true,
+                              selected: true
+                              {% endif %}
+                  },
+                {% endfor %}
+                ]
+            }]
+        });
+    });
+});
+
+$(function () {
+
+    $(document).ready(function () {
+
+        // Build the chart
+        $('#grafo6').highcharts({
+            chart: {
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false,
+                type: 'pie'
+            },
+            title: {
+                text: 'Qué piensa sobre el tiempo que dura cada visita'
+            },
+            tooltip: {
+                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                    enabled: true,
+                    format: '{point.percentage:.1f} %',
+                    style: {
+                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                    }
+                },
+                    showInLegend: true
+                }
+            },
+            series: [{
+                name: '',
+                colorByPoint: true,
+                data: [
+                {% for k,v in pie_6.items %}
+                  {
+                    name: '{{k}}',
+                    y: {{v}} {% if forloop.counter == 1 %},
+                              sliced: true,
+                              selected: true
+                              {% endif %}
+                  },
+                {% endfor %}
+                ]
+            }]
+        });
+    });
+});
+
+$(function () {
+
+    $(document).ready(function () {
+
+        // Build the chart
+        $('#grafo7').highcharts({
+            chart: {
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false,
+                type: 'pie'
+            },
+            title: {
+                text: 'Quiere seguir trabajando con las visitas para el segundo ciclo'
+            },
+            tooltip: {
+                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                    enabled: true,
+                    format: '{point.percentage:.1f} %',
+                    style: {
+                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                    }
+                },
+                    showInLegend: true
+                }
+            },
+            series: [{
+                name: '',
+                colorByPoint: true,
+                data: [
+                {% for k,v in pie_7.items %}
+                  {
+                    name: '{{k}}',
+                    y: {{v}} {% if forloop.counter == 1 %},
+                              sliced: true,
+                              selected: true
+                              {% endif %}
+                  },
+                {% endfor %}
+                ]
+            }]
+        });
+    });
+});
+
+$(function () {
+
+    $(document).ready(function () {
+
+        // Build the chart
+        $('#grafo8').highcharts({
+            chart: {
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false,
+                type: 'pie'
+            },
+            title: {
+                text: 'Estaría interesado organizar un día de campo en su finca'
+            },
+            tooltip: {
+                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                    enabled: true,
+                    format: '{point.percentage:.1f} %',
+                    style: {
+                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                    }
+                },
+                    showInLegend: true
+                }
+            },
+            series: [{
+                name: '',
+                colorByPoint: true,
+                data: [
+                {% for k,v in pie_8.items %}
+                  {
+                    name: '{{k}}',
+                    y: {{v}} {% if forloop.counter == 1 %},
+                              sliced: true,
+                              selected: true
+                              {% endif %}
+                  },
+                {% endfor %}
+                ]
+            }]
+        });
+    });
+});
+</script>
+{% endblock extra_js %}
+
+{% block contenido %}
+    <div class="container-fluid">
+        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+             {% include "guiascacao/menu_salidas.html" %}
+        </div>
+        <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
+            <div class="panel panel-default panel-graficos">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        <ol class="breadcrumb">
+                            <li class="active">Cierre</li>
+                            <li class="active">Piso cierre</li>
+                            <li class="active">Número de parcelas: {{numero_parcelas}}</li>
+                        </ol>
+                    </h3>
+                </div>
+                <div class="panel-body">
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div id="grafo1"></div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div id="grafo2"></div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div id="grafo3"></div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div id="grafo4"></div>
+                        </div>
+                    </div>
+                    <hr>
+                     <div class="row">
+                        <div class="col-md-12">
+                            <div id="grafo5"></div>
+                        </div>
+                    </div>
+                    <hr>
+                     <div class="row">
+                        <div class="col-md-12">
+                            <div id="grafo6"></div>
+                        </div>
+                    </div>
+                    <hr>
+                     <div class="row">
+                        <div class="col-md-12">
+                            <div id="grafo7"></div>
+                        </div>
+                    </div>
+                    <hr>
+                     <div class="row">
+                        <div class="col-md-12">
+                            <div id="grafo8"></div>
+                        </div>
+                    </div>
+                    <hr>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+{% endblock contenido %}

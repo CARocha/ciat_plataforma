@@ -1,0 +1,171 @@
+{% extends "guiascacao/base.html" %}
+
+{% load tools %}
+
+{% block extra_js %}
+<script type="text/javascript">
+$(function () {
+    $('#grafo1').highcharts({
+        chart: {
+            type: 'bar'
+        },
+        title: {
+            text: 'Plagas observadas'
+        },
+        xAxis: {
+            categories: [{% for k,v in grafo_analisis_plaga.items %}'{{k}}',{% endfor %}]
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: '(%) fincas afectadas'
+            }
+        },
+        legend: {
+            reversed: true
+        },
+         tooltip: {
+            headerFormat: '<b>{point.x}</b><br/>',
+            pointFormat: '{series.name}: {point.y} %'
+        },
+        plotOptions: {
+            series: {
+                stacking: 'normal'
+            }
+        },
+        series: [{
+            name: 'Observadas',
+            data: [{% for k,v in grafo_analisis_plaga.items %} {{v.0|calcular_frecuencia:numero_parcelas}},{% endfor %}]
+        }]
+    });
+});
+
+$(function () {
+    $('#grafo2').highcharts({
+        chart: {
+            type: 'bar'
+        },
+        title: {
+            text: 'Plagas principales'
+        },
+        xAxis: {
+            categories: [{% for k,v in grafo_analisis_plaga.items %}'{{k}}',{% endfor %}]
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: '(%) de fincas afectadas'
+            }
+        },
+        legend: {
+            reversed: true
+        },
+         tooltip: {
+            headerFormat: '<b>{point.x}</b><br/>',
+            pointFormat: '{series.name}: {point.y} %'
+        },
+        plotOptions: {
+            series: {
+                stacking: 'normal'
+            }
+        },
+        series: [{
+            name: 'Principales',
+            data: [{% for k,v in grafo_analisis_plaga.items %} {{v.1|calcular_frecuencia:numero_parcelas}},{% endfor %}]
+        }]
+    });
+});
+
+$(function () {
+
+    $(document).ready(function () {
+
+        // Build the chart
+        $('#grafo3').highcharts({
+            chart: {
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false,
+                type: 'pie'
+            },
+            title: {
+                text: 'Situación de las plagas'
+            },
+            tooltip: {
+                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                    enabled: true,
+                    format: '{point.percentage:.1f} %',
+                    style: {
+                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                    }
+                },
+                    showInLegend: true
+                }
+            },
+            series: [{
+                name: 'producción',
+                colorByPoint: true,
+                data: [
+                {% for k,v in grafo_situacion_plaga.items %}
+                  {
+                    name: '{{k}}',
+                    y: {{v}} {% if forloop.counter == 1 %},
+                              sliced: true,
+                              selected: true
+                              {% endif %}
+                  },
+                {% endfor %}
+                ]
+            }]
+        });
+    });
+});
+</script>
+{% endblock extra_js %}
+
+{% block contenido %}
+    <div class="container-fluid">
+        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+             {% include "guiascacao/menu_salidas.html" %}
+        </div>
+        <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
+            <div class="panel panel-default panel-graficos">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        <ol class="breadcrumb">
+                            <li class="active">Plaga</li>
+                            <li class="active">Analisis y acciones</li>
+                            <li class="active">Número de parcelas: {{numero_parcelas}}</li>
+                        </ol>
+                    </h3>
+                </div>
+                <div class="panel-body">
+
+                    <div class="row">
+                        <div class="col-md-12">
+                           <div id="grafo1"></div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div id="grafo2"></div>
+                        </div>
+                    </div>
+                    <hr>
+                     <div class="row">
+                        <div class="col-md-12">
+                            <div id="grafo3"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock contenido %}

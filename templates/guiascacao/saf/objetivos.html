@@ -1,0 +1,223 @@
+{% extends "guiascacao/base.html" %}
+
+{% load tools %}
+
+{% block extra_js %}
+<script type="text/javascript">
+$(function () {
+    $('#grafo1').highcharts({
+        chart: {
+            type: 'bar'
+        },
+        title: {
+            text: 'Objetivo de establecer el cultivo de cacao en sistema agroforestales'
+        },
+        subtitle: {
+            text: '% de frecuencia'
+        },
+        xAxis: {
+            type: 'category',
+            labels: {
+                rotation: 0,
+                style: {
+                    fontSize: '13px',
+                    fontFamily: 'Verdana, sans-serif'
+                }
+            }
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: '% de conteo total'
+            }
+        },
+        legend: {
+            layout: 'vertical',
+            align: 'right',
+            verticalAlign: 'top',
+            x: -40,
+            y: 80,
+            floating: true,
+            borderWidth: 1,
+            backgroundColor: ((Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'),
+            shadow: true
+        },
+        tooltip: {
+            pointFormat: 'Porcentaje: <b>{point.y:.1f} %</b>'
+        },
+        series: [{
+            name: '',
+            data: [
+              {% for k,v in saf_conversacion1.items %}
+
+                  ['{{k|truncatewords:2 }}', {{v|calcular_frecuencia:safconversacion1_total}}],
+
+              {% endfor %}
+            ],
+            dataLabels: {
+                enabled: true,
+                rotation: 0,
+                color: '#000000',
+                verticalAlign: 'top',
+                format: '{point.y:.1f} %', // one decimal
+                y: 0, // 10 pixels down from the top
+                style: {
+                    fontSize: '13px',
+                    fontFamily: 'Verdana, sans-serif'
+                }
+            }
+        }]
+    });
+});
+
+$(function () {
+    $('#grafo2').highcharts({
+        chart: {
+            type: 'bar'
+        },
+        title: {
+            text: 'Beneficios esperaban del sistema agroforestal en su parcela de cacao'
+        },
+        subtitle: {
+            text: '% de frecuencia'
+        },
+        xAxis: {
+            type: 'category',
+            labels: {
+                rotation: 0,
+                style: {
+                    fontSize: '13px',
+                    fontFamily: 'Verdana, sans-serif'
+                }
+            }
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: '% de conteo total'
+            }
+        },
+        legend: {
+            enabled: false
+        },
+        tooltip: {
+            pointFormat: 'Porcentaje: <b>{point.y:.1f} %</b>'
+        },
+        series: [{
+            name: '',
+            data: [
+              {% for k,v in saf_conversacion2.items %}
+
+                  ['{{k}}', {{v|calcular_frecuencia:safconversacion2_total}}],
+
+              {% endfor %}
+            ],
+            dataLabels: {
+                enabled: true,
+                rotation: 0,
+                color: '#000000',
+                verticalAlign: 'top',
+                format: '{point.y:.1f} %', // one decimal
+                y: -4, // 10 pixels down from the top
+                style: {
+                    fontSize: '13px',
+                    fontFamily: 'Verdana, sans-serif'
+                }
+            }
+        }]
+    });
+});
+
+</script>
+{% endblock extra_js %}
+
+{% block contenido %}
+
+    <div class="container-fluid">
+        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+             {% include "guiascacao/menu_salidas.html" %}
+        </div>
+        <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
+            <div class="panel panel-default panel-graficos">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        <ol class="breadcrumb">
+                            <li class="active">Saf</li>
+                            <li class="active">Objetivos</li>
+                            <li class="active">Número de parcelas: {{numero_parcelas}}</li>
+                        </ol>
+                    </h3>
+                </div>
+                <div class="panel-body">
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div id="grafo1"></div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-striped">
+                                  <thead>
+                                    <tr>
+                                      <th></th>
+                                      <th>Conteo</th>
+                                      <th>Porcentaje</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                    {% for k,v in saf_conversacion1.items %}
+                                    <tr>
+                                      <th scope=row>{{k}}</th>
+                                      <td>{{v}}</td>
+                                      <td>{{v|calcular_frecuencia:safconversacion1_total}}</td>
+                                    </tr>
+                                    {% endfor %}
+                                  </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                    </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div id="grafo2"></div>
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                        <div class="col-md-12">
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-striped">
+                                  <thead>
+                                    <tr>
+                                      <th></th>
+                                      <th>Conteo</th>
+                                      <th>Porcentaje</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                    {% for k,v in saf_conversacion2.items %}
+                                    <tr>
+                                      <th scope=row>{{k}}</th>
+                                      <td>{{v}}</td>
+                                      <td>{{v|calcular_frecuencia:safconversacion2_total}}</td>
+                                    </tr>
+                                    {% endfor %}
+                                  </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+{% endblock contenido %}

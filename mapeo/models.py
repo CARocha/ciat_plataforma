@@ -366,7 +366,7 @@ RELACION_CHOICES = (
 
 class ProductorGranosBasicos(models.Model):
     persona = models.ForeignKey(Persona)
-    organizacion = models.ManyToManyField(Organizaciones,verbose_name='Organización a la que está afiliado/a.',blank=True, null=True)
+    # organizacion = models.ManyToManyField(Organizaciones,verbose_name='Organización a la que está afiliado/a.',blank=True, null=True)
     #nombre_finca = models.CharField(max_length=200)
     telefono = models.IntegerField()
     # latitud = models.IntegerField()

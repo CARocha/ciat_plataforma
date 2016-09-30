@@ -10,7 +10,7 @@ class InlineTablaGastos(admin.TabularInline):
     extra = 1
 
 class GastosAdmin(admin.ModelAdmin):
-    list_display = ('productor', 'fecha_siembra', 'rubro')
+    list_display = ('productor', 'fecha_siembra')
 
     # form = ProductorMonitoreoAdminForm
 
@@ -35,7 +35,7 @@ class InlineTablaInsumos(NestedTabularInline):
     inlines = [InlineLiga_Nested]
 
 class InsumosAdmin(NestedModelAdmin):
-    list_display = ('productor', 'fecha_siembra', 'rubro')
+    list_display = ('productor', 'fecha_siembra',)
 
     inlines = [InlineTablaInsumos]
 
@@ -76,17 +76,17 @@ class InlineDatosMonitoreo(admin.TabularInline):
     model = DatosMonitoreo
     extra = 1
 
-class InlineDatosParcela(admin.StackedInline):
-    model = DatosParcela
-    max_num = 1
-    can_delete = False
-
-    fields = (
-            ('nombre', 'edad_parcela'),
-            ('latitud', 'longitud', 'direccion_viento'),
-            ('percepcion_fertilidad','tamano_parcela','profundidad_capa'),
-            ('acceso_agua', 'fuente_agua', 'distancia'),
-        )
+# class InlineDatosParcela(admin.StackedInline):
+#     model = DatosParcela
+#     max_num = 1
+#     can_delete = False
+#
+#     fields = (
+#             ('nombre', 'edad_parcela'),
+#             ('latitud', 'longitud', 'direccion_viento'),
+#             ('percepcion_fertilidad','tamano_parcela','profundidad_capa'),
+#             ('acceso_agua', 'fuente_agua', 'distancia'),
+#         )
 
 class InlineDistribucionPendiente(admin.TabularInline):
     model = DistribucionPendiente
@@ -124,6 +124,10 @@ class InlineSuelo(admin.TabularInline):
 class InlineMacrofauna(admin.TabularInline):
     model = Macrofauna
     extra = 1
+
+    def formfield_for_foreignkey(self, db_field, request=None, **kwargs):
+        kwargs['queryset'] = Especies.objects.filter(tipo=3)
+        return super(InlineMacrofauna, self).formfield_for_foreignkey(db_field, request, **kwargs)
 
 class InlineMonitoreoMalezas(admin.TabularInline):
     model = MonitoreoMalezas
@@ -245,19 +249,9 @@ class VisitasAdmin(admin.ModelAdmin):
 admin.site.register(Visitas,VisitasAdmin)
 
 class MonitoreoAdmin(admin.ModelAdmin):
-    # list_display = ('productor',)
-    # search_fields = ('productor',)
-    #
-    # form = MonitoreoAdminForm
-
-    # inlines = [InlineDatosMonitoreo,InlineDatosParcela,InlineDistribucionPendiente,
-    #             InlineRecursosSiembra,InlineHistorialRendimiento,
-    #             ]
-
-    #new code------------
-    list_display = ('productor','ciclo_productivo','anio','nombre_parcela')
+    list_display = ('productor','cultivo','ciclo_productivo','annio','nombre_parcela')
     search_fields = ('productor',)
-    date_hierarchy = 'fecha_monitoreo'
+    # date_hierarchy = 'fecha_monitoreo'
 
     form = MonitoreoAdminForm
 
@@ -266,7 +260,7 @@ class MonitoreoAdmin(admin.ModelAdmin):
                 ]
 
     fieldsets = (
-            (None, {'fields' : (('productor','fecha_monitoreo','ciclo_productivo'),)}),
+            (None, {'fields' : (('productor','cultivo','ciclo_productivo','annio'),)}),
             ('DATOS DE LA PARCELA', {'fields' : (('nombre_parcela','edad_parcela'),
                                                 ('latitud','longitud','direccion_viento'),
                                                 ('percepcion_fertilidad','tamano_parcela','profundidad_capa'),
@@ -275,7 +269,7 @@ class MonitoreoAdmin(admin.ModelAdmin):
     )
 
     def formfield_for_foreignkey(self, db_field, request=None, **kwargs):
-        kwargs['queryset'] = Persona.objects.filter(tipo_persona=1,productor__rubros_agro__nombre='Granos básicos')
+        kwargs['queryset'] = Persona.objects.filter(tipo_persona=1,productor__proyecto__corto='Herramienta granos básicos')
         return super(MonitoreoAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)
 
     class Media:

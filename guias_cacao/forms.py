@@ -2,7 +2,7 @@
 from django import forms
 from lookups import ProductorLookup, TecnicoLookup
 import selectable.forms as selectable
-from .models import FichaSombra, FichaPoda, FichaPlaga, FichaPiso
+from .models import FichaSombra, FichaPoda, FichaPlaga, FichaPiso, FichaSuelo, FichaVivero, FichaCosecha, FichaSaf, FichaCierre
 from mapeo.models import Persona, Organizaciones
 from comunicacion.lugar.models import Pais, Departamento, Municipio, Comunidad
 
@@ -52,9 +52,68 @@ class ProductorPisoAdminForm(forms.ModelForm):
             'tecnico': selectable.AutoCompleteSelectWidget(lookup_class=TecnicoLookup),
         }
 
+class ProductorSueloAdminForm(forms.ModelForm):
+
+    class Meta(object):
+        model = FichaSuelo
+        widgets = {
+            'productor': selectable.AutoCompleteSelectWidget(lookup_class=ProductorLookup),
+            'tecnico': selectable.AutoCompleteSelectWidget(lookup_class=TecnicoLookup),
+        }
+
+class ProductorViveroAdminForm(forms.ModelForm):
+
+    class Meta(object):
+        model = FichaVivero
+        widgets = {
+            'productor': selectable.AutoCompleteSelectWidget(lookup_class=ProductorLookup),
+            'tecnico': selectable.AutoCompleteSelectWidget(lookup_class=TecnicoLookup),
+        }
+
+class ProductorCosechaAdminForm(forms.ModelForm):
+
+    class Meta(object):
+        model = FichaCosecha
+        widgets = {
+            'productor': selectable.AutoCompleteSelectWidget(lookup_class=ProductorLookup),
+            'tecnico': selectable.AutoCompleteSelectWidget(lookup_class=TecnicoLookup),
+        }
+
+class ProductorSafAdminForm(forms.ModelForm):
+
+    class Meta(object):
+        model = FichaSaf
+        widgets = {
+            'productor': selectable.AutoCompleteSelectWidget(lookup_class=ProductorLookup),
+            'tecnico': selectable.AutoCompleteSelectWidget(lookup_class=TecnicoLookup),
+        }
+
+class ProductorCierreAdminForm(forms.ModelForm):
+
+    class Meta(object):
+        model = FichaCierre
+        widgets = {
+            'productor': selectable.AutoCompleteSelectWidget(lookup_class=ProductorLookup),
+            'tecnico': selectable.AutoCompleteSelectWidget(lookup_class=TecnicoLookup),
+        }
+
 def fecha_choice():
     years = []
     for en in FichaSombra.objects.order_by('fecha_visita').values_list('fecha_visita', flat=True):
+        years.append((en.year,en.year))
+    for en in FichaPoda.objects.order_by('fecha_visita').values_list('fecha_visita', flat=True):
+        years.append((en.year,en.year))
+    for en in FichaPlaga.objects.order_by('fecha_visita').values_list('fecha_visita', flat=True):
+        years.append((en.year,en.year))
+    for en in FichaPiso.objects.order_by('fecha_visita').values_list('fecha_visita', flat=True):
+        years.append((en.year,en.year))
+    for en in FichaCosecha.objects.order_by('fecha_visita').values_list('fecha_visita', flat=True):
+        years.append((en.year,en.year))
+    for en in FichaCierre.objects.order_by('fecha_visita').values_list('fecha_visita', flat=True):
+        years.append((en.year,en.year))
+    for en in FichaSaf.objects.order_by('fecha_visita').values_list('fecha_visita', flat=True):
+        years.append((en.year,en.year))
+    for en in FichaVivero.objects.order_by('fecha_visita').values_list('fecha_visita', flat=True):
         years.append((en.year,en.year))
     return list(sorted(set(years)))
 

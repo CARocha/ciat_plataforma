@@ -1,0 +1,288 @@
+{% extends "granos_basicos/base.html" %}
+
+{% block contenido %}
+<style type="text/css">
+    #grafo1,#grafo2,#grafo3,#grafo4{
+        border: 1px solid #eee;
+    }
+    .panel-graficos .panel-heading{
+        margin-bottom:20px;
+    }
+</style>
+    <div class="container-fluid">
+        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+             {% include "granos_basicos/menu_salidas_indicadores.html" %}
+        </div>
+        <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
+            <div class="panel panel-default panel-graficos">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        <ol class="breadcrumb">
+                            <li class="active">Productores</li>
+                            <li class="active">Composición familiar</li>
+                        </ol>
+                    </h3>
+                </div>
+                <div class="panel-body">
+                  <div class="row datos">
+                      <div class="col-xs-4 col-sm-4 col-md-4 col-lg-offset-1 col-lg-2">
+                          <div class="number-data">
+                              {{avg_hijas}}
+                          </div>
+                          <div class="title-data">
+                              Número promedio de Hijas por hogar
+                          </div>
+
+                      </div>
+                      <div class="col-xs-4 col-sm-4 col-md-4 col-lg-2">
+                          <div class="number-data">
+                              {{avg_hijos}}
+                          </div>
+                          <div class="title-data">
+                              Número promedio de Hijos por hogar
+                          </div>
+
+                      </div>
+
+                  </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div id="grafo1" style="min-width: 510px; width: 860px; margin: 0 auto;"></div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div id="grafo2" style="min-width: 510px; width: 860px; margin: 0 auto;"></div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div id="grafo3" style="min-width: 510px; width: 860px; margin: 0 auto;"></div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div id="grafo4" style="min-width: 510px; width: 860px; margin: 0 auto;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+{% endblock %}
+{% block extra_js %}
+<script type="text/javascript">
+$( "#productores" ).addClass( "in" );
+$(function () {
+    $('#grafo1').highcharts({
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: 'Nivel Educativo por Género (Padre y Madre)'
+        },
+        xAxis: {
+            categories: [{% for k in escolaridad.keys %}'{{k}}',{% endfor %}]
+        },
+        credits: {
+            enabled: false
+        },
+        plotOptions: {
+            series: {
+                borderWidth: 0,
+                dataLabels: {
+                    enabled: true,
+                    format: '{point.y:.2f}%',
+                    color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'black',
+                    style: {
+                        textShadow: '0 0 3px white'
+                    }
+                }
+            }
+        },
+
+        series: [
+          {
+             name: 'Madre',
+             data: [{% for v in escolaridad.values %}{{v.1}},{% endfor %}]
+         },
+        {
+            name: 'Padre',
+            data: [{% for v in escolaridad.values %}{{v.0}},{% endfor %}]
+        },
+      ]
+    });
+
+    $('#grafo2').highcharts({
+       chart: {
+           type: 'column'
+       },
+       title: {
+           text: 'Nivel Educativo en Hijas'
+       },
+       yAxis: {
+           title: {
+               text: 'Valores'
+           }
+       },
+       credits: {
+           enabled: false
+       },
+       yAxis: {
+               min: 0,
+               title: {
+                   text: 'Porcentajes (%)'
+               }
+           },
+
+           xAxis: {
+               categories: ['5-12 años','13-18 años','Mayores de 19 años'],
+               crosshair: true
+           },
+           tooltip: {
+               formatter: function() {
+                   return ''+
+                       this.series.name +': '+ this.y +'%';
+               }
+           },
+       series: [
+               {% for k,v in escolaridad_hijos.items %}
+               {
+                   name: '{{k}}',
+                   data: [{{v.0}},{{v.1}},{{v.2}}],
+                   dataLabels: {
+                       enabled: true,
+                       rotation: 0,
+                       color: '#632D00',
+                       align: 'center',
+                       x: -3,
+                       y: 0,
+                           formatter: function() {
+                               return this.y + '%';
+                                                 },
+                       style: {
+                           font: 'normal 13px Verdana, sans-serif'
+                               }
+                               }
+               },
+               {% endfor %}
+               ]
+    });
+
+    $('#grafo3').highcharts({
+       chart: {
+           type: 'column'
+       },
+       title: {
+           text: 'Nivel Educativo en Hijos'
+       },
+       yAxis: {
+           title: {
+               text: 'Valores'
+           }
+       },
+       credits: {
+           enabled: false
+       },
+       yAxis: {
+               min: 0,
+               title: {
+                   text: 'Porcentajes (%)'
+               }
+           },
+
+           xAxis: {
+               categories: ['5-12 años','13-18 años','Mayores de 19 años'],
+               crosshair: true
+           },
+           tooltip: {
+               formatter: function() {
+                   return ''+
+                       this.series.name +': '+ this.y +'%';
+               }
+           },
+       series: [
+               {% for k,v in escolaridad_hijos.items %}
+               {
+                   name: '{{k}}',
+                   data: [{{v.3}},{{v.4}},{{v.5}}],
+                   dataLabels: {
+                       enabled: true,
+                       rotation: 0,
+                       color: '#632D00',
+                       align: 'center',
+                       x: -3,
+                       y: 0,
+                           formatter: function() {
+                               return this.y + '%';
+                                                 },
+                       style: {
+                           font: 'normal 13px Verdana, sans-serif'
+                               }
+                               }
+               },
+               {% endfor %}
+               ]
+    });
+
+    $('#grafo4').highcharts({
+       chart: {
+           type: 'column'
+       },
+       title: {
+           text: 'Participación de los Hijos y las Hijas en la Parcela'
+       },
+       yAxis: {
+           title: {
+               text: 'Valores'
+           }
+       },
+       credits: {
+           enabled: false
+       },
+       yAxis: {
+               min: 0,
+               title: {
+                   text: 'Porcentajes (%)'
+               }
+           },
+
+           xAxis: {
+               categories: ['Hijos','Hijas'],
+               crosshair: true
+           },
+           tooltip: {
+               formatter: function() {
+                   return ''+
+                       this.series.name +': '+ this.y +'%';
+               }
+           },
+       series: [
+               {% for k,v in participacion.items %}
+               {
+                   name: '{{k}}',
+                   data: [{{v.0}},{{v.1}}],
+                   dataLabels: {
+                       enabled: true,
+                       rotation: 0,
+                       color: '#632D00',
+                       align: 'center',
+                       x: -3,
+                       y: 0,
+                           formatter: function() {
+                               return this.y + '%';
+                                                 },
+                       style: {
+                           font: 'normal 13px Verdana, sans-serif'
+                               }
+                               }
+               },
+               {% endfor %}
+               ]
+    });
+
+});
+</script>
+{% endblock %}

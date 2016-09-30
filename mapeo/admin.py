@@ -59,7 +59,9 @@ class PersonaAdmin(admin.ModelAdmin):
                 InlineComposicionFamiliar]
 
     class Media:
-        js = ('/static/general/js/personaAdmin.js',)
+        js = ('/static/general/js/personaAdmin.js',
+                '/static/mapeo/js/granos_basicos.js'
+                )
 
 
 # Register your models here.

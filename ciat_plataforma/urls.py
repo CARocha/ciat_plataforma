@@ -53,8 +53,16 @@ urlpatterns = patterns('',
     #urls para guias de cacao
     url(r'^cacao/', include('guias_cacao.urls')),
 
+    #urls granos basicos
+    url(r'^granos-basicos/', include('ficha_granos_basicos.urls')),
+
     #url para mercados
     url(r'^mercado/$', TemplateView.as_view(template_name="producto/producto.html")),
+
+    #urls para las herramientas
+    url(r'^herramientas/$', TemplateView.as_view(template_name="herramientas.html")),
+    url(r'^herramienta-cacao/$', TemplateView.as_view(template_name="guiascacao/herramienta_cacao.html")),
+    url(r'^herramienta-granos-basico/$', TemplateView.as_view(template_name="granos_basicos/herramienta_granos.html")),
 
     #urls para apps de terceros
     url(r'^admin/', include(admin.site.urls)),

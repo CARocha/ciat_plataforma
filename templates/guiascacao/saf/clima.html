@@ -1,0 +1,154 @@
+{% extends "guiascacao/base.html" %}
+
+{% load tools %}
+
+{% block extra_js %}
+<script type="text/javascript">
+$(function () {
+    $('#grafo1').highcharts({
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: 'Momentos de manejo'
+        },
+        xAxis: {
+            categories:  ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre']
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: 'Conteo'
+            },
+            stackLabels: {
+                enabled: false,
+                style: {
+                    fontWeight: 'bold',
+                    color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
+                }
+            }
+        },
+        legend: {
+            backgroundColor: (Highcharts.theme && Highcharts.theme.background2) || 'white',
+            borderColor: '#CCC',
+            borderWidth: 1,
+            shadow: false
+        },
+        tooltip: {
+            headerFormat: '<b>{point.x}</b><br/>',
+            pointFormat: '{series.name}: {point.y}<br/>Total: {point.stackTotal}'
+        },
+        plotOptions: {
+            column: {
+                stacking: 'normal',
+                dataLabels: {
+                    enabled: true,
+                    color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white',
+                    style: {
+                        textShadow: '0 0 3px black'
+                    }
+                }
+            }
+        },
+        series: [
+        {% for k,v in grafo_momento.items %}
+            {
+                name: '{{k}}',
+                data: {{v}}
+            },
+        {% endfor %}]
+    });
+});
+</script>
+{% endblock extra_js %}
+
+{% block contenido %}
+
+    <div class="container-fluid">
+        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+             {% include "guiascacao/menu_salidas.html" %}
+        </div>
+        <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
+            <div class="panel panel-default panel-graficos">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        <ol class="breadcrumb">
+                            <li class="active">Saf</li>
+                            <li class="active">Clima</li>
+                            <li class="active">Número de parcelas: {{numero_parcelas}}</li>
+                        </ol>
+                    </h3>
+                </div>
+                <div class="panel-body">
+
+                    <div class="row">
+                    <h3>Meses mas lluviosos</h3>
+                        <div class="col-md-12">
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-striped">
+                                  <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th>Nada de lluvia</th>
+                                        <th>Poca lluvia</th>
+                                        <th>Algo de lluvia</th>
+                                        <th>Mucha lluvia</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                    {% for k,v in saf_conversacion3.items %}
+                                    <tr>
+                                      <th scope=row>{{k}}</th>
+                                      {% for llave, valor in v.items %}
+                                          <td>{{valor}}</td>
+                                      {% endfor %}
+                                    </tr>
+                                    {% endfor %}
+                                  </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <h3>Meses con más vientos</h3>
+                        <div class="col-md-12">
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-striped">
+                                  <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th>Nada de viento</th>
+                                        <th>Poco viento</th>
+                                        <th>Algo de viento</th>
+                                        <th>Mucha viento</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                    {% for k,v in saf_conversacion4.items %}
+                                    <tr>
+                                      <th scope=row>{{k}}</th>
+                                      {% for llave, valor in v.items %}
+                                          <td>{{valor}}</td>
+                                      {% endfor %}
+                                    </tr>
+                                    {% endfor %}
+                                  </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div id="grafo1"></div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+
+    </div>
+{% endblock contenido %}

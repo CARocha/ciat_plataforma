@@ -1,0 +1,175 @@
+{% extends "guiascacao/base.html" %}
+
+{% load tools %}
+
+{% block extra_js %}
+<script type="text/javascript">
+$(function () {
+    $('#grafo1').highcharts({
+        chart: {
+            type: 'bar'
+        },
+        title: {
+            text: 'Hierbas qué cubren el piso y sube sobre las planta de cacao'
+        },
+        xAxis: {
+            categories: [{% for k,v in grafo_estado.items %}'{{k}}',{% endfor %}]
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: 'Frecuencia (%)'
+            }
+        },
+        legend: {
+            reversed: true
+        },
+         tooltip: {
+            headerFormat: '<b>{point.x}</b><br/>',
+            pointFormat: '{series.name}: {point.y} %'
+        },
+        plotOptions: {
+            series: {
+                stacking: 'normal'
+            }
+        },
+        series: [{
+            name: '',
+            data: [{% for k,v in grafo_estado.items %} {{v.0|calcular_frecuencia:numero_parcelas}},{% endfor %}]
+        }]
+    });
+});
+$(function () {
+    $('#grafo2').highcharts({
+        chart: {
+            type: 'bar'
+        },
+        title: {
+            text: 'Hierbas qué se consideran dañinas'
+        },
+        xAxis: {
+            categories: [{% for k,v in grafo_estado.items %}'{{k}}',{% endfor %}]
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: 'Frecuencia (%)'
+            }
+        },
+        legend: {
+            reversed: true
+        },
+         tooltip: {
+            headerFormat: '<b>{point.x}</b><br/>',
+            pointFormat: '{series.name}: {point.y} %'
+        },
+        plotOptions: {
+            series: {
+                stacking: 'normal'
+            }
+        },
+        series: [{
+            name: '',
+            data: [{% for k,v in grafo_estado.items %} {{v.1|calcular_frecuencia:numero_parcelas}},{% endfor %}]
+        }]
+    });
+});
+
+$(function () {
+    // Create the chart
+    $('#grafo3').highcharts({
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: 'Manejo del piso'
+        },
+        subtitle: {
+            text: ''
+        },
+        xAxis: {
+            type: 'category'
+        },
+        yAxis: {
+            title: {
+                text: 'Frecuencia (%)'
+            }
+
+        },
+        legend: {
+            enabled: false
+        },
+        plotOptions: {
+            series: {
+                borderWidth: 0,
+                dataLabels: {
+                    enabled: true,
+                    format: '{point.y:.1f}%'
+                }
+            }
+        },
+
+        tooltip: {
+            headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+            pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}%</b> of total<br/>'
+        },
+
+        series: [{
+            name: 'Daño',
+            colorByPoint: true,
+            data: [
+            {% for k,v in grafo_manejo_piso.items %}
+                {
+                    name: '{{k}}',
+                    y: {{v|default:0|calcular_frecuencia:numero_parcelas}},
+                },
+            {% endfor %}
+
+            ]
+        }]
+    });
+});
+</script>
+{% endblock extra_js %}
+
+{% block contenido %}
+    <div class="container-fluid">
+        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+             {% include "guiascacao/menu_salidas.html" %}
+        </div>
+        <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
+            <div class="panel panel-default panel-graficos">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        <ol class="breadcrumb">
+                            <li class="active">Piso</li>
+                            <li class="active">Estado y manejo del piso</li>
+                            <li class="active">Número de parcelas: {{numero_parcelas}}</li>
+                        </ol>
+                    </h3>
+                </div>
+                <div class="panel-body">
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div id="grafo1"></div>
+                        </div>
+                    </div>
+                     <hr>
+                  <div class="row">
+                    <div class="col-md-12">
+                        <div id="grafo2"></div>
+                    </div>
+                </div>
+                <hr>
+                 <div class="row">
+                    <div class="col-md-12">
+                        <div id="grafo3"></div>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock contenido %}
+

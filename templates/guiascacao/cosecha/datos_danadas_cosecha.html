@@ -1,0 +1,79 @@
+{% extends "guiascacao/base.html" %}
+
+{% load tools %}
+
+{% block contenido %}
+    <div class="container-fluid">
+        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+             {% include "guiascacao/menu_salidas.html" %}
+        </div>
+        <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
+            <div class="panel panel-default panel-graficos">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        <ol class="breadcrumb">
+                            <li class="active">Cosecha</li>
+                            <li class="active">Cosecha Mazorcas dañadas</li>
+                            <li class="active">Número de parcelas: {{numero_parcelas}}</li>
+                        </ol>
+                    </h3>
+                </div>
+                <div class="panel-body">
+
+                      <div class="row">
+                        <div class="col-md-12">
+                                    <table class="table">
+                                    <caption>Cosecha datos</caption>
+                                        <thead>
+                                          <tr>
+                                            <th>Datos</th>
+                                            <th>Valores</th>
+                                          </tr>
+                                        </thead>
+                                        <tbody>
+                                          <tr>
+                                            <td>Número total de plantas observadas cosecha principal</td>
+                                            <td>{{danadas.0}}</td>
+                                          </tr>
+                                          <tr>
+                                            <td>Número total de mazorcas dañadas cosecha principal</td>
+                                            <td>{{danadas.1|floatformat:2}}</td>
+                                          </tr>
+                                          <tr>
+                                            <td>Número de mazorcas dañadas/platas cosecha principal</td>
+                                            <td>{{danadas.2|floatformat:2}}</td>
+                                          </tr>
+                                           <tr>
+                                            <td>Promedio numero de planta/Mz</td>
+                                            <td>{{danadas.3|floatformat:2}}</td>
+                                          </tr>
+                                           <tr>
+                                            <td>Número de mazorcas dañadas/mz anual</td>
+                                            <td>{{danadas.4|floatformat:2}}</td>
+                                          </tr>
+                                           <tr>
+                                            <td>Peso de baba en qq/mz anual</td>
+                                            <td>{{danadas.5|floatformat:2}}</td>
+                                          </tr>
+                                          <tr>
+                                            <td>Peso de granos secos en qq/mz anual</td>
+                                            <td>{{danadas.6|floatformat:2}}</td>
+                                          </tr>
+                                          <tr>
+                                            <td>Peso de granos secos en kg/ha anual</td>
+                                            <td>{{danadas.7|floatformat:2}}</td>
+                                          </tr>
+                                        </tbody>
+                                      </table>
+                        </div>
+                    </div>
+                     <hr>
+                </div>
+            </div>
+
+        </div>
+
+
+    </div>
+
+{% endblock contenido %}

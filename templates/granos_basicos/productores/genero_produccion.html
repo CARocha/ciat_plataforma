@@ -1,0 +1,268 @@
+{% extends "granos_basicos/base.html" %}
+
+{% block contenido %}
+<style type="text/css">
+    #grafo1,#grafo2,#grafo3,#grafo4,#grafo5,#grafo6,#grafo7{
+        border: 1px solid #eee;
+    }
+    .panel-graficos .panel-heading{
+        margin-bottom:20px;
+    }
+</style>
+    <div class="container-fluid">
+        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+             {% include "granos_basicos/menu_salidas_indicadores.html" %}
+        </div>
+        <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
+            <div class="panel panel-default panel-graficos">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        <ol class="breadcrumb">
+                            <li class="active">Productores</li>
+                            <li class="active">Genero y Producción de granos básicos</li>
+                            <li class="active">Número de productores {{productores}}</li>
+                        </ol>
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div id="grafo1" style="min-width: 310px; width: 460px; margin: 0 auto;"></div>
+                        </div>
+                        <div class="col-md-6">
+                            <div id="grafo2" style="min-width: 310px; width: 460px; margin: 0 auto;"></div>
+                        </div>
+                    </div>
+                    <hr>
+                    <form class="formulario-uso"  action='.' method='GET'>
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-2">
+                                <label for="">Jefe de familia</label>
+                            </div>
+                            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
+                                <select class="form-control" name='jefe'>
+                                    <option value=''>-------</option>
+                                    <option value='1'>Hombre</option>
+                                    <option value='2'>Mujer</option>
+                                    <option value='3'>Compartida</option>
+                                </select>
+                            </div>
+                            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-2">
+                                <input type="submit" value="Consultar" class="btn btn-form" name="Consulta"/>
+                            </div>
+                            {% if jefe %}
+                            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-5">
+                                <p>
+                                    <strong><em>
+                                  Su busqueda fue por: Jefe de familia {% if jefe == '1' %}Hombre{% endif %}
+                                                                       {% if jefe == '2' %}Mujer{% endif %}
+                                                                       {% if jefe == '3' %}Compartida{% endif %}
+                                    </em></strong>
+                                </p>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </form>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div id="grafo3" style="min-width: 310px; width: 460px; margin: 0 auto;"></div>
+                        </div>
+                        <div class="col-md-6">
+                            <div id="grafo4" style="min-width: 310px; width: 460px; margin: 0 auto;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+{% endblock %}
+
+{% block extra_js %}
+<script type="text/javascript">
+$( "#productores" ).addClass( "in" );
+$(function () {
+    $('#grafo1').highcharts({
+      chart: {
+        plotBackgroundColor: null,
+        plotBorderWidth: null,
+        plotShadow: false,
+        type: 'pie'
+      },
+      title: {
+        text: 'Responsables de familia productoras de Granos Básicos'
+      },
+      tooltip: {
+        pointFormat: '{series.name}: <b>{point.percentage:.2f}%</b>'
+      },
+      plotOptions: {
+        pie: {
+          allowPointSelect: true,
+          cursor: 'pointer',
+          dataLabels: {
+            enabled: true,
+            format: '{point.percentage:.2f}%',
+            color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'black',
+            style: {
+              textShadow: '0 0 3px white'
+            }
+          },
+          showInLegend: true
+        }
+
+      },
+
+      series: [{
+        name: "Porcentajes",
+        colorByPoint: true,
+        data: [
+          {% for k,v in sexo_productor.items %}
+          {
+            name: "{{k}}",
+            y: {{v}}
+          },
+          {% endfor %}
+        ]
+      }]
+    });
+
+    $('#grafo2').highcharts({
+      chart: {
+        plotBackgroundColor: null,
+        plotBorderWidth: null,
+        plotShadow: false,
+        type: 'pie'
+      },
+      title: {
+        text: 'Productor/Productora de Granos Básicos'
+      },
+      tooltip: {
+        pointFormat: '{series.name}: <b>{point.percentage:.2f}%</b>'
+      },
+      plotOptions: {
+        pie: {
+          allowPointSelect: true,
+          cursor: 'pointer',
+          dataLabels: {
+            enabled: true,
+            format: '{point.percentage:.2f}%',
+            color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'black',
+            style: {
+              textShadow: '0 0 3px white'
+            }
+          },
+          showInLegend: true
+        }
+
+      },
+
+      series: [{
+        name: "Porcentajes",
+        colorByPoint: true,
+        data: [
+          {% for k,v in prod_gb.items %}
+          {
+            name: "{{k}}",
+            y: {{v}}
+          },
+          {% endfor %}
+        ]
+      }]
+    });
+
+    $('#grafo3').highcharts({
+      chart: {
+        plotBackgroundColor: null,
+        plotBorderWidth: null,
+        plotShadow: false,
+        type: 'pie'
+      },
+      title: {
+        text: 'Relación entre responsable de familia y sexo del productor'
+      },
+      tooltip: {
+        pointFormat: '{series.name}: <b>{point.percentage:.2f}%</b>'
+      },
+      plotOptions: {
+        pie: {
+          allowPointSelect: true,
+          cursor: 'pointer',
+          dataLabels: {
+            enabled: true,
+            format: '{point.percentage:.2f}%',
+            color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'black',
+            style: {
+              textShadow: '0 0 3px white'
+            }
+          },
+          showInLegend: true
+        }
+
+      },
+
+      series: [{
+        name: "Porcentajes",
+        colorByPoint: true,
+        data: [
+          {% for k,v in prod.items %}
+          {
+            name: "{{k}}",
+            y: {{v}}
+          },
+          {% endfor %}
+        ]
+      }]
+    });
+
+    $('#grafo4').highcharts({
+      chart: {
+        plotBackgroundColor: null,
+        plotBorderWidth: null,
+        plotShadow: false,
+        type: 'pie'
+      },
+      title: {
+        text: 'Relación familiar-productor'
+      },
+      tooltip: {
+        pointFormat: '{series.name}: <b>{point.percentage:.2f}%</b>'
+      },
+      plotOptions: {
+        pie: {
+          allowPointSelect: true,
+          cursor: 'pointer',
+          dataLabels: {
+            enabled: true,
+            format: '{point.percentage:.2f}%',
+            color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'black',
+            style: {
+              textShadow: '0 0 3px white'
+            }
+          },
+          showInLegend: true
+        }
+
+      },
+
+      series: [{
+        name: "Porcentajes",
+        colorByPoint: true,
+        data: [
+          {% for k,v in dic_relacion.items %}
+          {
+            name: "{{k}}",
+            y: {{v}}
+          },
+          {% endfor %}
+        ]
+      }]
+    });
+
+});
+
+</script>
+{% endblock %}

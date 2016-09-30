@@ -1,0 +1,132 @@
+{% extends "guiascacao/base.html" %}
+
+{% load tools %}
+
+{% block extra_js %}
+<script type="text/javascript">
+$(function () {
+    // Build the chart
+    $('#grafo1').highcharts({
+        chart: {
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false,
+            type: 'pie'
+        },
+        title: {
+            text: 'Fuente de semilla'
+        },
+        tooltip: {
+            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        },
+        plotOptions: {
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                dataLabels: {
+                    enabled: true,
+                    format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                    style: {
+                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                    }
+                }
+            }
+        },
+        series: [{
+            name: 'Opciones',
+            data: [
+                {% for k,v in grafo_fuente_semilla.items %}
+                {
+                    name: "{{k}}",
+                    {% if v != None %}
+                      y: {{v|floatformat:2}}
+                    {% else %}
+                      y: 0
+                    {% endif %}
+                },
+                {% endfor %}
+            ]
+        }]
+    });
+});
+</script>
+{% endblock extra_js %}
+
+{% block contenido %}
+
+    <div class="container-fluid">
+        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+             {% include "guiascacao/menu_salidas.html" %}
+        </div>
+        <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
+            <div class="panel panel-default panel-graficos">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        <ol class="breadcrumb">
+                            <li class="active">Saf</li>
+                            <li class="active">Semilla</li>
+                            <li class="active">Número de parcelas: {{numero_parcelas}}</li>
+                        </ol>
+                    </h3>
+                </div>
+                <div class="panel-body">
+
+              <div class="row">
+                        <div class="col-md-12">
+                            <div id="grafo1"></div>
+                        </div>
+                </div>
+                <hr>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-striped">
+                                <caption>Tipo de cacao</caption>
+                                  <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th>Con que tipo establece</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                    {% for k,v in tabla_semilla_cacao.items %}
+                                    <tr>
+                                      <th scope=row>{{k}}</th>
+                                      <td>{{v}}</td>
+                                    </tr>
+                                    {% endfor %}
+                                  </tbody>
+                                </table>
+                            </div>
+                             <div class="table-responsive">
+                                <table class="table table-bordered table-striped">
+                                <caption>Tipo de cacao</caption>
+                                  <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th>Variedades tolerantes</th>
+                                        <th>Variedad recomendado</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                    {% for k,v in tabla_semilla_cacao2.items %}
+                                    <tr>
+                                      <th scope=row>{{k}}</th>
+                                      <td>{{v.0}}</td>
+                                      <td>{{v.1}}</td>
+                                    </tr>
+                                    {% endfor %}
+                                  </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+{% endblock contenido %}

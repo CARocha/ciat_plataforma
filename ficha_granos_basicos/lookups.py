@@ -6,7 +6,7 @@ from .models import *
 class ProductorLookup(ModelLookup):
     model = Persona
     search_fields = ('nombre__icontains', )
-    filters = {'tipo_persona': 1, 'productor__rubros_agro__nombre' : 'Granos básicos' }
+    filters = {'tipo_persona': 1, 'productor__proyecto__corto' : 'Herramienta granos básicos' }
 
 class MonitoreoLookup(ModelLookup):
     model = Monitoreo

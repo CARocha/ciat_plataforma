@@ -1,0 +1,437 @@
+{% extends "guiascacao/base.html" %}
+
+{% load tools %}
+
+{% block extra_js %}
+<script type="text/javascript">
+$(function () {
+
+    $(document).ready(function () {
+
+        // Build the chart
+        $('#grafo1').highcharts({
+            chart: {
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false,
+                type: 'pie'
+            },
+            title: {
+                text: 'Qué tamaño de bolsa de polietileno utiliza'
+            },
+            tooltip: {
+                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                    enabled: true,
+                    format: '{point.percentage:.1f} %',
+                    style: {
+                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                    }
+                },
+                    showInLegend: true
+                }
+            },
+            series: [{
+                name: '',
+                colorByPoint: true,
+                data: [
+                {% for k,v in grafo_bolsa.items %}
+                  {
+                    name: '{{k}}',
+                    y: {{v}} {% if forloop.counter == 1 %},
+                              sliced: true,
+                              selected: true
+                              {% endif %}
+                  },
+                {% endfor %}
+                ]
+            }]
+        });
+    });
+});
+
+$(function () {
+
+    $(document).ready(function () {
+
+        // Build the chart
+        $('#grafo2').highcharts({
+            chart: {
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false,
+                type: 'pie'
+            },
+            title: {
+                text: 'Forma de colocar las semillas'
+            },
+            tooltip: {
+                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                    enabled: true,
+                    format: '{point.percentage:.1f} %',
+                    style: {
+                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                    }
+                },
+                    showInLegend: true
+                }
+            },
+            series: [{
+                name: '',
+                colorByPoint: true,
+                data: [
+                {% for k,v in grafo_semilla.items %}
+                  {
+                    name: '{{k}}',
+                    y: {{v}} {% if forloop.counter == 1 %},
+                              sliced: true,
+                              selected: true
+                              {% endif %}
+                  },
+                {% endfor %}
+                ]
+            }]
+        });
+    });
+});
+
+$(function () {
+    // Create the chart
+    $('#grafo3').highcharts({
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: 'Sitio de vivero'
+        },
+        subtitle: {
+            text: ''
+        },
+        xAxis: {
+            type: 'category'
+        },
+        yAxis: {
+            title: {
+                text: 'Frecuencia (conteo)'
+            }
+
+        },
+        legend: {
+            enabled: false
+        },
+        plotOptions: {
+            series: {
+                borderWidth: 0,
+                dataLabels: {
+                    enabled: true,
+                    format: '{point.y:.1f}'
+                }
+            }
+        },
+
+        tooltip: {
+            headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+            pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}</b> of total<br/>'
+        },
+
+        series: [{
+            name: 'Daño',
+            colorByPoint: true,
+            data: [
+            {% for k,v in grafo_sitio.items %}
+                {
+                    name: '{{k}}',
+                    y: {{v|default:0}},
+                },
+            {% endfor %}
+
+            ]
+        }]
+    });
+});
+
+$(function () {
+    // Create the chart
+    $('#grafo4').highcharts({
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: 'Tipo de injertos'
+        },
+        subtitle: {
+            text: ''
+        },
+        xAxis: {
+            type: 'category'
+        },
+        yAxis: {
+            title: {
+                text: 'Frecuencia (conteo)'
+            }
+
+        },
+        legend: {
+            enabled: false
+        },
+        plotOptions: {
+            series: {
+                borderWidth: 0,
+                dataLabels: {
+                    enabled: true,
+                    format: '{point.y:.1f}'
+                }
+            }
+        },
+
+        tooltip: {
+            headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+            pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}</b> of total<br/>'
+        },
+
+        series: [{
+            name: 'Daño',
+            colorByPoint: true,
+            data: [
+            {% for k,v in grafo_injerto.items %}
+                {
+                    name: '{{k}}',
+                    y: {{v|default:0}},
+                },
+            {% endfor %}
+
+            ]
+        }]
+    });
+});
+
+$(function () {
+    // Create the chart
+    $('#grafo5').highcharts({
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: 'Distribución de frecuencia'
+        },
+        subtitle: {
+            text: 'Rangos porcentaje de procedimiento'
+        },
+        xAxis: {
+            type: 'category'
+        },
+        yAxis: {
+            title: {
+                text: 'Frecuencia'
+            }
+
+        },
+        legend: {
+            enabled: false
+        },
+        plotOptions: {
+            series: {
+                borderWidth: 0,
+                dataLabels: {
+                    enabled: true,
+                    format: '{point.y:.1f}'
+                }
+            }
+        },
+
+        tooltip: {
+            headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+            pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}</b> of total<br/>'
+        },
+
+        series: [{
+            name: 'Rangos',
+            colorByPoint: true,
+            data: [
+            {% for k,v in grafo_procedimiento.items %}
+              {
+                  name: '{{k}}',
+                  y: {{v|calcular_frecuencia:numero_parcelas}},
+              },
+            {% endfor %}
+            ]
+        }]
+    });
+});
+
+$(function () {
+    // Create the chart
+    $('#grafo6').highcharts({
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: 'Meses que mantiene el vivero'
+        },
+        subtitle: {
+            text: ''
+        },
+        xAxis: {
+            type: 'category'
+        },
+        yAxis: {
+            title: {
+                text: 'Frecuencia (conteo)'
+            }
+
+        },
+        legend: {
+            enabled: false
+        },
+        plotOptions: {
+            series: {
+                borderWidth: 0,
+                dataLabels: {
+                    enabled: true,
+                    format: '{point.y:.1f}'
+                }
+            }
+        },
+
+        tooltip: {
+            headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+            pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}</b> of total<br/>'
+        },
+
+        series: [{
+            name: 'Daño',
+            colorByPoint: true,
+            data: [
+            {% for k,v in grafo_mantiene_vivero.items %}
+                {
+                    name: '{{k}}',
+                    y: {{v|default:0}},
+                },
+            {% endfor %}
+
+            ]
+        }]
+    });
+});
+</script>
+{% endblock extra_js %}
+
+{% block contenido %}
+
+    <div class="container-fluid">
+        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+             {% include "guiascacao/menu_salidas.html" %}
+        </div>
+        <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
+            <div class="panel panel-default panel-graficos">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        <ol class="breadcrumb">
+                            <li class="active">Vivero</li>
+                            <li class="active">Conversaciones</li>
+                            <li class="active">Número de parcelas: {{numero_parcelas}}</li>
+                        </ol>
+                    </h3>
+                </div>
+                <div class="panel-body">
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div id="grafo1"></div>
+                        </div>
+
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div id="grafo2"></div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div id="grafo3"></div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div id="grafo4"></div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div id="grafo5"></div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div id="grafo6"></div>
+                        </div>
+                    </div>
+                    <hr>
+                     <div class="table-responsive tabla-especies">
+                                <table class="table table-bordered table-striped">
+                                <caption>Fuente de vareta</caption>
+                                    <thead>
+                                        <tr>
+                                            <th></th>
+                                            <th>Conteo</th>
+                                            <th>Porcentaje</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for k,v in tabla_vareta.items %}
+                                        <tr>
+                                            <th scope=row>{{k}}</th>
+                                            <td>{{v}}</td>
+                                            <td>{{v|calcular_frecuencia:numero_parcelas}}%</td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table> 
+                            </div>
+                    <hr>
+                    <div class="table-responsive tabla-especies">
+                                <table class="table table-bordered table-striped">
+                                <caption>Fuente de semilla</caption>
+                                    <thead>
+                                        <tr>
+                                            <th></th>
+                                            <th>Conteo</th>
+                                            <th>Porcentaje</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for k,v in tabla_semilla.items %}
+                                        <tr>
+                                            <th scope=row>{{k}}</th>
+                                            <td>{{v}}</td>
+                                            <td>{{v|calcular_frecuencia:numero_parcelas}}%</td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table> 
+                            </div>
+
+                </div>
+            </div>
+
+        </div>
+
+
+    </div>
+{% endblock contenido %}

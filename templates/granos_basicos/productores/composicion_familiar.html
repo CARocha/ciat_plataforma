@@ -1,0 +1,245 @@
+{% extends "granos_basicos/base.html" %}
+
+{% block contenido %}
+<style type="text/css">
+    #grafo1,#grafo2,#grafo3,#grafo4{
+        border: 1px solid #eee;
+    }
+    .panel-graficos .panel-heading{
+        margin-bottom:20px;
+    }
+</style>
+    <div class="container-fluid">
+        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+             {% include "granos_basicos/menu_salidas_indicadores.html" %}
+        </div>
+        <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
+            <div class="panel panel-default panel-graficos">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        <ol class="breadcrumb">
+                            <li class="active">Productores</li>
+                            <li class="active">Composición familiar</li>
+                            <li class="active">Número de productores {{productores}}</li>
+                        </ol>
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                          <table id="customers2" class="table table-bordered table-hover" cellspacing="0" width="100%">
+                            <caption>Número promedio de Hijos/Hijas</caption>
+                            <thead>
+                              <tr>
+                                <th></th>
+                                <th>Número de hijos</th>
+                                <th>Número de hijas</th>
+                                <th>Número de hijos + hijas</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              {%for fila in result %}
+                              <tr>
+                                {% if forloop.counter == 1 %}
+                                <td>Promedio</td>
+                                {% elif forloop.counter == 2 %}
+                                <td>Mediana</td>
+                                {% elif forloop.counter == 3 %}
+                                <td>Desviación estandar</td>
+                                {% elif forloop.counter == 4 %}
+                                <td>Mínimo</td>
+                                {% elif forloop.counter == 5 %}
+                                <td>Máximo</td>
+                                {% endif %}
+
+                                {%for celda in fila %}
+                                <td>{{celda|floatformat:"2"}}</td>
+                                {%endfor%}
+                              </tr>
+                              {%endfor%}
+                            </tbody>
+                          </table>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div id="grafo1" style="min-width: 510px; width: 860px; margin: 0 auto;"></div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div id="grafo2" style="min-width: 510px; width: 860px; margin: 0 auto;"></div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div id="grafo3" style="min-width: 510px; width: 860px; margin: 0 auto;"></div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                          <table id="customers2" class="table table-bordered table-hover" cellspacing="0" width="100%">
+                            <caption>Participación de familiares en producción de Granos Básicos</caption>
+                            <thead>
+                              <tr>
+                                <th></th>
+                                <th>% Si</th>
+                                <th>Número/Familia</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              {%for fila in list_participacion %}
+                              <tr>
+                                {%for celda in fila %}
+                                <td>{{celda}}</td>
+                                {%endfor%}
+                              </tr>
+                              {%endfor%}
+                            </tbody>
+                          </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+{% endblock %}
+{% block extra_js %}
+<script type="text/javascript">
+$( "#productores" ).addClass( "in" );
+$(function () {
+  $('#grafo1').highcharts({
+      chart: {
+          type: 'column'
+      },
+      title: {
+          text: 'Nivel educativo de padres de las familias'
+      },
+      xAxis: {
+          categories: [{% for k in escolaridad.keys %}'{{k}}',{% endfor %}]
+      },
+      yAxis: {
+          min: 0,
+          title: {
+              text: 'Frecuencia (%)'
+          }
+      },
+      tooltip: {
+          pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b> ({point.percentage:.0f}%)<br/>',
+          shared: true
+      },
+      plotOptions: {
+            column: {
+                stacking: 'percent',
+                dataLabels: {
+                    enabled: true,
+                    color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white',
+                    style: {
+                        textShadow: '0 0 3px black'
+                    }
+                }
+            }
+        },
+      series: [{
+          name: 'Madre',
+          data: [{% for v in escolaridad.values %}{{v.0}},{% endfor %}]
+      }, {
+          name: 'Padre',
+          data: [{% for v in escolaridad.values %}{{v.1}},{% endfor %}]
+      }]
+  });
+
+  $('#grafo2').highcharts({
+      chart: {
+          type: 'column'
+      },
+      title: {
+          text: 'Nivel educativo de hijos'
+      },
+      xAxis: {
+          categories: [{% for k in escolaridad.keys %}'{{k}}',{% endfor %}]
+      },
+      yAxis: {
+          min: 0,
+          title: {
+              text: 'Frecuencia (%)'
+          }
+      },
+      tooltip: {
+          pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b> ({point.percentage:.0f}%)<br/>',
+          shared: true
+      },
+      plotOptions: {
+            column: {
+                stacking: 'percent',
+                dataLabels: {
+                    enabled: true,
+                    color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white',
+                    style: {
+                        textShadow: '0 0 3px black'
+                    }
+                }
+            }
+        },
+      series: [{
+          name: '5-12 años',
+          data: [{% for v in escolaridad.values %}{{v.2}},{% endfor %}]
+      }, {
+          name: '13-18 años',
+          data: [{% for v in escolaridad.values %}{{v.3}},{% endfor %}]
+      },{
+          name: '> 19 años',
+          data: [{% for v in escolaridad.values %}{{v.4}},{% endfor %}]
+      }
+    ]
+  });
+
+  $('#grafo3').highcharts({
+      chart: {
+          type: 'column'
+      },
+      title: {
+          text: 'Nivel educativo de hijas'
+      },
+      xAxis: {
+          categories: [{% for k in escolaridad.keys %}'{{k}}',{% endfor %}]
+      },
+      yAxis: {
+          min: 0,
+          title: {
+              text: 'Frecuencia (%)'
+          }
+      },
+      tooltip: {
+          pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b> ({point.percentage:.0f}%)<br/>',
+          shared: true
+      },
+      plotOptions: {
+            column: {
+                stacking: 'percent',
+                dataLabels: {
+                    enabled: true,
+                    color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white',
+                    style: {
+                        textShadow: '0 0 3px black'
+                    }
+                }
+            }
+        },
+      series: [{
+          name: '5-12 años',
+          data: [{% for v in escolaridad.values %}{{v.5}},{% endfor %}]
+      }, {
+          name: '13-18 años',
+          data: [{% for v in escolaridad.values %}{{v.6}},{% endfor %}]
+      },{
+          name: '> 19 años',
+          data: [{% for v in escolaridad.values %}{{v.7}},{% endfor %}]
+      }
+    ]
+  });
+
+});
+</script>
+{% endblock %}

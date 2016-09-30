@@ -1,0 +1,214 @@
+{% extends "guiascacao/base.html" %}
+
+{% load tools %}
+
+{% block extra_js %}
+<script type="text/javascript">
+$(function () {
+    // Build the chart
+    $('#grafo1').highcharts({
+        chart: {
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false,
+            type: 'pie'
+        },
+        title: {
+            text: 'Topografia'
+        },
+        tooltip: {
+            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        },
+        plotOptions: {
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                dataLabels: {
+                    enabled: true,
+                    format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                    style: {
+                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                    }
+                }
+            }
+        },
+        series: [{
+            name: 'Opciones',
+            data: [
+                {% for k,v in grafo_topografia.items %}
+                {
+                    name: "{{k}}",
+                    {% if v != None %}
+                      y: {{v|floatformat:2}}
+                    {% else %}
+                      y: 0
+                    {% endif %}
+                },
+                {% endfor %}
+            ]
+        }]
+    });
+});
+$(function () {
+    // Build the chart
+    $('#grafo2').highcharts({
+        chart: {
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false,
+            type: 'pie'
+        },
+        title: {
+            text: 'Fertilidad de suelo'
+        },
+        tooltip: {
+            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        },
+        plotOptions: {
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                dataLabels: {
+                    enabled: true,
+                    format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                    style: {
+                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                    }
+                }
+            }
+        },
+        series: [{
+            name: 'Opciones',
+            data: [
+                {% for k,v in grafo_fertilidad.items %}
+                {
+                    name: "{{k}}",
+                    {% if v != None %}
+                      y: {{v|floatformat:2}}
+                    {% else %}
+                      y: 0
+                    {% endif %}
+                },
+                {% endfor %}
+            ]
+        }]
+    });
+});
+</script>
+{% endblock extra_js %}
+
+{% block contenido %}
+
+    <div class="container-fluid">
+        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+             {% include "guiascacao/menu_salidas.html" %}
+        </div>
+        <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
+            <div class="panel panel-default panel-graficos">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        <ol class="breadcrumb">
+                            <li class="active">Saf</li>
+                            <li class="active">Condiciones</li>
+                            <li class="active">Número de parcelas: {{numero_parcelas}}</li>
+                        </ol>
+                    </h3>
+                </div>
+                <div class="panel-body">
+
+                <div class="row">
+                        <div class="col-md-12">
+                            <div id="grafo1"></div>
+                        </div>
+                </div>
+                <hr>
+                <div class="row">
+                        <div class="col-md-12">
+                            <div id="grafo2"></div>
+                        </div>
+                </div>
+                <hr>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-striped">
+                                <caption>Criterios arboles maderables</caption>
+                                  <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th>Conteo</th>
+                                        <th>Porcentaje</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                    {% for k,v in tabla_maderable.items %}
+                                    <tr>
+                                      <th scope=row>{{k}}</th>
+                                      <td>{{v}}</td>
+                                      <td>{{v|calcular_frecuencia:numero_parcelas}}</td>
+                                    </tr>
+                                    {% endfor %}
+                                  </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12">
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-striped">
+                                <caption>Criterios arboles frutales</caption>
+                                  <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th>Conteo</th>
+                                        <th>Porcentaje</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                    {% for k,v in tabla_frutales.items %}
+                                    <tr>
+                                      <th scope=row>{{k}}</th>
+                                      <td>{{v}}</td>
+                                      <td>{{v|calcular_frecuencia:numero_parcelas}}</td>
+                                    </tr>
+                                    {% endfor %}
+                                  </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12">
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-striped">
+                                <caption>Criterios arboles proveen servicios</caption>
+                                  <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th>Conteo</th>
+                                        <th>Porcentaje</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                    {% for k,v in tabla_servicios.items %}
+                                    <tr>
+                                      <th scope=row>{{k}}</th>
+                                      <td>{{v}}</td>
+                                      <td>{{v|calcular_frecuencia:numero_parcelas}}</td>
+                                    </tr>
+                                    {% endfor %}
+                                  </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+
+    </div>
+{% endblock contenido %}

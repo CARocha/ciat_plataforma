@@ -1,0 +1,147 @@
+{% extends "granos_basicos/base.html" %}
+
+{% block contenido %}
+<style type="text/css">
+#grafo1,#grafo2{
+  border: 1px solid #eee;
+}
+.panel-graficos .panel-heading{
+  margin-bottom:20px;
+}
+</style>
+<div class="container-fluid">
+  <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+    {% include "granos_basicos/menu_salidas_indicadores.html" %}
+  </div>
+  <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
+    <div class="panel panel-default panel-graficos">
+      <div class="panel-heading">
+        <h3 class="panel-title">
+          <ol class="breadcrumb">
+            <li class="active">Monitoreos</li>
+            <li class="active">Ciclo Productivo</li>
+            <li class="active">Número de productores {{productores}}</li>
+          </ol>
+        </h3>
+      </div>
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-md-12">
+            <div id="grafo1" style="min-width: 510px; width: 860px; margin: 0 auto;"></div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div id="grafo2" style="min-width: 510px; width: 860px; margin: 0 auto;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script type="text/javascript">
+$( "#monitoreo" ).addClass( "in" );
+
+$(function () {
+  $('#grafo1').highcharts({
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: 'Fecha de siembra'
+        },
+        xAxis: {
+            type: 'category'
+        },
+        yAxis: {
+            title: {
+                text: 'Frecuencia'
+            }
+
+        },
+        legend: {
+            enabled: false
+        },
+        plotOptions: {
+            series: {
+                borderWidth: 0,
+                dataLabels: {
+                    enabled: true,
+                    format: '{point.y}'
+                }
+            }
+        },
+
+        tooltip: {
+            headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+            pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y}</b> del total<br/>'
+        },
+
+        series: [{
+            name: 'Semana',
+            colorByPoint: true,
+            data: [
+              {% for k,v in dic_siembra.items %}
+                {
+                    name: 'Semana {{k}}',
+                    y: {{v}},
+                },
+              {% endfor %}
+                  ]
+        }],
+    });
+
+    $('#grafo2').highcharts({
+          chart: {
+              type: 'column'
+          },
+          title: {
+              text: 'Fecha de cosecha'
+          },
+          xAxis: {
+              type: 'category'
+          },
+          yAxis: {
+              title: {
+                  text: 'Frecuencia'
+              }
+
+          },
+          legend: {
+              enabled: false
+          },
+          plotOptions: {
+              series: {
+                  borderWidth: 0,
+                  dataLabels: {
+                      enabled: true,
+                      format: '{point.y}'
+                  }
+              }
+          },
+
+          tooltip: {
+              headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+              pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y}</b> del total<br/>'
+          },
+
+          series: [{
+              name: 'Semana',
+              colorByPoint: true,
+              data: [
+                {% for k,v in dic_cosecha.items %}
+                  {
+                      name: 'Semana {{k}}',
+                      y: {{v}},
+                  },
+                {% endfor %}
+                    ]
+          }],
+      });
+});
+</script>
+{% endblock %}
