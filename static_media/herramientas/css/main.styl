@@ -1,0 +1,115 @@
+naranja = #ed713d
+verde= #5a7a51
+redondeado()
+	-webkit-border-radius arguments
+	-moz-border-radius arguments
+	-o-border-radius arguments
+	border-radius arguments
+  
+sombras()
+	-webkit-box-shadow arguments
+	-moz-box-shadow arguments
+	-o-border-shadow arguments
+	box-shadow arguments
+
+body
+	margin 0px
+.navbar-guias
+	background-color naranja
+	redondeado 0px
+	border 0px
+	.navbar-nav>li>a
+		color white
+		font-size 15px
+		font-weight bold
+		&:hover
+		&:focus
+			color white
+	.navbar-nav>.active>a
+		background-color white
+		color naranja
+		&:hover
+		&:focus
+			background-color white
+			color naranja
+	.navbar-brand
+		padding 2px 15px
+		img
+			width 50px
+			border-right 1px solid white
+			padding-right 10px
+			
+			
+
+.agricultor
+	background-image url('../img/agricultor.png')
+	background-repeat no-repeat
+	border-bottom 20px solid #ED713D
+	padding-bottom 80px
+.guia-cacao
+	background-image url('../img/cacao.png')
+	background-repeat no-repeat
+	border-bottom 20px solid #ED713D
+	padding-bottom 80px
+	.descripcion h5
+		border-bottom 1px solid #ED713D
+	.btn-guiacacao
+		border 1px solid #ED713D
+		padding 10px 20px
+		color #ED713D
+		margin-top 20px
+.descripcion
+	h5
+		font-size 20px
+		font-family 'Open Sans', sans-serif
+		color naranja
+		font-weight bold
+		margin-bottom 20px
+	p
+		font-family 'Lato', sans-serif
+		font-size 16px
+		text-align justify
+		line-height 1.5
+.guia-menu
+	h5
+		color verde
+		border-bottom 2px solid verde
+		font-size 16px
+		font-weight bold
+	img
+		width 70%
+.list-guias
+	padding 10px
+	background #FAFAFA
+	margin-bottom 10px
+	a
+		margin-top 5px
+	h5
+		margin-top 5px
+	
+.blanco
+	background white
+	min-height 517px
+	.title-widget:before
+		background-color #ED713D
+.f-tamano
+	min-height 356px
+.verde
+	color #5a7a51
+a.collapse-indicadores
+	color #6b3a35 !important
+	border-bottom 1px solid #6b3a35
+	display block
+	font-weight bold
+	margin-top 10px
+	
+// .vivero
+// 	border-bottom 1px solid transparent !important
+#sombra, #poda,#plaga,#piso,#cosecha,#cierre,#saf,#vivero
+	ul
+		padding 0px
+		li
+			list-style none
+			color #777
+			font-size 14px
+	
