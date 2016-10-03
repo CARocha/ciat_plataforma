@@ -1,149 +1,311 @@
 {%load staticfiles%}
 <!DOCTYPE html>
-<html>
+<html lang="es">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Guía cacao</title>
 
-<head>
-  <!-- Required meta tags always come first -->
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta http-equiv="x-ua-compatible" content="ie=edge">
-  <title>Guía Cacao</title>
-  <!-- Bootstrap CSS -->
-  <link href="/static/general/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
-  <link href="/static/general/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-  <link href="/static/guiacacao/css/cacao.css" rel="stylesheet" type="text/css">
-</head>
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" >
+        <link rel="stylesheet" href="/static/general/font-awesome/css/font-awesome.css" >
+        <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+        <link href="/static/monitoreo/css/style.css" rel="stylesheet" type="text/css"><!-- theme styles -->
+        <link rel="stylesheet" href="/static/herramientas/css/main.css" >
 
-<body>
-   <!-- <div class="bar-title">
-        <div class="container">
-            <div class="row">
-                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                    <h3>Alianza CAC</h3>
+
+
+    </head>
+    <body>
+    <div class="container">
+        {% include "menuprincipal.html" %}
+    </div>
+    
+    <header>
+        <nav class="navbar navbar-default navbar-guias" role="navigation">
+            <div class="container">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#"><img src="/static/herramientas/img/logo-white.png" alt=""></a>
                 </div>
-                <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
+        
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse navbar-ex1-collapse">
+                    <ul class="nav navbar-nav">
+                        <li class="active"><a href="#">CONOCE</a></li>
+                        <li><a href="#">COLABORA</a></li>
+                    </ul>
+                </div><!-- /.navbar-collapse -->
+            </div>
+        </nav>
+    </header>
+    <div class="contenido">
+        {% block contenido %}{% endblock contenido %}
 
+            
+    </div>
+        <div id="k-footer"><!-- footer -->
+    
+        <div class="container"><!-- container -->
+        
+            <div class="row no-gutter"><!-- row -->
+            
+                <div class="col-lg-4 col-md-4 blanco"><!-- widgets column left -->
+            
+                    <div class="col-padded col-naked">
+                    
+                        <ul class="list-unstyled clear-margins"><!-- widgets -->
+                        
+                            <li class="widget-container widget_nav_menu"><!-- widgets list -->
+                    
+                                <h1 class="title-widget">Links de interes</h1>
+                                <div class="f-tamano" itemscope itemtype="http://ciat.cgiar.org"> 
+                                    <ul>
+                                        <li><a href="/comunicacion" title="menu item">Comunicación</a></li>
+                                        <li><a href="/monitoreo/linea-base/" title="menu item">Monitoreo de las familias</a></li>
+                                        <li><a href="/analisis/" title="menu item">Analisis Organizacional</a></li>
+                                        <li><a href="/producto/" title="menu item">Productos y procesos</a></li>
+                                        <li><a href="/mapeo/" title="menu item">Mapeo de actores</a></li>
+                                        <li><a href="/biblioteca/" title="menu item">Biblioteca</a></li>
+                                        <li><a href="/mercado/" title="menu item">Mercados</a></li>
+                                    </ul>
+                                </div>
+                    
+                            </li>
+                            
+                        </ul>
+                         
+                    </div>
+                    
+                </div><!-- widgets column left end -->
+                
+                <div class="col-lg-4 col-md-4 blanco"><!-- widgets column center -->
+                
+                    <div class="col-consulta col-naked">
+                    
+                        <ul class="list-unstyled clear-margins"><!-- widgets -->
+                        
+                            <li class="widget-container widget_recent_news"><!-- widgets list -->
+                    
+                                <h1 class="title-widget">Contáctenos Latinoamerica</h1>
+                            
+                                
+                                <div class="f-tamano" itemscope itemtype="http://ciat.cgiar.org"> 
+                                
+                                    <h2 class="title-median m-contact-subject" itemprop="name">Centro Internacional de Agricultura Tropical (CIAT)</h2>
+                                    <p class="sub-fotter">Sede y oficina regional para America latina y Caribe</p>
+                                    <div class="m-contact-address" itemprop="address" itemscope itemtype="http://data-vocabulary.org/Address">
+                                        <span class="m-contact-street" itemprop="street-address">Km 17, Recta Cali–Palmira</span>
+                                        <span class="m-contact-street" itemprop="street-address">Apartado Aéreo 6713</span>
+                                        <span class="m-contact-city-region"><span class="m-contact-city" itemprop="locality">Cali</span>, <span class="m-contact-region" itemprop="region">Colombia</span></span>
+                                        
+                                    </div>
+                                     
+                                    <div class="m-contact-tel-fax">
+                                        <span class="m-contact-tel">Tel: <span itemprop="tel"> +57 2 4450000</span>, Fax:<span itemprop="tel"> +57 2 4450073</span></span>
+                                        <span class="m-contact-fax">Maya Rajasekharan, PhD</span>
+                                        <span itemprop="fax">m.rajasekharan@cgiar.org</span>
+                                        <span class="m-contact-fax">Head, Program Coordination, Office of the Director General</span>
+                                        <span itemprop="fax">ciat@cgiar.org</span>
+                                    </div>
+                                    
+                                </div>
+                                
+                                <div class="social-icons">
+                                
+                                    <ul class="list-unstyled list-inline">
+                                    
+                                        <li><a href="http://ciat.cgiar.org" title="Contact us"><i class="fa fa-globe"></i></a></li>
+                                        <li><a href="https://twitter.com/CIAT_" title="Twitter"><i class="fa fa-twitter"></i></a></li>
+                                        <li><a href="https://www.facebook.com/ciat.ecoefficient" title="Facebook"><i class="fa fa-facebook"></i></a></li>
+                                    
+                                    </ul>
+                                
+                                </div>
+                    
+                            </li>
+                            
+                        </ul>
+                        
+                    </div>
+                    
+                </div><!-- widgets column center end -->
+                
+                <div class="col-lg-4 col-md-4 blanco"><!-- widgets column center -->
+                
+                    <div class="col-consulta col-naked">
+                    
+                        <ul class="list-unstyled clear-margins"><!-- widgets -->
+                        
+                            <li class="widget-container widget_recent_news"><!-- widgets list -->
+                    
+                                <h1 class="title-widget">Contáctenos Centroamérica y Caribe</h1>
+                            
+                                
+                                <div class="f-tamano" itemscope itemtype="http://ciat.cgiar.org"> 
+                                
+                                    <h2 class="title-median m-contact-subject" itemprop="name">Centro Internacional de Agricultura Tropical (CIAT)</h2>
+                                    <p class="sub-fotter">Oficina regional para Centroamérica </p>
+                                    <div class="m-contact-address" itemprop="address" itemscope itemtype="http://data-vocabulary.org/Address">
+                                        <span class="m-contact-street" itemprop="street-address">De Pizza Hut Villa Fontana 1 Cuadra abajo.</span>
+                                        <span class="m-contact-street" itemprop="street-address">Edificio CAR 3, Piso 4.</span>
+                                        <span class="m-contact-city-region"><span class="m-contact-city" itemprop="locality">Managua</span>, <span class="m-contact-region" itemprop="region">Nicaragua</span></span>
+                                        
+                                    </div>
+                                     
+                                    <div class="m-contact-tel-fax">
+                                        <span class="m-contact-tel">Tel: <span itemprop="tel"> (+505) 2270-9965</span></span>
+                                        <span class="m-contact-fax">María Eugenia Baltodano, Representante CIAT</span>
+                                        <span itemprop="fax">m.e.baltodano@cgiar.org</span>
+                                        <span class="m-contact-fax">Byron Alejandro Reyes, Enlace técnico</span>
+                                        <br>
+                                        <span itemprop="fax">b.reyes@cgiar.org</span>
+                                    </div>
+                                    
+                                </div>
+                                
+                                <div class="social-icons">
+                                
+                                    <ul class="list-unstyled list-inline">
+                                    
+                                        <li><a href="http://ciat.cgiar.org" title="Contact us"><i class="fa fa-globe"></i></a></li>
+                                        <li><a href="https://twitter.com/CIAT_" title="Twitter"><i class="fa fa-twitter"></i></a></li>
+                                        <li><a href="https://www.facebook.com/ciat.ecoefficient" title="Facebook"><i class="fa fa-facebook"></i></a></li>
+                                    
+                                    </ul>
+                                
+                                </div>
+                    
+                            </li>
+                            
+                        </ul>
+                        
+                    </div>
+                    
+                </div><!-- widgets column center end -->
+            
+            </div><!-- row end -->
+        
+        </div><!-- container end -->
+    
+    </div><!-- footer end -->
+    
+    <div id="k-subfooter"><!-- subfooter -->
+    
+        <div class="container"><!-- container -->
+        
+            <div class="row"><!-- row -->
+            
+                <div class="col-lg-12">
+                
+                    <p class="copy-text text-inverse">
+                    &copy; 2015 Elaborado y con soporte de <a href="http://simas.org.ni/portafolio/sistemas" target="_blank">SIMAS</a> con el Framework <a href="https://www.djangoproject.com/" target="_blank">Django</a>.
+                    </p>
+                
                 </div>
-            </div>
-        </div>
-    </div>-->
-    <nav class="navbar navbar-cacao" role="navigation">
-        <div class="container-fluid">
-
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="#">Guía cacao</a>
-            </div>
-
-
-            <div class="collapse navbar-collapse navbar-ex1-collapse">
-
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a href="/cacao">Consulta</a></li>
-                    <li><a href="/admin">Administración</a></li>
-                    <!--<li><a href="/admin/logout"></a></li>-->
-
-                </ul>
-            </div>
-        </div>
-    </nav>
-
-
-    {% block contenido %}{% endblock contenido %}
-
+            
+            </div><!-- row end -->
+        
+        </div><!-- container end -->
+    
+    </div><!-- subfooter end -->
+        
 
   <!-- jQuery -->
-  <script src="/static/general/js/jQuery/jquery-2.1.1.min.js"></script>
-  <script src="/static/general/js/jQuery/jquery-migrate-1.2.1.min.js"></script>
+    <script src="/static/general/js/jQuery/jquery-2.1.1.min.js"></script>
+    <script src="/static/general/js/jQuery/jquery-migrate-1.2.1.min.js"></script>
 
   <!-- Bootstrap -->
-  <script src="/static/general/bootstrap/js/bootstrap.min.js"></script>
-  <script src="{% static 'analisis/js/highcharts.js' %}"></script>
-  <script src="{% static 'analisis/js/exporting.js' %}"></script>
-  <script type="text/javascript">
-    var ficha = window.location.pathname.split('/');
+    <script src="/static/general/bootstrap/js/bootstrap.min.js"></script>
+    <script src="{% static 'analisis/js/highcharts.js' %}"></script>
+    <script src="{% static 'analisis/js/exporting.js' %}"></script>
+    <script type="text/javascript">
+        var ficha = window.location.pathname.split('/');
 
-    if (ficha[2]=="sombra") {
-        $( "#sombra" ).addClass( "in" );
-        $( "#poda" ).removeClass( "in" );
-        $( "#plaga" ).removeClass( "in" );
-        $( "#piso" ).removeClass( "in" );
-        $( "#cosecha" ).removeClass( "in" );
-        $( "#cierre" ).removeClass( "in" );
-        $( "#saf" ).removeClass( "in" );
-        $( "#vivero" ).removeClass( "in" );
-    }else if (ficha[2]=="poda") {
-        $( "#poda" ).addClass( "in" );
-        $( "#sombra" ).removeClass( "in" );
-        $( "#plaga" ).removeClass( "in" );
-        $( "#piso" ).removeClass( "in" );
-        $( "#cosecha" ).removeClass( "in" );
-        $( "#cierre" ).removeClass( "in" );
-        $( "#saf" ).removeClass( "in" );
-        $( "#vivero" ).removeClass( "in" );
-    }else if (ficha[2]=="plaga"){
-        $( "#plaga" ).addClass( "in" );
-        $( "#sombra" ).removeClass( "in" );
-        $( "#poda" ).removeClass( "in" );
-        $( "#piso" ).removeClass( "in" );
-        $( "#cosecha" ).removeClass( "in" );
-        $( "#cierre" ).removeClass( "in" );
-        $( "#saf" ).removeClass( "in" );
-        $( "#vivero" ).removeClass( "in" );
-    }else if (ficha[2]=="piso"){
-        $( "#piso" ).addClass( "in" );
-        $( "#sombra" ).removeClass( "in" );
-        $( "#poda" ).removeClass( "in" );
-        $( "#plaga" ).removeClass( "in" );
-        $( "#cosecha" ).removeClass( "in" );
-        $( "#cierre" ).removeClass( "in" );
-        $( "#saf" ).removeClass( "in" );
-        $( "#vivero" ).removeClass( "in" );
-    }else if (ficha[2]=="cosecha"){
-        $( "#cosecha" ).addClass( "in" );
-        $( "#sombra" ).removeClass( "in" );
-        $( "#poda" ).removeClass( "in" );
-        $( "#plaga" ).removeClass( "in" );
-        $( "#piso" ).removeClass( "in" );
-        $( "#cierre" ).removeClass( "in" );
-        $( "#saf" ).removeClass( "in" );
-        $( "#vivero" ).removeClass( "in" );
-    }else if (ficha[2]=="cierre"){
-        $( "#cierre" ).addClass( "in" );
-        $( "#cosecha" ).removeClass( "in" );
-        $( "#sombra" ).removeClass( "in" );
-        $( "#poda" ).removeClass( "in" );
-        $( "#plaga" ).removeClass( "in" );
-        $( "#piso" ).removeClass( "in" );
-        $( "#saf" ).removeClass( "in" );
-        $( "#vivero" ).removeClass( "in" );
-    }else if (ficha[2]=="saf"){
-        $( "#saf" ).addClass( "in" );
-        $( "#cierre" ).removeClass( "in" );
-        $( "#cosecha" ).removeClass( "in" );
-        $( "#sombra" ).removeClass( "in" );
-        $( "#poda" ).removeClass( "in" );
-        $( "#plaga" ).removeClass( "in" );
-        $( "#piso" ).removeClass( "in" );
-        $( "#vivero" ).removeClass( "in" );
-      }else if (ficha[2]=="vivero"){
-        $( "#vivero" ).addClass( "in" );
-        $( "#saf" ).removeClass( "in" );
-        $( "#cierre" ).removeClass( "in" );
-        $( "#cosecha" ).removeClass( "in" );
-        $( "#sombra" ).removeClass( "in" );
-        $( "#poda" ).removeClass( "in" );
-        $( "#plaga" ).removeClass( "in" );
-        $( "#piso" ).removeClass( "in" );
-      };
-  </script>
+        if (ficha[2]=="sombra") {
+            $( "#sombra" ).addClass( "in" );
+            $( "#poda" ).removeClass( "in" );
+            $( "#plaga" ).removeClass( "in" );
+            $( "#piso" ).removeClass( "in" );
+            $( "#cosecha" ).removeClass( "in" );
+            $( "#cierre" ).removeClass( "in" );
+            $( "#saf" ).removeClass( "in" );
+            $( "#vivero" ).removeClass( "in" );
+        }else if (ficha[2]=="poda") {
+            $( "#poda" ).addClass( "in" );
+            $( "#sombra" ).removeClass( "in" );
+            $( "#plaga" ).removeClass( "in" );
+            $( "#piso" ).removeClass( "in" );
+            $( "#cosecha" ).removeClass( "in" );
+            $( "#cierre" ).removeClass( "in" );
+            $( "#saf" ).removeClass( "in" );
+            $( "#vivero" ).removeClass( "in" );
+        }else if (ficha[2]=="plaga"){
+            $( "#plaga" ).addClass( "in" );
+            $( "#sombra" ).removeClass( "in" );
+            $( "#poda" ).removeClass( "in" );
+            $( "#piso" ).removeClass( "in" );
+            $( "#cosecha" ).removeClass( "in" );
+            $( "#cierre" ).removeClass( "in" );
+            $( "#saf" ).removeClass( "in" );
+            $( "#vivero" ).removeClass( "in" );
+        }else if (ficha[2]=="piso"){
+            $( "#piso" ).addClass( "in" );
+            $( "#sombra" ).removeClass( "in" );
+            $( "#poda" ).removeClass( "in" );
+            $( "#plaga" ).removeClass( "in" );
+            $( "#cosecha" ).removeClass( "in" );
+            $( "#cierre" ).removeClass( "in" );
+            $( "#saf" ).removeClass( "in" );
+            $( "#vivero" ).removeClass( "in" );
+        }else if (ficha[2]=="cosecha"){
+            $( "#cosecha" ).addClass( "in" );
+            $( "#sombra" ).removeClass( "in" );
+            $( "#poda" ).removeClass( "in" );
+            $( "#plaga" ).removeClass( "in" );
+            $( "#piso" ).removeClass( "in" );
+            $( "#cierre" ).removeClass( "in" );
+            $( "#saf" ).removeClass( "in" );
+            $( "#vivero" ).removeClass( "in" );
+        }else if (ficha[2]=="cierre"){
+            $( "#cierre" ).addClass( "in" );
+            $( "#cosecha" ).removeClass( "in" );
+            $( "#sombra" ).removeClass( "in" );
+            $( "#poda" ).removeClass( "in" );
+            $( "#plaga" ).removeClass( "in" );
+            $( "#piso" ).removeClass( "in" );
+            $( "#saf" ).removeClass( "in" );
+            $( "#vivero" ).removeClass( "in" );
+        }else if (ficha[2]=="saf"){
+            $( "#saf" ).addClass( "in" );
+            $( "#cierre" ).removeClass( "in" );
+            $( "#cosecha" ).removeClass( "in" );
+            $( "#sombra" ).removeClass( "in" );
+            $( "#poda" ).removeClass( "in" );
+            $( "#plaga" ).removeClass( "in" );
+            $( "#piso" ).removeClass( "in" );
+            $( "#vivero" ).removeClass( "in" );
+          }else if (ficha[2]=="vivero"){
+            $( "#vivero" ).addClass( "in" );
+            $( "#saf" ).removeClass( "in" );
+            $( "#cierre" ).removeClass( "in" );
+            $( "#cosecha" ).removeClass( "in" );
+            $( "#sombra" ).removeClass( "in" );
+            $( "#poda" ).removeClass( "in" );
+            $( "#plaga" ).removeClass( "in" );
+            $( "#piso" ).removeClass( "in" );
+          };
+    </script>
   {% block extra_js %}{% endblock extra_js %}
-
-</body>
-
+        
+    </body>
 </html>
+

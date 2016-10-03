@@ -1,5 +1,6 @@
 naranja = #ed713d
 verde= #5a7a51
+cafe= #804028
 redondeado()
 	-webkit-border-radius arguments
 	-moz-border-radius arguments
@@ -44,12 +45,10 @@ body
 .agricultor
 	background-image url('../img/agricultor.png')
 	background-repeat no-repeat
-	border-bottom 20px solid #ED713D
 	padding-bottom 80px
 .guia-cacao
 	background-image url('../img/cacao.png')
 	background-repeat no-repeat
-	border-bottom 20px solid #ED713D
 	padding-bottom 80px
 	.descripcion h5
 		border-bottom 1px solid #ED713D
@@ -96,20 +95,72 @@ body
 	min-height 356px
 .verde
 	color #5a7a51
-a.collapse-indicadores
+.list-indicadores li
 	color #6b3a35 !important
 	border-bottom 1px solid #6b3a35
 	display block
 	font-weight bold
 	margin-top 10px
-	
-// .vivero
-// 	border-bottom 1px solid transparent !important
-#sombra, #poda,#plaga,#piso,#cosecha,#cierre,#saf,#vivero
-	ul
-		padding 0px
-		li
-			list-style none
-			color #777
-			font-size 14px
-	
+
+.hola h5, .title-consulta h5
+	font-family 'Open Sans', sans-serif
+	color naranja
+	font-weight bold
+	margin-bottom 20px
+	border-bottom 1px solid naranja
+	text-align left
+.filtro
+	margin-bottom 20px
+	padding 15px
+	background-color #eee
+	.panel-consulta
+		margin-bottom 0px
+		background-color transparent
+		border 0px
+		sombras 0px 0px 0px rgba(0,0,0,0)
+		.panel-heading
+			background-color verde
+			color white
+			font-weight bold
+			font-size 16px
+			font-family 'Open Sans', sans-serif
+			letter-spacing 1px
+			redondeado 0px
+		.panel-body
+			redondeado 0px
+			background-color transparent
+			.form-group
+				margin-bottom 0px
+				label
+					text-transform initial
+					color black
+					font-weight bold
+				.form-control
+					font-size 12px
+					height 34px
+					border 1px solid verde
+		.btn-form
+			margin-top 10px
+			background-color verde
+			color white
+		.text-consulta
+			font-family 'Open Sans', sans-serif
+			font-size 12px
+			text-align center
+.ind
+	list-style none
+	li
+		margin-bottom 10px
+		font-size 13px
+		text-align left
+		a
+			text-decoration none
+			color #2F2F2F
+			font-weight bold
+	.list-header
+		font-size 16px
+		font-weight bold
+		border-bottom 1px solid cafe
+		color cafe
+.contenido
+	border-bottom 20px solid #ED713D		
