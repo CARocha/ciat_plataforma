@@ -1,4 +1,4 @@
-{% extends "guiascacao//baseoriginal.html" %}
+{% extends "guiascacao/base.html" %}
 
 {% block extra_js %}
 <script type="text/javascript">
@@ -369,108 +369,115 @@ $(function () {
         margin-bottom:20px;
     }
 </style>
-    <div class="container-fluid">
-        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-             {% include "guiascacao/menu_salidas.html" %}
-        </div>
-        <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
-            <div class="panel panel-default panel-graficos">
-                <div class="panel-heading">
-                    <h3 class="panel-title">
-                        <ol class="breadcrumb">
-                            <li class="active">Sombra</li>
-                            <li class="active">Acciones de sombra</li>
-                        </ol>
-                    </h3>
+    <div class="container">
+        <div class="salidas">
+            <div class="row">
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 hidden-xs">
+                    {% include "guiascacao/menu_salidas.html" %}
                 </div>
-                <div class="panel-body">
-                    <!--<div class="row datos">
-                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-                            <div class="title-data">
-                                Número de parcelas
-                            </div>
-                            <div class="number-data">
-                                {{numero_parcelas}}
-                            </div>
+                <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
+                    <div class="panel panel-default panel-graficos">
+                        <div class="panel-heading  borde">
+                            <h3 class="panel-title">
+                                <ol class="breadcrumb">
+                                    <li class="active">Sombra</li>
+                                    <li class="active">Acciones de sombra</li>
+                                </ol>
+                            </h3>
                         </div>
-                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-                            <div class="title-data">
-                                Promedio de riqueza total
-                            </div>
-                            <div class="number-data">
-                                {{promedio2|floatformat:2}}
-                            </div>
-                        </div>
-                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-                            <div class="title-data">
-                                Mediana de riqueza total
-                            </div>
-                            <div class="number-data">
-                                {{mediana2|floatformat:2}}
-                            </div>
-                        </div>
-                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-                            <div class="title-data">
-                                Desviación típica de riqueza total
-                            </div>
-                            <div class="number-data">
-                                {{desviacion2|floatformat:2}}
-                            </div>
-                        </div>
-                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-                            <div class="title-data">
-                                Mínimo
-                            </div>
-                            <div class="number-data">
-                                {{minimo|floatformat:2}}
-                            </div>
-                        </div>
-                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-                            <div class="title-data">
-                                Máximo
-                            </div>
-                            <div class="number-data">
-                                {{maximo|floatformat:2}}
-                            </div>
-                        </div>
-                    </div>-->
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div id="grafo1"></div>
-                        </div>
+                        <div class="panel-body">
+                            <!--<div class="row datos">
+                                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                                    <div class="title-data">
+                                        Número de parcelas
+                                    </div>
+                                    <div class="number-data">
+                                        {{numero_parcelas}}
+                                    </div>
+                                </div>
+                                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                                    <div class="title-data">
+                                        Promedio de riqueza total
+                                    </div>
+                                    <div class="number-data">
+                                        {{promedio2|floatformat:2}}
+                                    </div>
+                                </div>
+                                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                                    <div class="title-data">
+                                        Mediana de riqueza total
+                                    </div>
+                                    <div class="number-data">
+                                        {{mediana2|floatformat:2}}
+                                    </div>
+                                </div>
+                                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                                    <div class="title-data">
+                                        Desviación típica de riqueza total
+                                    </div>
+                                    <div class="number-data">
+                                        {{desviacion2|floatformat:2}}
+                                    </div>
+                                </div>
+                                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                                    <div class="title-data">
+                                        Mínimo
+                                    </div>
+                                    <div class="number-data">
+                                        {{minimo|floatformat:2}}
+                                    </div>
+                                </div>
+                                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                                    <div class="title-data">
+                                        Máximo
+                                    </div>
+                                    <div class="number-data">
+                                        {{maximo|floatformat:2}}
+                                    </div>
+                                </div>
+                            </div>-->
+                            <div class="container-fluid">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div id="grafo1" width='100%'></div>
+                                        <hr>
+                                        <div id="grafo2" width='100%'></div>
+                                        <hr>
+                                        <div id="grafo3" width='100%'></div>
+                                        <hr>
+                                        <div id="grafo4" width='100%'></div>
+                                        <hr>
+                                        <div id="grafo5" width='100%'></div>
+                                    </div>
+                             
+                                    
+                                    
+                                    <div class="col-md-12">
+                                        <h5>Manejo de sombra</h5>
+                                        <div id="grafo12" width='100%'></div>
+                                        <div id="grafo7" width='100%'></div>
+                                    </div>
 
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div id="grafo2" style="min-width: 310px; width: 460px; margin: 0 auto;"></div>
-                        </div>
-                        <div class="col-md-6">
-                            <div id="grafo3" style="min-width: 310px; width: 460px; margin: 0 auto;"></div>
+                                </div>
+
+                            </div>
                         </div>
                     </div>
-                    <hr>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div id="grafo4" style="min-width: 310px; width: 460px; margin: 0 auto;"></div>
+
+                </div>
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 hidden-xs">
+                    <div class="panel panel-default  panel-descripcion">
+                        <div class="panel-heading">
+                            Basic panel example
                         </div>
-                        <div class="col-md-6">
-                            <div id="grafo5" style="min-width: 310px; width: 460px; margin: 0 auto;"></div>
-                        </div>
-                    </div>
-                    <hr>
-                    <h4>Manejo de sombra</h4>
-                    <hr>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div id="grafo6" style="min-width: 310px; width: 460px; margin: 0 auto;"></div>
-                        </div>
-                        <div class="col-md-6">
-                            <div id="grafo7" style="min-width: 310px; width: 460px; margin: 0 auto;"></div>
+                        <div class="panel-body">
+                            <p>
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Provident est nemo, unde, commodi consequatur harum ad sed. Cum, omnis aperiam eveniet eligendi, blanditiis dicta ducimus qui, sequi impedit necessitatibus assumenda.
+                            </p>
                         </div>
                     </div>
                 </div>
             </div>
-
         </div>
 
 
