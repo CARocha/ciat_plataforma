@@ -1,6 +1,258 @@
-{% extends "basegeneral.html" %}
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Guía cacao</title>
 
-{% block contenido %}
-    <p style="color: #FFF; font-size:48px;"><strong>Aun nada pero ve a cacao</strong> <a href="/herramienta-cacao/" >vamos a cacao</a> <br></p>
-    <p style="color: #FFF; font-size:48px;"> <a href="/herramienta-granos-basico">vamos a grano basicos</a> </p>
-{% endblock contenido %}
+		<!-- Bootstrap CSS -->
+		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" >
+		<link rel="stylesheet" href="/static/general/font-awesome/css/font-awesome.css" >
+		<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+		<link href="/static/monitoreo/css/style.css" rel="stylesheet" type="text/css"><!-- theme styles -->
+		<link rel="stylesheet" href="/static/herramientas/css/main.css" >
+
+
+
+	</head>
+	<body>
+	<div class="container">
+		{% include "menuprincipal.html" %}
+	</div>
+	
+	<header>
+		<nav class="navbar navbar-default navbar-guias" role="navigation">
+			<div class="container">
+				<!-- Brand and toggle get grouped for better mobile display -->
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand" href="#"><img src="/static/herramientas/img/logo-white.png" alt=""></a>
+				</div>
+		
+				<!-- Collect the nav links, forms, and other content for toggling -->
+				<div class="collapse navbar-collapse navbar-ex1-collapse">
+					<ul class="nav navbar-nav">
+						<li class="active"><a href="#">CONOCE</a></li>
+						<li><a href="#">COLABORA</a></li>
+					</ul>
+				</div><!-- /.navbar-collapse -->
+			</div>
+		</nav>
+	</header>
+	<div class="contenido">
+		<div class="agricultor">
+			<div class="container">
+				<div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+					<div class="descripcion">
+						<h5>Mejores decisiones a nivel de fincas</h5>
+						<p>
+							Las productoras y productores toman decisiones para el manejo los diferentes rubros en las fincas bajo condiciones extremas de variabilidad e incertidumbre. Para apoyar a los esfuerzos de las familias productoras y las organizaciones de campo, el Programa de Investigación Humidtropics de CGIAR desarrolló varias cajas integradas de herramientas dirigidas a mejorar los procesos de observación, análisis y toma de decisiones a nivel de fincas. 
+						</p>
+						<p>
+							Las herramientas para mejorar las tomas de decisión en los cultivos de cacao, café y granos básicos se construyeron integrando amplia gama de herramientas y metodologías en los diferentes territorios con la participación de las organizaciones locales, familias campesinas y las organizaciones de investigación. Además de los aspectos productivos, las herramientas enfocaron sobre como fortalecer el potencial comercial a través de nuevos vínculos de mercado y reducir la vulnerabilidad ante el cambio climático y otras presiones.
+						</p>
+					</div>
+				</div>
+				<div class="col-xs-4 col-sm-4 col-md-4 col-lg-3 col-lg-offset-1">
+					<div class="list-guias">
+						<a href="/herramienta-cacao/" class="guia-menu">
+							<h5>Cacao</h5>
+							<img class="center-block" src="/static/herramientas/img/menucacao.png" alt="">
+						</a>
+						<a href="/herramienta-granos-basico" class="guia-menu">
+							<h5>Café</h5>
+							<img class="center-block" src="/static/herramientas/img/menucafe.png" alt="">
+						</a>
+						<a href="" class="guia-menu">
+							<h5>Granos Básicos</h5>
+							<img class="center-block" src="/static/herramientas/img/menugranos.png" alt="">
+						</a>
+
+					</div>
+					
+				</div>
+			</div>
+		</div>
+			
+	</div>
+		<div id="k-footer"><!-- footer -->
+    
+        <div class="container"><!-- container -->
+        
+            <div class="row no-gutter"><!-- row -->
+            
+                <div class="col-lg-4 col-md-4 blanco"><!-- widgets column left -->
+            
+                    <div class="col-padded col-naked">
+                    
+                        <ul class="list-unstyled clear-margins"><!-- widgets -->
+                        
+                            <li class="widget-container widget_nav_menu"><!-- widgets list -->
+                    
+                                <h1 class="title-widget">Links de interes</h1>
+                                <div class="f-tamano" itemscope itemtype="http://ciat.cgiar.org"> 
+	                                <ul>
+	                                    <li><a href="/comunicacion" title="menu item">Comunicación</a></li>
+	                                    <li><a href="/monitoreo/linea-base/" title="menu item">Monitoreo de las familias</a></li>
+	                                    <li><a href="/analisis/" title="menu item">Analisis Organizacional</a></li>
+	                                    <li><a href="/producto/" title="menu item">Productos y procesos</a></li>
+	                                    <li><a href="/mapeo/" title="menu item">Mapeo de actores</a></li>
+	                                    <li><a href="/biblioteca/" title="menu item">Biblioteca</a></li>
+	                                    <li><a href="/mercado/" title="menu item">Mercados</a></li>
+	                                </ul>
+	                            </div>
+                    
+                            </li>
+                            
+                        </ul>
+                         
+                    </div>
+                    
+                </div><!-- widgets column left end -->
+                
+                <div class="col-lg-4 col-md-4 blanco"><!-- widgets column center -->
+                
+                    <div class="col-consulta col-naked">
+                    
+                        <ul class="list-unstyled clear-margins"><!-- widgets -->
+                        
+                            <li class="widget-container widget_recent_news"><!-- widgets list -->
+                    
+                                <h1 class="title-widget">Contáctenos Latinoamerica</h1>
+                            
+                                
+                                <div class="f-tamano" itemscope itemtype="http://ciat.cgiar.org"> 
+                                
+                                    <h2 class="title-median m-contact-subject" itemprop="name">Centro Internacional de Agricultura Tropical (CIAT)</h2>
+                                    <p class="sub-fotter">Sede y oficina regional para America latina y Caribe</p>
+                                    <div class="m-contact-address" itemprop="address" itemscope itemtype="http://data-vocabulary.org/Address">
+                                        <span class="m-contact-street" itemprop="street-address">Km 17, Recta Cali–Palmira</span>
+                                        <span class="m-contact-street" itemprop="street-address">Apartado Aéreo 6713</span>
+                                        <span class="m-contact-city-region"><span class="m-contact-city" itemprop="locality">Cali</span>, <span class="m-contact-region" itemprop="region">Colombia</span></span>
+                                        
+                                    </div>
+                                     
+                                    <div class="m-contact-tel-fax">
+                                        <span class="m-contact-tel">Tel: <span itemprop="tel"> +57 2 4450000</span>, Fax:<span itemprop="tel"> +57 2 4450073</span></span>
+                                        <span class="m-contact-fax">Maya Rajasekharan, PhD</span>
+                                        <span itemprop="fax">m.rajasekharan@cgiar.org</span>
+                                        <span class="m-contact-fax">Head, Program Coordination, Office of the Director General</span>
+                                        <span itemprop="fax">ciat@cgiar.org</span>
+                                    </div>
+                                    
+                                </div>
+                                
+                                <div class="social-icons">
+                                
+                                    <ul class="list-unstyled list-inline">
+                                    
+                                        <li><a href="http://ciat.cgiar.org" title="Contact us"><i class="fa fa-globe"></i></a></li>
+                                        <li><a href="https://twitter.com/CIAT_" title="Twitter"><i class="fa fa-twitter"></i></a></li>
+                                        <li><a href="https://www.facebook.com/ciat.ecoefficient" title="Facebook"><i class="fa fa-facebook"></i></a></li>
+                                    
+                                    </ul>
+                                
+                                </div>
+                    
+                            </li>
+                            
+                        </ul>
+                        
+                    </div>
+                    
+                </div><!-- widgets column center end -->
+                
+                <div class="col-lg-4 col-md-4 blanco"><!-- widgets column center -->
+                
+                    <div class="col-consulta col-naked">
+                    
+                        <ul class="list-unstyled clear-margins"><!-- widgets -->
+                        
+                            <li class="widget-container widget_recent_news"><!-- widgets list -->
+                    
+                                <h1 class="title-widget">Contáctenos Centroamérica y Caribe</h1>
+                            
+                                
+                                <div class="f-tamano" itemscope itemtype="http://ciat.cgiar.org"> 
+                                
+                                    <h2 class="title-median m-contact-subject" itemprop="name">Centro Internacional de Agricultura Tropical (CIAT)</h2>
+                                    <p class="sub-fotter">Oficina regional para Centroamérica </p>
+                                    <div class="m-contact-address" itemprop="address" itemscope itemtype="http://data-vocabulary.org/Address">
+                                        <span class="m-contact-street" itemprop="street-address">De Pizza Hut Villa Fontana 1 Cuadra abajo.</span>
+                                        <span class="m-contact-street" itemprop="street-address">Edificio CAR 3, Piso 4.</span>
+                                        <span class="m-contact-city-region"><span class="m-contact-city" itemprop="locality">Managua</span>, <span class="m-contact-region" itemprop="region">Nicaragua</span></span>
+                                        
+                                    </div>
+                                     
+                                    <div class="m-contact-tel-fax">
+                                        <span class="m-contact-tel">Tel: <span itemprop="tel"> (+505) 2270-9965</span></span>
+                                        <span class="m-contact-fax">María Eugenia Baltodano, Representante CIAT</span>
+                                        <span itemprop="fax">m.e.baltodano@cgiar.org</span>
+                                        <span class="m-contact-fax">Byron Alejandro Reyes, Enlace técnico</span>
+                                        <br>
+                                        <span itemprop="fax">b.reyes@cgiar.org</span>
+                                    </div>
+                                    
+                                </div>
+                                
+                                <div class="social-icons">
+                                
+                                    <ul class="list-unstyled list-inline">
+                                    
+                                        <li><a href="http://ciat.cgiar.org" title="Contact us"><i class="fa fa-globe"></i></a></li>
+                                        <li><a href="https://twitter.com/CIAT_" title="Twitter"><i class="fa fa-twitter"></i></a></li>
+                                        <li><a href="https://www.facebook.com/ciat.ecoefficient" title="Facebook"><i class="fa fa-facebook"></i></a></li>
+                                    
+                                    </ul>
+                                
+                                </div>
+                    
+                            </li>
+                            
+                        </ul>
+                        
+                    </div>
+                    
+                </div><!-- widgets column center end -->
+            
+            </div><!-- row end -->
+        
+        </div><!-- container end -->
+    
+    </div><!-- footer end -->
+    
+    <div id="k-subfooter"><!-- subfooter -->
+    
+        <div class="container"><!-- container -->
+        
+            <div class="row"><!-- row -->
+            
+                <div class="col-lg-12">
+                
+                    <p class="copy-text text-inverse">
+                    &copy; 2015 Elaborado y con soporte de <a href="http://simas.org.ni/portafolio/sistemas" target="_blank">SIMAS</a> con el Framework <a href="https://www.djangoproject.com/" target="_blank">Django</a>.
+                    </p>
+                
+                </div>
+            
+            </div><!-- row end -->
+        
+        </div><!-- container end -->
+    
+    </div><!-- subfooter end -->
+
+		<!-- jQuery -->
+		<script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
+		<!-- Bootstrap JavaScript -->
+		<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+		
+	</body>
+</html>
+

@@ -47,99 +47,77 @@ $(function() {
 {% endblock extra_js %}
 
 {% block contenido %}
+
 <div class="container hola">
-    <div class="title-consulta">
-        <h4><i class="fa fa-filter" aria-hidden="true"></i> Filtro</h4>
-    </div>
+    <h5>Guía Cacao</h5>
+<!--     <div class="title-consulta">
+        <h5><i class="fa fa-filter" aria-hidden="true"></i> Filtro</h5>
+    </div> -->
     <div class="filtro">
-        <div class="row">
-            <form  action="." method="POST"> {% csrf_token %}
-                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                    {% if request.user.is_authenticated %}
-                    <div class="row borde">
-                        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-offset-2 col-lg-2">
-                            <label for="">Nombre del {{form.productor.label}}</label>
-                        </div>
-                        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-                            {{form.productor}}
-                        </div>
-                    </div>
-                    {% endif %}
-                </div>
-                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                    <div class="row">
-                        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
-                            <label for="">{{form.fecha.label}}</label>
-                        </div>
-                        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-8">
-                            {{form.fecha}}
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
-                            <label for="">{{form.organizacion.label}}</label>
-                        </div>
-                        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-8">
-                            {{form.organizacion}}
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
-                            <label for="">{{form.pais.label}}</label>
-                        </div>
-                        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-8">
-                            {{form.pais}}
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
-                            <label for="">{{form.departamento.label}}</label>
-                        </div>
-                        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-8">
-                            {{form.departamento}}
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                    <div class="row">
-                        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
-                            <label for="">{{form.municipio.label}}</label>
-                        </div>
-                        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-8">
-                            {{form.municipio}}
-                        </div>
-                    </div>
+        <div class="panel panel-default panel-consulta">
+            <div class="panel-heading">
+                Filtro
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                        <p class="text-consulta">
 
-                    <div class="row">
-                        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
-                            <label for="">{{form.comunidad.label}}</label>
-                        </div>
-                        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-8">
-                            {{form.comunidad}}
-                        </div>
+                          Aquí encontrarán los datos de observación en las fincas cacaoteras, el análisis y toma de decisión en base a las observaciones. Se puede utilizar los filtros para llegar a grupo meta de estudio y comparación de los resultados de los diferentes años.
+                        </p>
+                        <form  action="." method="POST"> {% csrf_token %}
+                            {% if request.user.is_authenticated %}
+                            <div class="form-group">
+                                <label for="">Nombre del {{form.productor.label}}</label>
+                                {{form.productor}}                        
+                            </div>
+                            {% endif %}
+                            <div class="form-group">
+                                <label for="">{{form.fecha.label}}</label>
+                                {{form.fecha}}
+                            </div>
+                            <div class="form-group">
+                                <label for="">{{form.organizacion.label}}</label>
+                                {{form.organizacion}}
+                            </div>
+                            <div class="form-group">
+                                <label for="">{{form.pais.label}}</label>
+                                {{form.pais}}
+                            </div>
+                            <div class="form-group">
+                                <label for="">{{form.departamento.label}}</label>
+                                {{form.departamento}}
+                            </div>
+                            <div class="form-group">
+                                <label for="">{{form.municipio.label}}</label>
+                                {{form.municipio}}
+                            </div>
+                            <div class="form-group">
+                                <label for="">{{form.comunidad.label}}</label>
+                                {{form.comunidad}}
+                            </div>
+                            <div class="form-group">
+                                <label for="">{{form.sexo.label}}</label>
+                                {{form.sexo}}
+                            </div>
+                            <div class="form-group">
+                                <label for="">{{form.tipologia.label}}</label>
+                                {{form.tipologia}}
+                            </div>
+                            <div class="form-group">
+                                <input type="submit" value="Consultar" class="btn btn-form" name="Consulta"/>
+                            </div>                           
+                        </form> 
                     </div>
-
-                    <div class="row">
-                        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
-                            <label for="">{{form.sexo.label}}</label>
-                        </div>
-                        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-8">
-                            {{form.sexo}}
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
-                            <label for="">{{form.tipologia.label}}</label>
-                        </div>
-                        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-8">
-                            {{form.tipologia}}
-                        </div>
+                    <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m10!1m8!1m3!1d2815791.7756924047!2d-85.49772068669144!3d12.920590005233452!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ses-419!2sni!4v1475524012802" width="100%" height="700" frameborder="0" style="border:0" allowfullscreen></iframe>
                     </div>
                 </div>
-                <input type="submit" value="Consultar" class="btn btn-form" name="Consulta"/>
-            </form>
+                
+            </div>
         </div>
+
+
     </div>
 
 </div>
@@ -148,15 +126,20 @@ $(function() {
     .hola{display: none}
 </style>
 <div class="container">
-    <div class="indicadores">
-        <div class="title-consulta">
-            <h4><i class="fa fa-bars" aria-hidden="true"></i> Indicadores</h4>
+    <div class="title-consulta">
+        <h5>Guía Cacao</h5>
+    </div>
+    <div class="filtro">
+        
+        <div class="panel panel-default panel-consulta">
+            <div class="panel-heading">
+                Indicadores
+            </div>
+            <div class="panel-body">
+                 {% include "guiascacao/menu_salidas2.html" %}
+            </div>
         </div>
-        <div class="enlaces">
-            
-                {% include "guiascacao/menu_salidas2.html" %}
-           
-        </div>
+        
     </div>
 </div>
 {% endif %}
