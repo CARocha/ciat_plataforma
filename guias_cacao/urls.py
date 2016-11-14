@@ -75,4 +75,5 @@ urlpatterns = patterns('guias_cacao.views',
     url(r'^vivero/analisis/$', 'analisis_vivero', name='analisis-vivero'),
 
     url(r'^api/productor/$', 'get_productor', name='productor-cacao'),
+    url(r'^mapacacao/$', 'obtener_lista_mapa_cacao', name='obtener-lista-mapa-cacao'),
 )

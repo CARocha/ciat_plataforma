@@ -17,6 +17,13 @@ class FichaSombra(models.Model):
         related_name='persona_tecnico')
     fecha_visita = models.DateField()
 
+    #campos ocultos para querys
+    year = models.IntegerField(editable=False, null=True, blank=True)
+
+    def save(self):
+        self.year = self.fecha_visita.year
+        super(FichaSombra, self).save()
+
     def __unicode__(self):
         return self.productor.nombre
 
@@ -308,6 +315,13 @@ class FichaPoda(models.Model):
         verbose_name='Nombre de técnico',
         related_name='settecnico')
     fecha_visita = models.DateField()
+
+    #campos ocultos para querys
+    year = models.IntegerField(editable=False, null=True, blank=True)
+
+    def save(self):
+        self.year = self.fecha_visita.year
+        super(FichaPoda, self).save()
 
     def __unicode__(self):
         return self.productor.nombre
@@ -608,6 +622,13 @@ class FichaPlaga(models.Model):
             verbose_name='Nombre de técnico',
             related_name='persona_tecnico_plaga')
     fecha_visita = models.DateField()
+
+    #campos ocultos para querys
+    year = models.IntegerField(editable=False, null=True, blank=True)
+
+    def save(self):
+        self.year = self.fecha_visita.year
+        super(FichaPlaga, self).save()
 
     def __unicode__(self):
         return self.productor.nombre
@@ -1317,6 +1338,13 @@ class FichaPiso(models.Model):
             related_name='persona_tecnico_piso')
     fecha_visita = models.DateField()
 
+    #campos ocultos para querys
+    year = models.IntegerField(editable=False, null=True, blank=True)
+
+    def save(self):
+        self.year = self.fecha_visita.year
+        super(FichaPiso, self).save()
+
     def __unicode__(self):
         return self.productor.nombre
 
@@ -1552,6 +1580,13 @@ class FichaSuelo(models.Model):
             verbose_name='Nombre de técnico',
             related_name='persona_tecnico_suelo')
     fecha_visita = models.DateField()
+
+    #campos ocultos para querys
+    year = models.IntegerField(editable=False, null=True, blank=True)
+
+    def save(self):
+        self.year = self.fecha_visita.year
+        super(FichaSuelo, self).save()
 
     def __unicode__(self):
         return self.productor.nombre
@@ -2064,6 +2099,13 @@ class FichaVivero(models.Model):
             related_name='persona_tecnico_vivero')
     fecha_visita = models.DateField()
 
+    #campos ocultos para querys
+    year = models.IntegerField(editable=False, null=True, blank=True)
+
+    def save(self):
+        self.year = self.fecha_visita.year
+        super(FichaVivero, self).save()
+
     def __unicode__(self):
         return self.productor.nombre
 
@@ -2379,6 +2421,13 @@ class FichaCosecha(models.Model):
         verbose_name='Nombre de técnico',
         related_name='persona_tecnico_cosecha')
     fecha_visita = models.DateField()
+
+    #campos ocultos para querys
+    year = models.IntegerField(editable=False, null=True, blank=True)
+
+    def save(self):
+        self.year = self.fecha_visita.year
+        super(FichaCosecha, self).save()
 
     def __unicode__(self):
         return self.productor.nombre
@@ -2738,6 +2787,13 @@ class FichaSaf(models.Model):
         verbose_name='Nombre de técnico',
         related_name='persona_tecnico_saf')
     fecha_visita = models.DateField()
+
+    #campos ocultos para querys
+    year = models.IntegerField(editable=False, null=True, blank=True)
+
+    def save(self):
+        self.year = self.fecha_visita.year
+        super(FichaSaf, self).save()
 
     def __unicode__(self):
         return self.productor.nombre
@@ -3188,6 +3244,13 @@ class FichaCierre(models.Model):
         verbose_name='Nombre de técnico',
         related_name='persona_tecnico_cierre')
     fecha_visita = models.DateField()
+
+    #campos ocultos para querys
+    year = models.IntegerField(editable=False, null=True, blank=True)
+
+    def save(self):
+        self.year = self.fecha_visita.year
+        super(FichaCierre, self).save()
 
     def __unicode__(self):
         return self.productor.nombre

@@ -134,7 +134,7 @@ CHOICE_TIPOLOGIA1 = (('', '-------------------'),
                 )
 
 class ConsultaSombraForm(forms.Form):
-    fecha = forms.ChoiceField(choices=fecha_choice(), label="Años", required=True)
+    fecha = forms.MultipleChoiceField(choices=fecha_choice(), label="Años", required=False)
     productor = forms.CharField(max_length=250, required=False)
     organizacion = forms.ModelChoiceField(queryset=Organizaciones.objects.all(), required=False)
     pais = forms.ModelChoiceField(queryset=Pais.objects.all(), required=False)

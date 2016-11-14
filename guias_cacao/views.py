@@ -16,7 +16,7 @@ def _queryset_filtrado_sombra(request):
     params = {}
 
     if 'fecha' in request.session:
-        params['fecha_visita__year'] = request.session['fecha']
+        params['year__in'] = request.session['fecha']
 
     if 'productor' in request.session:
         params['productor__nombre'] = request.session['productor']
@@ -52,6 +52,67 @@ def _queryset_filtrado_sombra(request):
 
     return FichaSombra.objects.filter(**params)
 
+
+def obtener_lista_mapa_cacao(request):
+    if request.is_ajax():
+        lista = []
+        for objeto in FichaSombra.objects.all():
+            dicc = dict(nombre=objeto.productor.nombre, id=objeto.id,
+                        lon=float(objeto.productor.comunidad.municipio.longitud) ,
+                        lat=float(objeto.productor.comunidad.municipio.latitud)
+                        )
+            lista.append(dicc)
+        for objeto in FichaSaf.objects.all():
+            dicc = dict(nombre=objeto.productor.nombre, id=objeto.id,
+                        lon=float(objeto.productor.comunidad.municipio.longitud) ,
+                        lat=float(objeto.productor.comunidad.municipio.latitud)
+                        )
+            lista.append(dicc)
+        for objeto in FichaPlaga.objects.all():
+            dicc = dict(nombre=objeto.productor.nombre, id=objeto.id,
+                        lon=float(objeto.productor.comunidad.municipio.longitud) ,
+                        lat=float(objeto.productor.comunidad.municipio.latitud)
+                        )
+            lista.append(dicc)
+        for objeto in FichaSuelo.objects.all():
+            dicc = dict(nombre=objeto.productor.nombre, id=objeto.id,
+                        lon=float(objeto.productor.comunidad.municipio.longitud) ,
+                        lat=float(objeto.productor.comunidad.municipio.latitud)
+                        )
+            lista.append(dicc)
+        for objeto in FichaVivero.objects.all():
+            dicc = dict(nombre=objeto.productor.nombre, id=objeto.id,
+                        lon=float(objeto.productor.comunidad.municipio.longitud) ,
+                        lat=float(objeto.productor.comunidad.municipio.latitud)
+                        )
+            lista.append(dicc)
+        for objeto in FichaCierre.objects.all():
+            dicc = dict(nombre=objeto.productor.nombre, id=objeto.id,
+                        lon=float(objeto.productor.comunidad.municipio.longitud) ,
+                        lat=float(objeto.productor.comunidad.municipio.latitud)
+                        )
+            lista.append(dicc)
+        for objeto in FichaPiso.objects.all():
+            dicc = dict(nombre=objeto.productor.nombre, id=objeto.id,
+                        lon=float(objeto.productor.comunidad.municipio.longitud) ,
+                        lat=float(objeto.productor.comunidad.municipio.latitud)
+                        )
+            lista.append(dicc)
+        for objeto in FichaCosecha.objects.all():
+            dicc = dict(nombre=objeto.productor.nombre, id=objeto.id,
+                        lon=float(objeto.productor.comunidad.municipio.longitud) ,
+                        lat=float(objeto.productor.comunidad.municipio.latitud)
+                        )
+            lista.append(dicc)
+        for objeto in FichaPoda.objects.all():
+            dicc = dict(nombre=objeto.productor.nombre, id=objeto.id,
+                        lon=float(objeto.productor.comunidad.municipio.longitud) ,
+                        lat=float(objeto.productor.comunidad.municipio.latitud)
+                        )
+            lista.append(dicc)
+
+        serializado = simplejson.dumps(lista)
+        return HttpResponse(serializado, mimetype='application/json')
 
 
 def index_ficha_sombra(request, template='guiascacao/index.html'):
