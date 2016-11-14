@@ -687,7 +687,7 @@ def _queryset_filtrado_poda(request):
     params = {}
 
     if 'fecha' in request.session:
-        params['fecha_visita__year'] = request.session['fecha']
+        params['year__in'] = request.session['fecha']
 
     if 'productor' in request.session:
         params['productor__nombre'] = request.session['productor']
@@ -720,8 +720,6 @@ def _queryset_filtrado_poda(request):
 
     for key in unvalid_keys:
     	del params[key]
-
-    print 'poda hermano'
 
     return FichaPoda.objects.filter(**params)
 #----------------- salidas de poda -------------------------
@@ -1057,7 +1055,7 @@ def _queryset_filtrado_plaga(request):
     params = {}
 
     if 'fecha' in request.session:
-        params['fecha_visita__year'] = request.session['fecha']
+        params['year__in'] = request.session['fecha']
 
     if 'productor' in request.session:
         params['productor__nombre'] = request.session['productor']
@@ -1090,8 +1088,6 @@ def _queryset_filtrado_plaga(request):
 
     for key in unvalid_keys:
         del params[key]
-
-    print 'plaga hermano'
 
     return FichaPlaga.objects.filter(**params)
 #----------------- salidas de plaga -------------------------
@@ -1425,7 +1421,7 @@ def _queryset_filtrado_piso(request):
     params = {}
 
     if 'fecha' in request.session:
-        params['fecha_visita__year'] = request.session['fecha']
+        params['year__in'] = request.session['fecha']
 
     if 'productor' in request.session:
         params['productor__nombre'] = request.session['productor']
@@ -1458,8 +1454,6 @@ def _queryset_filtrado_piso(request):
 
     for key in unvalid_keys:
         del params[key]
-
-    print 'Piso hermano'
 
     return FichaPiso.objects.filter(**params)
 #----------  SALIDAS DE PISO --------------------------
@@ -1628,7 +1622,7 @@ def _queryset_filtrado_cosecha(request):
     params = {}
 
     if 'fecha' in request.session:
-        params['fecha_visita__year'] = request.session['fecha']
+        params['year__in'] = request.session['fecha']
 
     if 'productor' in request.session:
         params['productor__nombre'] = request.session['productor']
@@ -1661,8 +1655,6 @@ def _queryset_filtrado_cosecha(request):
 
     for key in unvalid_keys:
         del params[key]
-
-    print 'Cosecha hermano'
 
     return FichaCosecha.objects.filter(**params)
 #----------  SALIDAS DE COSECHA --------------------------
@@ -1810,7 +1802,7 @@ def _queryset_filtrado_cierre(request):
     params = {}
 
     if 'fecha' in request.session:
-        params['fecha_visita__year'] = request.session['fecha']
+        params['year__in'] = request.session['fecha']
 
     if 'productor' in request.session:
         params['productor__nombre'] = request.session['productor']
@@ -1843,8 +1835,6 @@ def _queryset_filtrado_cierre(request):
 
     for key in unvalid_keys:
         del params[key]
-
-    print 'Cierre hermano'
 
     return FichaCierre.objects.filter(**params)
 
@@ -2257,7 +2247,7 @@ def _queryset_filtrado_saf(request):
     params = {}
 
     if 'fecha' in request.session:
-        params['fecha_visita__year'] = request.session['fecha']
+        params['year__in'] = request.session['fecha']
 
     if 'productor' in request.session:
         params['productor__nombre'] = request.session['productor']
@@ -2546,7 +2536,7 @@ def _queryset_filtrado_vivero(request):
     params = {}
 
     if 'fecha' in request.session:
-        params['fecha_visita__year'] = request.session['fecha']
+        params['year__in'] = request.session['fecha']
 
     if 'productor' in request.session:
         params['productor__nombre'] = request.session['productor']
