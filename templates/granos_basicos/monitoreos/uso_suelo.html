@@ -42,7 +42,7 @@
                 <tr>
                   <td>{{k}}</td>
                   {%for x in v %}
-                  <td>{{x|default:"0"}}</td>
+                  <td>{% if forloop.counter == 1 %}{{x|default:"0"}}{% else %}{{x|default:"0"|floatformat:"2"}}{% endif %}</td>
                   {%endfor%}
                 </tr>
                 {%endfor%}
@@ -95,16 +95,16 @@
                       <b>Promedio:</b> {{promedio_area|floatformat:2}}
                   </li>
                   <li class="list-group-item">
-                      <b>Mediana: </b>{{mediana_area}}
+                      <b>Mediana: </b>{{mediana_area|floatformat:"2"}}
                   </li>
                   <li class="list-group-item">
                       <b>Desviación estandar:</b> {{desviacion_area|floatformat:2}}
                   </li>
                   <li class="list-group-item">
-                      <b>Rango mínimo:</b> {{minimo_area}}
+                      <b>Rango mínimo:</b> {{minimo_area|floatformat:"2"}}
                   </li>
                   <li class="list-group-item">
-                      <b>Rango máximo:</b> {{maximo_area}}
+                      <b>Rango máximo:</b> {{maximo_area|floatformat:"2"}}
                   </li>
               </ul>
           </div>

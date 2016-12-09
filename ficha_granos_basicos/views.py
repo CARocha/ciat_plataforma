@@ -241,8 +241,7 @@ def caracteristicas_parcela(request,template="granos_basicos/monitoreos/caracter
 
 	#edad parcela y profundidad capa arable
 	parcela = filtro.values_list('edad_parcela','profundidad_capa')
-	for obj in parcela:
-		lista_parcela.append(parcela)
+	lista_parcela.append(parcela)
 
 	#edad de las parcelas
 	menor_5 = filtro.filter(edad_parcela__range = (0,5)).count()
@@ -335,6 +334,7 @@ def uso_suelo(request,template="granos_basicos/monitoreos/uso_suelo.html"):
 		except:
 			promedio = 0
 
+		#diccionario de datos
 		uso_suelo[obj[1]] = (familias,mz,porcentaje,promedio)
 
 	#tabla 2
