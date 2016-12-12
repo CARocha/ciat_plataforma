@@ -227,7 +227,12 @@ def georeferencia(request,template="granos_basicos/monitoreos/georeferencia.html
 	filtro = _queryset_filtrado(request)
 	productores = filtro.distinct('productor').count()
 
-	mapa = filtro.values('nombre_parcela','latitud','longitud')
+	lista_mapa = filtro.values('nombre_parcela','latitud','longitud')
+
+	mapa = []
+	for obj in lista_mapa:
+		if obj['latitud'] != None and obj['longitud'] != None:
+			mapa.append((obj['nombre_parcela'],obj['latitud'],obj['longitud']))
 
 	return render(request, template, locals())
 
@@ -240,8 +245,10 @@ def caracteristicas_parcela(request,template="granos_basicos/monitoreos/caracter
 	lista_plano = []
 
 	#edad parcela y profundidad capa arable
-	parcela = filtro.values_list('edad_parcela','profundidad_capa')
-	lista_parcela.append(parcela)
+	parcela = filtro.values('edad_parcela','profundidad_capa')
+	for obj in parcela:
+		if obj['edad_parcela'] != None and obj['profundidad_capa'] != None:
+			lista_parcela.append((obj['edad_parcela'],obj['profundidad_capa']))
 
 	#edad de las parcelas
 	menor_5 = filtro.filter(edad_parcela__range = (0,5)).count()

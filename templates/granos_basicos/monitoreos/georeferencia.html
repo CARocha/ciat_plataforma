@@ -43,9 +43,7 @@ $( "#monitoreo" ).addClass( "in" );
 
 var locations = [
     {% for obj in mapa %}
-      {% if obj.latitud != 'None' or obj.longitud != 'None' %}
-        ['{{obj.nombre_parcela}}', {{obj.latitud}}, {{obj.longitud}}],
-      {% endif %}
+      ['{{obj.0}}', {{obj.1}}, {{obj.2}}],
     {% endfor %}
     ];
 
