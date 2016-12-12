@@ -365,11 +365,15 @@ def uso_suelo(request,template="granos_basicos/monitoreos/uso_suelo.html"):
 
 	#promedio area de siembra
 	area_siembra = filtro.values_list('datosmonitoreo__area_siembra',flat = True)
-	promedio_area = np.mean(area_siembra)
-	desviacion_area = np.std(area_siembra)
-	mediana_area = np.median(area_siembra)
-	minimo_area = min(area_siembra)
-	maximo_area = max(area_siembra)
+	lista = []
+	for obj in area_siembra:
+		if obj != None:
+			lista.append(obj)
+	promedio_area = np.mean(lista)
+	desviacion_area = np.std(lista)
+	mediana_area = np.median(lista)
+	minimo_area = min(lista)
+	maximo_area = max(lista)
 
 	return render(request, template, locals())
 

@@ -122,7 +122,11 @@ $(function () {
         series: [{
             name: 'parcela',
             color: 'rgba(223, 83, 83, .5)',
-            data: [{% for value in lista_parcela %}{% for x in value %}[{{x.0}},{{x.1}}],{% endfor %}{% endfor %}]
+            data: [{% for value in lista_parcela %}
+                    {% for x in value %}
+                      [{% if x.0 == 'None' %}0{% else %}{{x.0}}{% endif %},{% if x.0 == 'None' %}0{% else %}{{x.1}}{% endif %}],
+                    {% endfor %}
+                  {% endfor %}]
 
         }]
     });
