@@ -1480,9 +1480,10 @@ def estado_piso2(request, template="guiascacao/piso/estado_manejo_piso.html"):
 
     tabla_manejo_piso = OrderedDict()
     for obj in CHOICE_PISO3:
-        conteo = filtro.filter(pisopunto3__manejo=obj[0], pisopunto3__realiza=1).count()
-        arreglo_manejo = filtro.filter(pisopunto3__manejo=obj[0], pisopunto3__realiza=1).values_list('pisopunto3__veces', flat=True)
-        tabla_manejo_piso[obj[1]] = (conteo,np.mean(arreglo_manejo),
+        generico = filtro.filter(pisopunto3__manejo=obj[0], pisopunto3__realiza=1)
+        if generico.count() >=1:
+            arreglo_manejo = generico.values_list('pisopunto3__veces', flat=True)
+            tabla_manejo_piso[obj[1]] = (generico.count(),np.mean(arreglo_manejo),
                                                           np.std(arreglo_manejo),np.median(arreglo_manejo),
                                                           min(arreglo_manejo),max(arreglo_manejo))
 
