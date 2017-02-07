@@ -1694,9 +1694,18 @@ def conversacion_cosecha(request, template="guiascacao/cosecha/conversaciones_co
         lista = CosechaConversacion2.objects.filter(ficha=obj).values_list('conversacion6', flat=True)
         list_conversacion6.append(list(lista))
 
-    promedio = np.mean(list(list_conversacion6))
-    desviacion_estandar = np.std(list(list_conversacion6))
-    mediano = np.median(list(list_conversacion6))
+    try:
+        promedio = np.mean(list(list_conversacion6))
+    except:
+        pass
+    try:
+        desviacion_estandar = np.std(list(list_conversacion6))
+    except:
+        pass
+    try:
+        mediano = np.median(list(list_conversacion6))
+    except:
+        pass
     minimo = min(list(list_conversacion6))
     maximo = max(list(list_conversacion6))
 
