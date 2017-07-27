@@ -8,7 +8,7 @@ django-multiselectfield==0.1.3
 django-nested-inline==0.3.4
 django-rosetta==0.7.4
 django-selectable==0.9.0
-django-smart-selects==1.0.9
+django-smart-selects==1.2.9
 django-suit==0.2.12
 django-tagging==0.3.4
 django-tagging-autocomplete==0.4.2

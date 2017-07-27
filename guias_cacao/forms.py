@@ -143,3 +143,9 @@ class ConsultaSombraForm(forms.Form):
     comunidad = forms.ModelChoiceField(queryset=Comunidad.objects.all(), required=False)
     sexo = forms.ChoiceField(choices=CHOICE_SEXO1, required=False)
     tipologia = forms.ChoiceField(choices=CHOICE_TIPOLOGIA1, required=False)
+
+
+class FormularioColabora(forms.Form):
+    nombre = forms.CharField(max_length=250,required=True)
+    correo = forms.EmailField(required=True)
+    asunto = forms.CharField(required=True,widget=forms.Textarea)

@@ -76,4 +76,5 @@ urlpatterns = patterns('guias_cacao.views',
 
     url(r'^api/productor/$', 'get_productor', name='productor-cacao'),
     url(r'^mapacacao/$', 'obtener_lista_mapa_cacao', name='obtener-lista-mapa-cacao'),
+    url(r'^colabore/$', 'contact', name='contactar-cacao'),
 )

@@ -1,7 +1,7 @@
 # -*- coding: UTF-8 -*-
 from django.shortcuts import render
 from django.http import HttpResponse
-from .forms import ConsultaSombraForm
+from .forms import ConsultaSombraForm, FormularioColabora
 from .models import *
 from mapeo.models import Persona
 import json as simplejson
@@ -2744,6 +2744,11 @@ def analisis_vivero(request, template='guiascacao/vivero/analisis.html'):
         grafo_acciones[obj[1]] = conteo
 
     return render(request, template, locals())
+
+def contact(request):
+    form_class = FormularioColabora
+
+    return render(request, 'guiascacao/colabora.html', {'form': form_class,})
 
 #----------  funciones utilitarias --------------------------
 
