@@ -1,5 +1,5 @@
 # -*- coding: UTF-8 -*-
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .forms import ConsultaSombraForm, FormularioColabora
 from .models import *
@@ -10,6 +10,11 @@ from django.db.models import Avg, Sum, F
 import numpy as np
 from collections import OrderedDict, Counter
 from django.db.models import Q
+from django.core.mail import EmailMessage
+from django.template import Context
+from django.template.loader import get_template
+from django.contrib import messages
+
 # Create your views here.
 
 def _queryset_filtrado_sombra(request):
@@ -44,11 +49,11 @@ def _queryset_filtrado_sombra(request):
 
     unvalid_keys = []
     for key in params:
-    	if not params[key]:
-    		unvalid_keys.append(key)
+        if not params[key]:
+            unvalid_keys.append(key)
 
     for key in unvalid_keys:
-    	del params[key]
+        del params[key]
 
     return FichaSombra.objects.filter(**params)
 
@@ -715,11 +720,11 @@ def _queryset_filtrado_poda(request):
 
     unvalid_keys = []
     for key in params:
-    	if not params[key]:
-    		unvalid_keys.append(key)
+        if not params[key]:
+            unvalid_keys.append(key)
 
     for key in unvalid_keys:
-    	del params[key]
+        del params[key]
 
     return FichaPoda.objects.filter(**params)
 #----------------- salidas de poda -------------------------
@@ -2755,8 +2760,36 @@ def analisis_vivero(request, template='guiascacao/vivero/analisis.html'):
 
     return render(request, template, locals())
 
+
 def contact(request):
     form_class = FormularioColabora
+    if request.method == 'POST':
+        form = form_class(data=request.POST)
+
+        if form.is_valid():
+            nombre = request.POST.get('nombre', '')
+            correo = request.POST.get('correo', '')
+            asunto = request.POST.get('asunto', '')
+
+            template = get_template('guiascacao/contact_template.txt')
+            context = Context({
+                'nombre': nombre,
+                'correo': correo,
+                'asunto': asunto,
+            })
+            content = template.render(context)
+
+            email = EmailMessage(
+                "Nuevo mensaje de colabora en cacao",
+                content,
+                "alianza-cac" +'',
+                ['fguharay@gmail.com'],
+                headers = {'Reply-To': correo }
+            )
+            email.send()
+            messages.success(request, 'El mensaje fue enviado, gracias, nos pondremos en contacto con usted.')
+            return redirect('contactar-cacao')
+
 
     return render(request, 'guiascacao/colabora.html', {'form': form_class,})
 
