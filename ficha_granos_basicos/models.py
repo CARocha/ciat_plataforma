@@ -490,11 +490,21 @@ class VigorFrijol(models.Model):
 
     def save(self, *args, **kwargs):
         poblacion = self.est1 + self.est2 + self.est3 + self.est4 + self.est5
-        promedio = poblacion / float(5)
+        try:
+            promedio = poblacion / float(5)
+        except:
+            promedio = 0
+
         self.promedio = promedio
-        estimado_plantas = (poblacion / float(20)) * promedio
+        try:
+            estimado_plantas = (poblacion / float(20)) * promedio
+        except:
+            estimado_plantas = 0
         self.estimado_plantas = estimado_plantas
-        self.porcentaje = (estimado_plantas / poblacion) * float(100)
+        try:
+            self.porcentaje = (estimado_plantas / poblacion) * float(100)
+        except:
+            self.porcentaje = 0
         super(VigorFrijol, self).save(*args, **kwargs)
 
 class VigorMaiz(models.Model):
@@ -515,11 +525,24 @@ class VigorMaiz(models.Model):
 
     def save(self, *args, **kwargs):
         poblacion = self.est1 + self.est2 + self.est3 + self.est4 + self.est5
-        promedio = poblacion / float(5)
+        try:
+            promedio = poblacion / float(5)
+        except:
+            promedio = 0
+
         self.promedio = promedio
-        estimado_plantas = (poblacion / float(20)) * promedio
+        try:
+            estimado_plantas = (poblacion / float(20)) * promedio
+        except:
+            estimado_plantas = 0
+
         self.estimado_plantas = estimado_plantas
-        self.porcentaje = (estimado_plantas / poblacion) * float(100)
+
+        try:
+            self.porcentaje = (estimado_plantas / poblacion) * float(100)
+        except:
+            self.porcentaje = 0
+
         super(VigorMaiz, self).save(*args, **kwargs)
 #fin Vigor --------------------
 

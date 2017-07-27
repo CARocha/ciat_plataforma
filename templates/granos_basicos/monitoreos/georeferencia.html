@@ -42,7 +42,9 @@
 $( "#monitoreo" ).addClass( "in" );
 
 var locations = [
-    {% for obj in mapa %}['{{obj.nombre_parcela}}', {{obj.latitud}}, {{obj.longitud}}],{% endfor %}
+    {% for obj in mapa %}
+      ['{{obj.0}}', {{obj.1}}, {{obj.2}}],
+    {% endfor %}
     ];
 
     var map = new google.maps.Map(document.getElementById('map'), {

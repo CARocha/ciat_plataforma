@@ -227,7 +227,12 @@ def georeferencia(request,template="granos_basicos/monitoreos/georeferencia.html
 	filtro = _queryset_filtrado(request)
 	productores = filtro.distinct('productor').count()
 
-	mapa = filtro.values('nombre_parcela','latitud','longitud')
+	lista_mapa = filtro.values('nombre_parcela','latitud','longitud')
+
+	mapa = []
+	for obj in lista_mapa:
+		if obj['latitud'] != None and obj['longitud'] != None:
+			mapa.append((obj['nombre_parcela'],obj['latitud'],obj['longitud']))
 
 	return render(request, template, locals())
 
@@ -240,9 +245,10 @@ def caracteristicas_parcela(request,template="granos_basicos/monitoreos/caracter
 	lista_plano = []
 
 	#edad parcela y profundidad capa arable
-	parcela = filtro.values_list('edad_parcela','profundidad_capa')
+	parcela = filtro.values('edad_parcela','profundidad_capa')
 	for obj in parcela:
-		lista_parcela.append(parcela)
+		if obj['edad_parcela'] != None and obj['profundidad_capa'] != None:
+			lista_parcela.append((obj['edad_parcela'],obj['profundidad_capa']))
 
 	#edad de las parcelas
 	menor_5 = filtro.filter(edad_parcela__range = (0,5)).count()
@@ -335,6 +341,7 @@ def uso_suelo(request,template="granos_basicos/monitoreos/uso_suelo.html"):
 		except:
 			promedio = 0
 
+		#diccionario de datos
 		uso_suelo[obj[1]] = (familias,mz,porcentaje,promedio)
 
 	#tabla 2
@@ -365,11 +372,15 @@ def uso_suelo(request,template="granos_basicos/monitoreos/uso_suelo.html"):
 
 	#promedio area de siembra
 	area_siembra = filtro.values_list('datosmonitoreo__area_siembra',flat = True)
-	promedio_area = np.mean(area_siembra)
-	desviacion_area = np.std(area_siembra)
-	mediana_area = np.median(area_siembra)
-	minimo_area = min(area_siembra)
-	maximo_area = max(area_siembra)
+	lista = []
+	for obj in area_siembra:
+		if obj != None:
+			lista.append(obj)
+	promedio_area = np.mean(lista)
+	desviacion_area = np.std(lista)
+	mediana_area = np.median(lista)
+	minimo_area = min(lista)
+	maximo_area = max(lista)
 
 	return render(request, template, locals())
 

@@ -1480,9 +1480,10 @@ def estado_piso2(request, template="guiascacao/piso/estado_manejo_piso.html"):
 
     tabla_manejo_piso = OrderedDict()
     for obj in CHOICE_PISO3:
-        conteo = filtro.filter(pisopunto3__manejo=obj[0], pisopunto3__realiza=1).count()
-        arreglo_manejo = filtro.filter(pisopunto3__manejo=obj[0], pisopunto3__realiza=1).values_list('pisopunto3__veces', flat=True)
-        tabla_manejo_piso[obj[1]] = (conteo,np.mean(arreglo_manejo),
+        generico = filtro.filter(pisopunto3__manejo=obj[0], pisopunto3__realiza=1)
+        if generico.count() >=1:
+            arreglo_manejo = generico.values_list('pisopunto3__veces', flat=True)
+            tabla_manejo_piso[obj[1]] = (generico.count(),np.mean(arreglo_manejo),
                                                           np.std(arreglo_manejo),np.median(arreglo_manejo),
                                                           min(arreglo_manejo),max(arreglo_manejo))
 
@@ -1693,9 +1694,18 @@ def conversacion_cosecha(request, template="guiascacao/cosecha/conversaciones_co
         lista = CosechaConversacion2.objects.filter(ficha=obj).values_list('conversacion6', flat=True)
         list_conversacion6.append(list(lista))
 
-    promedio = np.mean(list(list_conversacion6))
-    desviacion_estandar = np.std(list(list_conversacion6))
-    mediano = np.median(list(list_conversacion6))
+    try:
+        promedio = np.mean(list(list_conversacion6))
+    except:
+        pass
+    try:
+        desviacion_estandar = np.std(list(list_conversacion6))
+    except:
+        pass
+    try:
+        mediano = np.median(list(list_conversacion6))
+    except:
+        pass
     minimo = min(list(list_conversacion6))
     maximo = max(list(list_conversacion6))
 

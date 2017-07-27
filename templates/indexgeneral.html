@@ -1,147 +1,179 @@
-{% extends "basegeneral.html" %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="google-site-verification" content="Nqv5ejOOaCpct1XzJ10eOzVHz0dbN0rv4M6i-hmNQec" />
 
-{% block extra_js %}
+	<title>Alianzas Centroamérica - Caribe</title>
+	<link rel="shortcut icon" href="/static/general/img/logo.jpg" />
+	<link rel="stylesheet" href="/static/general/css/indexprincipal.css">
+	<link href="/static/general/font-awesome/css/font-awesome.css" rel="stylesheet" type="text/css">
+	<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="/static/general/css/hover.css">
+	<!-- font-awesome -->
+</head>
+<body>
 
-<script type="text/javascript">
-function mostrardeg315(){document.getElementById('deg315').style.display = 'block';}
-function ocultardeg315(){document.getElementById('deg315').style.display = 'none';}
-function mostrardeg0(){document.getElementById('deg0').style.display = 'block';}
-function ocultardeg0(){document.getElementById('deg0').style.display = 'none';}
-function mostrardeg45(){document.getElementById('deg45').style.display = 'block';}
-function ocultardeg45(){document.getElementById('deg45').style.display = 'none';}
-function mostrardeg270(){document.getElementById('deg270').style.display = 'block';}
-function ocultardeg270(){document.getElementById('deg270').style.display = 'none';}
-function mostrardeg135(){document.getElementById('deg135').style.display = 'block';}
-function ocultardeg135(){document.getElementById('deg135').style.display = 'none';}
-function mostrardeg180(){document.getElementById('deg180').style.display = 'block';}
-function ocultardeg180(){document.getElementById('deg180').style.display = 'none';}
-function mostrardeg225(){document.getElementById('deg225').style.display = 'block';}
-function ocultardeg225(){document.getElementById('deg225').style.display = 'none';}
-function mostrardeg90(){document.getElementById('deg90').style.display = 'block';}
-function ocultardeg90(){document.getElementById('deg90').style.display = 'none';}
-function mostrardegnew(){document.getElementById('degnew').style.display = 'block';}
-function ocultardegnew(){document.getElementById('degnew').style.display = 'none';}
-function mostrardegcentro(){document.getElementById('deg-centro').style.display = 'block';}
-function ocultardegcentro(){document.getElementById('deg-centro').style.display = 'none';}
-</script>
+	<nav class="navbar navbar-portada" role="navigation">
+		<div class="container">
+			<!-- Brand and toggle get grouped for better mobile display -->
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="#"><img src="/static/general/img/logo-white.png" alt=""></a>
+			</div>
+	
+			<!-- Collect the nav links, forms, and other content for toggling -->
+			<div class="collapse navbar-collapse navbar-ex1-collapse">
+				<!-- <ul class="nav navbar-nav navbar-right">
+					<li><a class="fa fa-cog fa-2x" href="#"></a></li>
 
-{% endblock extra_js %}
+				</ul> -->
+			</div><!-- /.navbar-collapse -->
+		</div>
+	</nav>
+	<div class="container-fluid bg-arbol">
+		<div class="row barras">
+			<div class="left">
+				<a href="/biblioteca" class="enlace en-de" id="biblioteca">
+					<p>Biblioteca <br> de documentos</p>
+					<span class="fa fa-book pull-right hvr-grow"></span>
+				</a>
+				<a href="/mapeo" class="enlace en-de" id="mapeo">
+					<p>Mapeo <br> de proyecto</p>
+					<span class="fa fa-map-marker pull-right hvr-grow"></span>
+				</a>
+				<a href="/monitoreo/" class="enlace en-de" id="mujer" >
+					<p>Monitoreo <br>de Mujeres</p>
+					<div class="img-container pull-right hvr-grow">
+						<img class="mujer center-block" src="/static/general/img/mujer.png" alt="">
+					</div>
+				</a>
+				<a href="/monitoreo/linea-base/" class="enlace en-de" id="familias">
+					<p>Monitoreo <br>de familias</p>
+					<div class="img-container pull-right hvr-grow">
+						<img class="familia center-block" src="/static/general/img/familia.png" alt="">
+					</div>
+				</a>
+				<a href="/herramientas"  class="enlace en-de" id="herramientas">
+					<p class="space">Herramientas</p>
+					<div class="img-container pull-right hvr-grow">
+						<img class="familia center-block" src="/static/general/img/Herramientas.png" alt="">
+					</div>
+				</a>
+			</div>
+			<div class="right pull-right">
+				<div class="left">
+					<a href="/comunicacion" class="enlace en-iz" id="comunicacion">
+						<p>Plataforma <br>de comunicación</p>
+						<span class="fa fa-bullhorn pull-left hvr-grow"></span>
+					</a>
+					<a href="/analisis" class="enlace en-iz" id="analisis">
+						<p>Analisis <br>organizacional</p>
+						<span class="fa fa-bar-chart-o pull-left hvr-grow"></span>
+					</a>
+					<a href="/producto" class="enlace en-iz" id="proceso">
+						<p>Productos  <br>y procesos</p>
+						<span class="fa fa-link pull-left hvr-grow"></span>
+					</a>
+					<a href="/mercado/" class="enlace en-iz" id="mercados">
+						<p class="space">Mercados</p>
+						<span class="fa fa-home pull-left hvr-grow"></span>
+					</a>
+					<!--<a class="enlace en-iz"  id="suelo">
 
-{% block contenido %}
-<style>
-	.info a {
-		color: white;
-		font-weight: bold;
-	}
-	.info a:hover {
-		color: rgb(0, 128, 64);
-	}
-footer{
-	position: fixed;
-  	width: 100%;
-  	bottom: 0;
-}
-</style>
-
-<div class="contenido">
-	<div class="row">
-			<div class="info hidden-xs hidden-sm col-md-3 col-lg-3">
-		<h3>Alianzas Centroamérica - Caribe</h3>
-		<p>
-			Las Alianzas Territoriales de Aprendizaje en Centroamérica y el Caribe (CAC) nacen para fortalecer la integración de iniciativas de investigación para el desarrollo en la región. Reuniendo a las organizaciones locales que trabajan en los diferentes territorios, las Alianzas brindan un abordaje inclusivo para mejorar la innovación, promover la intensificación sostenible de la agricultura a pequeña escala y aumentar los ingresos de las familias rurales.
-		<p>
-			En este espacio, las organizaciones socias de las alianzas territoriales comparten sus hallazgos a través de las plataformas dedicadas a <a href="/mapeo/">Mapeo de proyectos</a>, <a href="/biblioteca/">Biblioteca de documentos</a>, <a href="/comunicacion/">Comunicación</a>, <a href="/analisis/">Análisis organizacional</a>, <a href="/producto/">Productos y procesos</a>, <a href="/mercados/">Mercados</a>,  <a href="/monitoreo/linea-base/">Monitoreo de familias</a> y <a href="/monitoreo/">Monitoreo de mujeres</a>. Al compartir la información se inician los procesos para que los resultados de cada una de las organizaciones se conviertan en bienes públicos, a través de la creación del conocimiento colectivo.
-		</p>
+						<p class="space">Suelo y Clima</p>
+						<div class="img-container pull-left hvr-grow">
+							<img class="clima center-block" src="/static/general/img/clima.png" alt="">
+						</div>
+					</a> -->
+				</div>
+			</div>
+		</div>
+		<div class="row verde">
+			<div class="container">
+				<div class="texto">
+					<h6>Alianzas Centroamérica - Caribe</h6>
+					<p>
+						Las Alianzas Territoriales de Aprendizaje en Centroamérica y el Caribe (CAC) nacen para fortalecer la integración de iniciativas de investigación para el desarrollo en la región. Reuniendo a las organizaciones locales que trabajan en los diferentes territorios, las Alianzas brindan un abordaje inclusivo para mejorar la innovación, promover la intensificación sostenible de la agricultura a pequeña escala y aumentar los ingresos de las familias rurales.
+					</p>
+					<p>
+						En este espacio, las organizaciones socias de las alianzas territoriales comparten sus hallazgos a través de las plataformas dedicadas a <a href="/mapeo/">Mapeo de proyectos</a>, <a href="/biblioteca/">Biblioteca de documentos</a>, <a href="/comunicacion/">Comunicación</a>, <a href="/analisis/">Análisis organizacional</a>, <a href="/producto/">Productos y procesos</a>, <a href="/mercados/">Mercados</a>,  <a href="/monitoreo/linea-base/">Monitoreo de familias</a> y <a href="/monitoreo/">Monitoreo de mujeres</a>. Al compartir la información se inician los procesos para que los resultados de cada una de las organizaciones se conviertan en bienes públicos, a través de la creación del conocimiento colectivo.
+					</p>
+				</div>
+			</div>
+		</div>	
+	
 	</div>
 
-	<div class="col-xs-12 col-sm-9 col-md-6 col-lg-6">
-		<div class="circle-container">
-			<a class="deg315" onmouseover="mostrardeg315()" onmouseout="ocultardeg315()" href="/comunicacion" ><i class="fa fa-bullhorn circle hvr-grow"></i></a>
+	<footer class="container-fluid">
+		<div class="row">
+			<div class="col-lg-12">
+				<p class="link-simas">
+	                &copy; 2015 Elaborado y con soporte de <a href="http://simas.org.ni/portafolio/sistemas" target="_blank">SIMAS</a> con el Framework <a href="https://www.djangoproject.com/" target="_blank">Django</a>.
+	            </p>
+			</div>
+		</div>
+	</footer>
 
-			<a class="deg0" onmouseover="mostrardeg0()" onmouseout="ocultardeg0()" href="/analisis"><i class="fa fa-bar-chart-o circle hvr-grow"></i></a>
-
-			<a class="deg45" onmouseover="mostrardeg45()" onmouseout="ocultardeg45()" href="/producto"><i class="fa fa-link circle hvr-grow"></i></a>
-
-			<a class="deg270" onmouseover="mostrardeg270()" onmouseout="ocultardeg270()" href="/mercado/"><i class="fa fa-line-chart circle hvr-grow"></i></a>
-
-			<a class="deg135" onmouseover="mostrardeg135()" onmouseout="ocultardeg135()" href="/monitoreo/linea-base/"><i class="fa fa-area-chart circle hvr-grow"></i></a>
-
-			<a class="deg180" onmouseover="mostrardeg180()" onmouseout="ocultardeg180()" href="/monitoreo"><i class="fa fa-female circle hvr-grow"></i></a>
-
-			<a class="deg225" onmouseover="mostrardeg225()" onmouseout="ocultardeg225()" href="/mapeo"><i class="fa fa-map-marker circle hvr-grow"></i></a>
-
-			<a class="deg90" onmouseover="mostrardeg90()" onmouseout="ocultardeg90()" href="/biblioteca"><i class="fa  fa-leanpub circle hvr-grow"></i></a>
-
-			<a class="degnew" onmouseover="mostrardegnew()" onmouseout="ocultardegnew()" href="/herramientas"><i class="fa fa-wrench circle hvr-grow"></i></a>
-
-			<a class="deg-centro" onmouseover="mostrardegcentro()" onmouseout="ocultardegcentro()" href="#"><i class="fa  fa-dashboard fa-3x circle-2x hvr-grow"></i></a>
-		</div>
-	</div>
-	<div class="mostrar hidden-xs col-sm-3 col-md-2 col-lg-3">
-		<div id="deg315" style="display:none;">
-			<h4>Plataforma de comunicación</h4>
-			<p>
-				Espacio para compartir noticias y eventos, enviar mensajes, promover foros de discusión realizados por todos los miembros de las Alianzas.
-			</p>
-		</div>
-		<div id="deg0" style="display:none;">
-			<h4>Analisis organizacional</h4>
-			<p>
-				Información sobre las organizaciones miembros de las Alianzas Territoriales y sus roles en los territorios como integrantes del sistema local de innovación.
-			</p>
-		</div>
-		<div id="deg45" style="display:none;">
-			<h4>Productos y procesos</h4>
-			<p>
-				Información y avances sobre los productos y procesos de los distintos proyectos y programas implementados a través de las Alianzas Territoriales.
-			</p>
-		</div>
-		<div id="deg270" style="display:none;">
-			<h4>Mercados</h4>
-			<p>
-				Información y datos sobre las distintas formas de acceso a mercados (como los mercados campesinos y entre comunidades), en las cuales están involucradas las Alianzas Territoriales.
-			</p>
-		</div>
-		<div id="deg135" style="display:none;">
-			<h4>Monitoreo de las familias</h4>
-			<p>
-				Información y datos recopilados a través de encuestas sobre el bienestar de las familias productoras en los distintos sitios donde se encuentran presentes las Alianzas de Aprendizaje.
-			</p>
-		</div>
-		<div id="deg180" style="display:none;">
-			<h4>Monitoreo de mujeres</h4>
-			<p>
-				Información y datos recopilados a través de encuestas sobre el acceso y control de recursos por mujeres en zonas rurales donde se encuentran presentes las Alianzas de Aprendizaje.
-			</p>
-		</div>
-		<div id="deg225" style="display:none;">
-			<h4>Mapeo de proyectos</h4>
-			<p>
-				Información y datos recopilados a través de encuestas y entrevistas con las organizaciones, productoras y productores, líderes y lideresas comunitarias, técnicos, investigadores y demás actores presentes en los territorios, y sus roles en la implementación de iniciativas de investigación para el desarrollo.
-			</p>
-		</div>
-		<div id="deg90" style="display:none;">
-			<h4>Biblioteca de documentos</h4>
-			<p>
-				Acceso a bibliotecas virtuales y otros recursos informativos, así como a documentos de proyectos, informes, presentaciones y cuadernos de trabajo.
-			</p>
-		</div>
-		<div id="degnew" style="display:none;">
-			<h4>Herramientas</h4>
-			<p>
-				Las herramientas para mejorar las tomas de decisión en los cultivos de cacao, café y granos básicos.
-				
-			</p>
-		</div>
-		<div id="deg-centro" style="display:none;">
-			<h4>Panel de control</h4>
-			<p>
-				En construcción
-			</p>
-		</div>
-	</div>
-	</div>
-</div>
+	<script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
+	<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
 
 
-{% endblock contenido %}
+	
+	{% block extra_js %}{% endblock extra_js %}
+	<script type="text/javascript">
+		// var txt = $(window).height();
+		// document.body.style.height = txt + "px";
+		$('#biblioteca').mouseover(function() {
+		  $('.texto').html('<h6>Biblioteca de documentos</h6><p>Acceso a bibliotecas virtuales y otros recursos informativos, así como a documentos de proyectos, informes, presentaciones y cuadernos de trabajo.</p>');
+		});
+		$('#mapeo').mouseover(function() {
+		  $('.texto').html('<h6>Mapeo de proyectos</h6><p>Información y datos recopilados a través de encuestas y entrevistas con las organizaciones, productoras y productores, líderes y lideresas comunitarias, técnicos, investigadores y demás actores presentes en los territorios, y sus roles en la implementación de iniciativas de investigación para el desarrollo.</p>');
+		});
+		$('#mujer').mouseover(function() {
+		  $('.texto').html('<h6>Monitoreo de mujeres</h6><p>Información y datos recopilados a través de encuestas sobre el acceso y control de recursos por mujeres en zonas rurales donde se encuentran presentes las Alianzas de Aprendizaje.</p>');
+		});
+		$('#familias').mouseover(function() {
+		  $('.texto').html('<h6>Monitoreo de las familias</h6><p>nformación y datos recopilados a través de encuestas sobre el bienestar de las familias productoras en los distintos sitios donde se encuentran presentes las Alianzas de Aprendizaje.</p>');
+		});
+		$('#herramientas').mouseover(function() {
+		  $('.texto').html('<h6>Herramientas</h6><p>Las herramientas para mejorar las tomas de decisión en los cultivos de cacao, café y granos básicos.</p>');
+		});
+		$('#comunicacion').mouseover(function() {
+		  $('.texto').html('<h6>Plataforma de comunicación</h6><p>Espacio para compartir noticias y eventos, enviar mensajes, promover foros de discusión realizados por todos los miembros de las Alianzas.</p>');
+		});
+		$('#analisis').mouseover(function() {
+		  $('.texto').html('<h6>Analisis organizacional</h6><p>Información sobre las organizaciones miembros de las Alianzas Territoriales y sus roles en los territorios como integrantes del sistema local de innovación.</p>');
+		});
+		$('#proceso').mouseover(function() {
+		  $('.texto').html('<h6>Productos y procesos</h6><p>Información y avances sobre los productos y procesos de los distintos proyectos y programas implementados a través de las Alianzas Territoriales.</p>');
+		});
+		$('#mercados').mouseover(function() {
+		  $('.texto').html('<h6>Mercados</h6><p>Información y datos sobre las distintas formas de acceso a mercados (como los mercados campesinos y entre comunidades), en las cuales están involucradas las Alianzas Territoriales.</p>');
+		});
+		$('#suelo').mouseover(function() {
+		  $('.texto').html('<h6>Productos y procesos</h6><p>Información y avances sobre los productos y procesos de los distintos proyectos y programas implementados a través de las Alianzas Territoriales.</p>');
+		});
+		$('#biblioteca, #mapeo, #mujer, #familias, #herramientas, #comunicacion, #analisis, #proceso, #mercados, #suelo').mouseout(function() {
+		  $('.texto').html('<h6>Alianzas Centroamérica - Caribe</h6><p>Las Alianzas Territoriales de Aprendizaje en Centroamérica y el Caribe (CAC) nacen para fortalecer la integración de iniciativas de investigación para el desarrollo en la región. Reuniendo a las organizaciones locales que trabajan en los diferentes territorios, las Alianzas brindan un abordaje inclusivo para mejorar la innovación, promover la intensificación sostenible de la agricultura a pequeña escala y aumentar los ingresos de las familias rurales.</p><p>En este espacio, las organizaciones socias de las alianzas territoriales comparten sus hallazgos a través de las plataformas dedicadas a <a href="/mapeo/">Mapeo de proyectos</a>, <a href="/biblioteca/">Biblioteca de documentos</a>, <a href="/comunicacion/">Comunicación</a>, <a href="/analisis/">Análisis organizacional</a>, <a href="/producto/">Productos y procesos</a>, <a href="/mercados/">Mercados</a>,  <a href="/monitoreo/linea-base/">Monitoreo de familias</a> y <a href="/monitoreo/">Monitoreo de mujeres</a>. Al compartir la información se inician los procesos para que los resultados de cada una de las organizaciones se conviertan en bienes públicos, a través de la creación del conocimiento colectivo.</p>');
+		});
+	</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
