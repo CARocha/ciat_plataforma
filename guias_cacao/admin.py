@@ -100,6 +100,7 @@ class FichaSombraAdmin(admin.ModelAdmin):
         js = ('monitoreo/js/fichaSombra.js',)
 
 # Register your models here.
+admin.site.register(Ciclos)
 admin.site.register(FichaSombra, FichaSombraAdmin)
 
 #--------------------- admin ficha poda ---------------------------

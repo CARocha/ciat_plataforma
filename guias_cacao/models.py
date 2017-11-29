@@ -6,6 +6,17 @@ from sorl.thumbnail import ImageField
 from multiselectfield import MultiSelectField
 
 # Create your models here.
+class Ciclos(models.Model):
+    ciclo = models.CharField(max_length=250)
+
+    def __unicode__(self):
+        return self.ciclo
+
+    class Meta:
+        verbose_name = "Ciclo"
+        verbose_name_plural = "Ciclos"
+
+
 class FichaSombra(models.Model):
     productor = models.ForeignKey(
         Persona,
@@ -16,6 +27,7 @@ class FichaSombra(models.Model):
         verbose_name='Nombre de técnico',
         related_name='persona_tecnico')
     fecha_visita = models.DateField()
+    ciclo = models.ForeignKey(Ciclos, null=True, blank=True)
 
     #campos ocultos para querys
     year = models.IntegerField(editable=False, null=True, blank=True)
@@ -315,6 +327,7 @@ class FichaPoda(models.Model):
         verbose_name='Nombre de técnico',
         related_name='settecnico')
     fecha_visita = models.DateField()
+    ciclo = models.ForeignKey(Ciclos, null=True, blank=True)
 
     #campos ocultos para querys
     year = models.IntegerField(editable=False, null=True, blank=True)
@@ -622,6 +635,7 @@ class FichaPlaga(models.Model):
             verbose_name='Nombre de técnico',
             related_name='persona_tecnico_plaga')
     fecha_visita = models.DateField()
+    ciclo = models.ForeignKey(Ciclos, null=True, blank=True)
 
     #campos ocultos para querys
     year = models.IntegerField(editable=False, null=True, blank=True)
@@ -1337,6 +1351,7 @@ class FichaPiso(models.Model):
             verbose_name='Nombre de técnico',
             related_name='persona_tecnico_piso')
     fecha_visita = models.DateField()
+    ciclo = models.ForeignKey(Ciclos, null=True, blank=True)
 
     #campos ocultos para querys
     year = models.IntegerField(editable=False, null=True, blank=True)
@@ -1580,6 +1595,7 @@ class FichaSuelo(models.Model):
             verbose_name='Nombre de técnico',
             related_name='persona_tecnico_suelo')
     fecha_visita = models.DateField()
+    ciclo = models.ForeignKey(Ciclos, null=True, blank=True)
 
     #campos ocultos para querys
     year = models.IntegerField(editable=False, null=True, blank=True)
@@ -2098,6 +2114,7 @@ class FichaVivero(models.Model):
             verbose_name='Nombre de técnico',
             related_name='persona_tecnico_vivero')
     fecha_visita = models.DateField()
+    ciclo = models.ForeignKey(Ciclos, null=True, blank=True)
 
     #campos ocultos para querys
     year = models.IntegerField(editable=False, null=True, blank=True)
@@ -2421,6 +2438,7 @@ class FichaCosecha(models.Model):
         verbose_name='Nombre de técnico',
         related_name='persona_tecnico_cosecha')
     fecha_visita = models.DateField()
+    ciclo = models.ForeignKey(Ciclos, null=True, blank=True)
 
     #campos ocultos para querys
     year = models.IntegerField(editable=False, null=True, blank=True)
@@ -2787,6 +2805,7 @@ class FichaSaf(models.Model):
         verbose_name='Nombre de técnico',
         related_name='persona_tecnico_saf')
     fecha_visita = models.DateField()
+    ciclo = models.ForeignKey(Ciclos, null=True, blank=True)
 
     #campos ocultos para querys
     year = models.IntegerField(editable=False, null=True, blank=True)
@@ -3244,6 +3263,7 @@ class FichaCierre(models.Model):
         verbose_name='Nombre de técnico',
         related_name='persona_tecnico_cierre')
     fecha_visita = models.DateField()
+    ciclo = models.ForeignKey(Ciclos, null=True, blank=True)
 
     #campos ocultos para querys
     year = models.IntegerField(editable=False, null=True, blank=True)
