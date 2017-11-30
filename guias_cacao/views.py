@@ -20,8 +20,11 @@ from django.contrib import messages
 def _queryset_filtrado_sombra(request):
     params = {}
 
-    if 'fecha' in request.session:
-        params['year__in'] = request.session['fecha']
+    #if 'fecha' in request.session:
+    #    params['year__in'] = request.session['fecha']
+
+    if 'ciclo' in request.session:
+        params['ciclo__ciclo__in'] = request.session['ciclo']
 
     if 'productor' in request.session:
         params['productor__nombre'] = request.session['productor']
@@ -124,7 +127,8 @@ def index_ficha_sombra(request, template='guiascacao/index.html'):
     if request.method == 'POST':
         form = ConsultaSombraForm(request.POST)
         if form.is_valid():
-            request.session['fecha'] = form.cleaned_data['fecha']
+            #request.session['fecha'] = form.cleaned_data['fecha']
+            request.session['ciclo'] = form.cleaned_data['ciclo']
             request.session['productor'] = form.cleaned_data['productor']
             request.session['organizacion'] = form.cleaned_data['organizacion']
             request.session['pais'] = form.cleaned_data['pais']
@@ -140,9 +144,10 @@ def index_ficha_sombra(request, template='guiascacao/index.html'):
         form = ConsultaSombraForm()
         centinela = 0
 
-        if 'fecha' in request.session:
+        if 'ciclo' in request.session:
             try:
-                del request.session['fecha']
+                #del request.session['fecha']
+                del request.session['ciclo']
                 del request.session['productor']
                 del request.session['organizacion']
                 del request.session['pais']
@@ -368,9 +373,14 @@ def acciones_sombra(request, template="guiascacao/sombra/acciones_sombra.html"):
     for obj in CHOICE_PODA:
         cnt_poda = filtro.filter(reducirsombra__poda=obj[0]).count()
         cnt_elim = filtro.filter(reducirsombra__eliminando=obj[0]).count()
-
-        dict_reducir_poda[obj[1]] = (cnt_poda/float(VAR_REDUCIR)) * 100
-        dict_reducir_eliminando[obj[1]] = (cnt_elim/float(VAR_REDUCIR)) * 100
+        try:
+            dict_reducir_poda[obj[1]] = (float(cnt_poda)/float(VAR_REDUCIR)) * 100
+        except ZeroDivisionError:
+            dict_reducir_poda[obj[1]] = 0
+        try:
+            dict_reducir_eliminando[obj[1]] = (cnt_elim/float(VAR_REDUCIR)) * 100
+        except ZeroDivisionError:
+            dict_reducir_eliminando[obj[1]] = 0
 
     CHOICE_TODO = (
         (1, 'En todo la parcela '),
@@ -379,8 +389,10 @@ def acciones_sombra(request, template="guiascacao/sombra/acciones_sombra.html"):
     dict_todo = {}
     for obj in CHOICE_TODO:
         cnt = filtro.filter(reducirsombra__todo=obj[0]).count()
-
-        dict_todo[obj[1]] = (cnt/float(VAR_REDUCIR)) * 100
+        try:
+            dict_todo[obj[1]] = (cnt/float(VAR_REDUCIR)) * 100
+        except ZeroDivisionError:
+            dict_todo[obj[1]] = 0
 
     dict_aumentar_poda = {}
     dict_aumentar_eliminando = {}
@@ -401,8 +413,10 @@ def acciones_sombra(request, template="guiascacao/sombra/acciones_sombra.html"):
     dict_aumentar_todo = {}
     for obj in CHOICE_TODO:
         cnt = filtro.filter(aumentarsombra__todo=obj[0]).count()
-
-        dict_aumentar_todo[obj[1]] = (cnt/float(VAR_REDUCIR)) * 100
+        try:
+            dict_aumentar_todo[obj[1]] = (cnt/float(VAR_REDUCIR)) * 100
+        except ZeroDivisionError:
+            dict_aumentar_todo[obj[1]] = 0
 
     dict_manejo_herramienta = {}
     dict_manejo_formacion = {}
@@ -693,6 +707,9 @@ def _queryset_filtrado_poda(request):
 
     if 'fecha' in request.session:
         params['year__in'] = request.session['fecha']
+
+    if 'ciclo' in request.session:
+        params['ciclo__ciclo__in'] = request.session['ciclo']
 
     if 'productor' in request.session:
         params['productor__nombre'] = request.session['productor']
@@ -1062,6 +1079,9 @@ def _queryset_filtrado_plaga(request):
     if 'fecha' in request.session:
         params['year__in'] = request.session['fecha']
 
+    if 'ciclo' in request.session:
+        params['ciclo__ciclo__in'] = request.session['ciclo']
+
     if 'productor' in request.session:
         params['productor__nombre'] = request.session['productor']
 
@@ -1120,7 +1140,10 @@ def historial_plaga(request, template="guiascacao/plaga/historial_plaga.html"):
                                    plagasenfermedad__visto=1).count()
         cont_dano = filtro.filter(plagasenfermedad__plagas=obj[0],
                                   plagasenfermedad__dano=1).count()
-        plagas[obj[1]] = [((float(cont_visto)/float(numero_parcelas))*100), ((float(cont_dano)/float(numero_parcelas))*100)]
+        try:
+            plagas[obj[1]] = [((float(cont_visto)/float(numero_parcelas))*100), ((float(cont_dano)/float(numero_parcelas))*100)]
+        except ZeroDivisionError:
+            plagas[obj[1]] = 0
 
     promedio_plagas = OrderedDict()
     for obj in CHOICE_ENFERMEDADES_CACAOTALES:
@@ -1158,7 +1181,10 @@ def acciones_plaga(request, template="guiascacao/plaga/acciones_plaga.html"):
         conteo_si = filtro.filter(accionesenfermedad__plagas_acciones=obj[0],accionesenfermedad__realiza_manejo=1).count()
         avg_veces = filtro.filter(accionesenfermedad__plagas_acciones=obj[0],accionesenfermedad__realiza_manejo=1).aggregate(promedio=Avg('accionesenfermedad__cuantas_veces'))['promedio']
         numeros = filtro.filter(accionesenfermedad__plagas_acciones=obj[0],accionesenfermedad__realiza_manejo=1).values_list('accionesenfermedad__cuantas_veces', flat=True)
-        acciones_plagas[obj[1]] = [conteo_si,(float(conteo_si)/float(numero_parcelas)*100),avg_veces,np.std(numeros)]
+        try:
+            acciones_plagas[obj[1]] = [conteo_si,(float(conteo_si)/float(numero_parcelas)*100),avg_veces,np.std(numeros)]
+        except ZeroDivisionError:
+            acciones_plagas[obj[1]] = 0
 
     grafo_momento = OrderedDict()
     for obj in CHOICE_ACCIONES_ENFERMEDADES:
@@ -1203,7 +1229,10 @@ def acciones_plaga(request, template="guiascacao/plaga/acciones_plaga.html"):
     grafo_fuente = OrderedDict()
     for obj in CHOICE_ORIENTACION:
         conteo = filtro.filter(orientacion__fuentes__contains=obj[0]).count()
-        grafo_fuente[obj[1]] = (float(conteo)/float(numero_parcelas)*100)
+        try:
+            grafo_fuente[obj[1]] = (float(conteo)/float(numero_parcelas)*100)
+        except:
+            grafo_fuente[obj[1]] = 0
 
 
     return render(request, template, locals())
@@ -1261,9 +1290,14 @@ def produccion_rendimiento_plaga(request, template="guiascacao/plaga/produccion_
 
     total_baja = baja1 + baja2 + baja3
 
-    grafo_nivel_produccion['Alta'] = float((total_alta*100))/(float(numero_parcelas)*30)
-    grafo_nivel_produccion['Media'] = float((total_media*100))/(float(numero_parcelas)*30)
-    grafo_nivel_produccion['Baja'] = float((total_baja*100))/(float(numero_parcelas)*30)
+    try:
+        grafo_nivel_produccion['Alta'] = float((total_alta*100))/(float(numero_parcelas)*30)
+        grafo_nivel_produccion['Media'] = float((total_media*100))/(float(numero_parcelas)*30)
+        grafo_nivel_produccion['Baja'] = float((total_baja*100))/(float(numero_parcelas)*30)
+    except ZeroDivisionError:
+        grafo_nivel_produccion['Alta'] = 0
+        grafo_nivel_produccion['Media'] = 0
+        grafo_nivel_produccion['Baja'] = 0
 
     grafo_monilia = generic_indice_produccion(request, 1)
     grafo_mazorca = generic_indice_produccion(request, 2)
@@ -1428,6 +1462,9 @@ def _queryset_filtrado_piso(request):
     if 'fecha' in request.session:
         params['year__in'] = request.session['fecha']
 
+    if 'ciclo' in request.session:
+        params['ciclo__ciclo__in'] = request.session['ciclo']
+
     if 'productor' in request.session:
         params['productor__nombre'] = request.session['productor']
 
@@ -1528,7 +1565,10 @@ def orientacion_composicion_piso(request, template="guiascacao/piso/orientacion_
 
     VAR_TOTAL = 0
     for k,v in tabla_composicion.items():
-        VAR_TOTAL += v
+        try:
+            VAR_TOTAL += v
+        except:
+            VAR_TOTAL = 0
 
     return render(request, template, locals())
 
@@ -1629,6 +1669,9 @@ def _queryset_filtrado_cosecha(request):
 
     if 'fecha' in request.session:
         params['year__in'] = request.session['fecha']
+
+    if 'ciclo' in request.session:
+        params['ciclo__ciclo__in'] = request.session['ciclo']
 
     if 'productor' in request.session:
         params['productor__nombre'] = request.session['productor']
@@ -1818,6 +1861,9 @@ def _queryset_filtrado_cierre(request):
 
     if 'fecha' in request.session:
         params['year__in'] = request.session['fecha']
+
+    if 'ciclo' in request.session:
+        params['ciclo__ciclo__in'] = request.session['ciclo']
 
     if 'productor' in request.session:
         params['productor__nombre'] = request.session['productor']
@@ -2264,6 +2310,9 @@ def _queryset_filtrado_saf(request):
     if 'fecha' in request.session:
         params['year__in'] = request.session['fecha']
 
+    if 'ciclo' in request.session:
+        params['ciclo__ciclo__in'] = request.session['ciclo']
+
     if 'productor' in request.session:
         params['productor__nombre'] = request.session['productor']
 
@@ -2552,6 +2601,9 @@ def _queryset_filtrado_vivero(request):
 
     if 'fecha' in request.session:
         params['year__in'] = request.session['fecha']
+
+    if 'ciclo' in request.session:
+        params['ciclo__ciclo__in'] = request.session['ciclo']
 
     if 'productor' in request.session:
         params['productor__nombre'] = request.session['productor']

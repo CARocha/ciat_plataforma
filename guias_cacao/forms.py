@@ -2,7 +2,7 @@
 from django import forms
 from lookups import ProductorLookup, TecnicoLookup
 import selectable.forms as selectable
-from .models import FichaSombra, FichaPoda, FichaPlaga, FichaPiso, FichaSuelo, FichaVivero, FichaCosecha, FichaSaf, FichaCierre
+from .models import FichaSombra, FichaPoda, FichaPlaga, FichaPiso, FichaSuelo, FichaVivero, FichaCosecha, FichaSaf, FichaCierre, Ciclos
 from mapeo.models import Persona, Organizaciones
 from comunicacion.lugar.models import Pais, Departamento, Municipio, Comunidad
 
@@ -117,6 +117,13 @@ def fecha_choice():
         years.append((en.year,en.year))
     return list(sorted(set(years)))
 
+def ciclo_choice():
+    ciclos = []
+    for en in Ciclos.objects.all():
+        ciclos.append((en.ciclo,en.ciclo))
+    return list(sorted(set(ciclos)))
+
+
 CHOICE_SEXO1 = (
     ('', '-------'),
     (1, 'Hombre'),
@@ -134,7 +141,8 @@ CHOICE_TIPOLOGIA1 = (('', '-------------------'),
                 )
 
 class ConsultaSombraForm(forms.Form):
-    fecha = forms.MultipleChoiceField(choices=fecha_choice(), label="Años", required=False)
+    #fecha = forms.MultipleChoiceField(choices=fecha_choice(), label="Años", required=False)
+    ciclo = forms.MultipleChoiceField(choices=ciclo_choice(), required=False)
     productor = forms.CharField(max_length=250, required=False)
     organizacion = forms.ModelChoiceField(queryset=Organizaciones.objects.all(), required=False)
     pais = forms.ModelChoiceField(queryset=Pais.objects.all(), required=False)

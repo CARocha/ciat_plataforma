@@ -22,7 +22,7 @@ $(function() {
 $("select").addClass("form-control");
 $("#id_productor").addClass("form-control");
 
-$("#id_fecha").multiselect({
+/*$("#id_fecha").multiselect({
     noneSelectedText: 'Seleccione elementos',
     selectedText: '# seleccionados',
     checkAllText: 'Todos',
@@ -34,12 +34,25 @@ $("#id_fecha").multiselect({
         }).get();
 
     }
+});*/
+$("#id_ciclo").multiselect({
+    noneSelectedText: 'Seleccione elementos',
+    selectedText: '# seleccionados',
+    checkAllText: 'Todos',
+    uncheckAllText: 'Quitar seleccion',
+    minWidth: 200,
+    beforeclose: function(event, ui){
+        var selectos = $("#id_ciclo").multiselect("getChecked").map(function(){
+            return this.value;
+        }).get();
+
+    }
 });
 </script>
 <script type="text/javascript">
     var map;
     var markers = [];
-    $(document).ready(function () {     
+    $(document).ready(function () {
         var infowindow = new google.maps.InfoWindow();
         var myLatlng = new google.maps.LatLng(13,-85);
         var myOptions = {
@@ -62,17 +75,17 @@ $("#id_fecha").multiselect({
                         position: latlng,
                         map: map,
                         title: elemento.nombre,
-                        icon: image,                        
+                        icon: image,
                         item: '',
-                        id: elemento.id                        
-                    });                    
-                    markers.push(marker);                    
+                        id: elemento.id
+                    });
+                    markers.push(marker);
                 });
                 var markerCluster = new MarkerClusterer(map, markers);
             });
-                
+
     });
-    
+
 </script>
 
 {% endblock extra_js %}
@@ -81,9 +94,9 @@ $("#id_fecha").multiselect({
 <style>
     .mapa{
     float: left;
-    width: 100%;    
+    width: 100%;
     }
-    .mapa #map_canvas { 
+    .mapa #map_canvas {
         height: 700px;
         width: 100%;
         margin: 0 auto;
@@ -111,12 +124,16 @@ $("#id_fecha").multiselect({
                             {% if request.user.is_authenticated %}
                             <div class="form-group">
                                 <label for="">Nombre del {{form.productor.label}}</label>
-                                {{form.productor}}                        
+                                {{form.productor}}
                             </div>
                             {% endif %}
-                            <div class="form-group">
+                            <!--<div class="form-group">
                                 <label for="">{{form.fecha.label}}</label>
                                 {{form.fecha}}
+                            </div> -->
+                            <div class="form-group">
+                                <label for="">{{form.ciclo.label}}</label>
+                                {{form.ciclo}}
                             </div>
                             <div class="form-group">
                                 <label for="">{{form.organizacion.label}}</label>
@@ -148,8 +165,8 @@ $("#id_fecha").multiselect({
                             </div>
                             <div class="form-group">
                                 <input type="submit" value="Consultar" class="btn btn-form" name="Consulta"/>
-                            </div>                           
-                        </form> 
+                            </div>
+                        </form>
                     </div>
                     <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
                         <div class="mapa">
@@ -157,7 +174,7 @@ $("#id_fecha").multiselect({
                         </div>
                     </div>
                 </div>
-                
+
             </div>
         </div>
 
@@ -174,7 +191,7 @@ $("#id_fecha").multiselect({
         <h5>Guía Cacao</h5>
     </div>
     <div class="filtro">
-        
+
         <div class="panel panel-default panel-consulta">
             <div class="panel-heading">
                 Indicadores
@@ -183,7 +200,7 @@ $("#id_fecha").multiselect({
                  {% include "guiascacao/menu_salidas2.html" %}
             </div>
         </div>
-        
+
     </div>
 </div>
 {% endif %}
