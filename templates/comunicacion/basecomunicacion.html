@@ -30,6 +30,19 @@
       ga('send', 'pageview');
 
     </script>
+<script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async=""></script>
+<script>
+  var OneSignal = window.OneSignal || [];
+  OneSignal.push(function() {
+    OneSignal.init({
+      appId: "a5a61165-ef07-42f9-9955-15fbb4b665f1",
+      autoRegister: false,
+      notifyButton: {
+        enable: true,
+      },
+    });
+  });
+</script>
 
   </head>
 
