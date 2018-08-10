@@ -89,7 +89,7 @@ class FichaSombraAdmin(admin.ModelAdmin):
                       AnalisisSombraInline,AccionesSombraInline,
                       ReducirSombraInline,AumentarSombraInline,
                       ManejoSombraInline]
-    list_display = ('fecha_visita', 'productor', 'tecnico',)
+    list_display = ('fecha_visita', 'productor', 'tecnico','ciclo')
     search_fields = ('productor__nombre',)
     date_hierarchy = 'fecha_visita'
 
@@ -166,7 +166,7 @@ class FichaPodaAdmin(admin.ModelAdmin):
                      Punto2AInline, Punto2BInline, Punto2CInline,
                      Punto3AInline, Punto3BInline, Punto3CInline,
                      AnalisisPodaInline, ManejoPodaInline]
-    list_display = ('fecha_visita', 'productor', 'tecnico',)
+    list_display = ('fecha_visita', 'productor', 'tecnico','ciclo')
     search_fields = ('productor__nombre',)
     date_hierarchy = 'fecha_visita'
 
@@ -256,7 +256,7 @@ class FichaPlagaAdmin(admin.ModelAdmin):
                 ObservacionPunto3Inline,ObservacionPunto3NivelInline,
                 ProblemasPrincipalesInline,Punto6PlagasInline,Punto7PlagasInline,
                 Punto8y9PlagasInline]
-    list_display = ('fecha_visita', 'productor', 'tecnico',)
+    list_display = ('fecha_visita', 'productor', 'tecnico','ciclo')
     search_fields = ('productor__nombre',)
     date_hierarchy = 'fecha_visita'
 
@@ -315,7 +315,7 @@ class FichaPisoAdmin(admin.ModelAdmin):
     form = ProductorPisoAdminForm
     inlines = [PisoPunto1Inline,PisoPunto3Inline,PisoPunto4Inline, PisoPunto5Inline,
                 PisoPunto6Inline,PisoPunto7Inline,PisoPunto8Inline,PisoPunto10Inline]
-    list_display = ('fecha_visita', 'productor', 'tecnico',)
+    list_display = ('fecha_visita', 'productor', 'tecnico','ciclo')
     search_fields = ('productor__nombre',)
     date_hierarchy = 'fecha_visita'
 
@@ -468,7 +468,7 @@ class FichaSueloAdmin(admin.ModelAdmin):
                Punto7TipoSueloInline,Punto8SueloPropuestaInline,Punto9ErosionInline,
                Punto9DrenajeInline,Punto9NutrientesInline,Punto9ExcesoInline,
                Punto9DesbalanceInline,Punto9EnfermedadesInline]
-    list_display = ('fecha_visita', 'productor', 'tecnico',)
+    list_display = ('fecha_visita', 'productor', 'tecnico', 'ciclo')
     search_fields = ('productor__nombre',)
     date_hierarchy = 'fecha_visita'
 
@@ -517,7 +517,7 @@ class FichaViveroAdmin(admin.ModelAdmin):
     form = ProductorViveroAdminForm
     inlines = [VivieroConversacionInline,ViveroConversacion2Inline,VivieroObservacion1Inline,
                     VivieroObservacion2Inline,VivieroObservacionProductosInline,VivieroAnalisisSituacionInline]
-    list_display = ('fecha_visita', 'productor', 'tecnico',)
+    list_display = ('fecha_visita', 'productor', 'tecnico','ciclo')
     search_fields = ('productor__nombre',)
     date_hierarchy = 'fecha_visita'
 
@@ -581,7 +581,7 @@ class FichaCosechaAdmin(admin.ModelAdmin):
     inlines = [CosechaConversacion1Inline,CosechaConversacion2Inline,CosechaMesesFloracionInline,
                     CosechaMesesCosechaInline,CosechaPunto1Inline,CosechaPunto2Inline,CosechaPunto3Inline,
                     CosechaAreaPlantasInline,CosechaAnalisisInline]
-    list_display = ('fecha_visita', 'productor', 'tecnico',)
+    list_display = ('fecha_visita', 'productor', 'tecnico','ciclo')
     search_fields = ('productor__nombre',)
     date_hierarchy = 'fecha_visita'
 
@@ -680,7 +680,7 @@ class FichaSafAdmin(admin.ModelAdmin):
                     SafObservacionPunto1Inline,SafObservacionPunto2Inline,SafObservacionPunto3Inline,
                     SafObservaciones4Inline]
 
-    list_display = ('fecha_visita', 'productor', 'tecnico',)
+    list_display = ('fecha_visita', 'productor', 'tecnico','ciclo')
     search_fields = ('productor__nombre',)
     date_hierarchy = 'fecha_visita'
 
@@ -799,7 +799,7 @@ class FichaCierreAdmin(admin.ModelAdmin):
                     CierreConocimiento3Inline,CierreSuelo1Inline,CierreSuelo2Inline,CierreSuelo3Inline,
                     CierrePlaga1Inline,CierrePlaga2Inline,CierrePlaga3Inline,CierreCicloTrabajoInline]
 
-    list_display = ('fecha_visita', 'productor', 'tecnico',)
+    list_display = ('fecha_visita', 'productor', 'tecnico','ciclo')
     search_fields = ('productor__nombre',)
     date_hierarchy = 'fecha_visita'
 
