@@ -7,7 +7,7 @@
 <script type="text/javascript">
     var map;
     var markers = [];
-    $(document).ready(function () {     
+    $(document).ready(function () {
         var infowindow = new google.maps.InfoWindow();
         var myLatlng = new google.maps.LatLng(13,-85);
         var myOptions = {
@@ -30,17 +30,17 @@
                         position: latlng,
                         map: map,
                         title: elemento.nombre,
-                        icon: image,                        
+                        icon: image,
                         item: '',
-                        id: elemento.id                        
-                    });                    
-                    markers.push(marker);                    
+                        id: elemento.id
+                    });
+                    markers.push(marker);
                 });
                 var markerCluster = new MarkerClusterer(map, markers);
             });
-                
+
     });
-    
+
 </script>
 
 {% endblock %}
@@ -49,9 +49,9 @@
 <style>
     .mapa{
     float: left;
-    width: 508px;    
+    width: 508px;
     }
-    .mapa #map_canvas { 
+    .mapa #map_canvas {
         height: 500px;
         width: 700px;
         margin: 0 auto;
@@ -60,46 +60,46 @@
 </style>
 
 <div class="row no-gutter"><!-- row -->
-                
+
                 <div class="col-lg-8 col-md-8"><!-- doc body wrapper -->
                     <h1 class="title-median">
                         Monitoreo: Entrevistas mujeres
                     </h1>
                     <div class="col-padded"><!-- inner custom column -->
-                    
+
                         <div class="row gutter"><!-- row -->
-                        
+
                             <div class="col-lg-12 col-md-12">
-                            
+
                              <div class="mapa">
                                 <div id="map_canvas"></div>
                             </div>
-                            
+
                             </div>
-                        
-                        </div><!-- row end -->               
-                    
+
+                        </div><!-- row end -->
+
                     </div><!-- inner custom column end -->
-                    
+
                 </div><!-- doc body wrapper end -->
-                
+
                 <div id="k-sidebar" class="col-lg-4 col-md-4"><!-- sidebar wrapper -->
-                    
+
                     <div class="col-padded col-shaded"><!-- inner custom column -->
-                    
+
                         <ul class="list-unstyled clear-margins"><!-- widgets -->
-                        
+
                             <li class="widget-container widget_nav_menu"><!-- widget -->
-                    
+
                                 <h1 class="title-widget">Actualmente</h1>
-                                
-                               
+
+
                                     <div class="monitoreo-data clearfix">
                                         <figure class="data_img">
                                             <img src="/static/monitoreo/img/family.png" class=""/>
                                         </figure>
                                         <div class="data_text">
-                                                
+
                                             <h1 class="title-median">
                                                 <span class="cant">{{familias}} </span>
                                                 Familias
@@ -112,7 +112,7 @@
                                             <img src="/static/monitoreo/img/org.png" class=""/>
                                         </figure>
                                         <div class="data_text">
-                                                
+
                                             <h1 class="title-median">
                                                 <span class="cant">{{organizacion}}</span>
                                                 Organizaciones
@@ -124,7 +124,7 @@
                                             <img src="/static/monitoreo/img/Female.png" class=""/>
                                         </figure>
                                         <div class="data_text">
-                                                
+
                                             <h1 class="title-median">
                                                 <span class="cant">{{mujeres}}</span>
                                                 Mujeres
@@ -137,7 +137,7 @@
                                             <img src="/static/monitoreo/img/Male.png" class=""/>
                                         </figure>
                                         <div class="data_text">
-                                                
+
                                             <h1 class="title-median">
                                                 <span class="cant">{{hombres}}</span>
                                                 Hombres
@@ -147,16 +147,16 @@
                                     </div>
                                     <br>
                                     <a class="btn btn-success center-block" href="{% url 'index' %}">Explorar los datos ahora</a>
-                    
+
                             </li>
-                            
-                            
+
+
                         </ul><!-- widgets end -->
-                    
+
                     </div><!-- inner custom column end -->
-                    
+
                 </div><!-- sidebar wrapper end -->
-            
+
             </div><!-- row end Corta hasta aca-->
 
 <div class="acerca example5">
@@ -170,7 +170,7 @@
             cultura que conciba que los procesos no terminan con las obras y la ejecución.
         <br><br>
         <a class='example5' href="{% url 'ayuda' %}">Continuar leyendo <img src="/static/monitoreo/imagen/seguir.png" class="seguir" alt="seguir"></a>
-    </div>    
+    </div>
 </div>
 
 
