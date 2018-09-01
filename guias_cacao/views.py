@@ -2812,6 +2812,141 @@ def analisis_vivero(request, template='guiascacao/vivero/analisis.html'):
 
     return render(request, template, locals())
 
+#filtro sobre suelo
+def _queryset_filtrado_suelo(request):
+    params = {}
+
+    if 'fecha' in request.session:
+        params['year__in'] = request.session['fecha']
+
+    if 'ciclo' in request.session:
+        params['ciclo__ciclo__in'] = request.session['ciclo']
+
+    if 'productor' in request.session:
+        params['productor__nombre'] = request.session['productor']
+
+    if 'organizacion' in request.session:
+        params['productor__productor__organizacion'] = request.session['organizacion']
+
+    if 'pais' in request.session:
+        params['productor__pais'] = request.session['pais']
+
+    if 'departamento' in request.session:
+        params['productor__departamento'] = request.session['departamento']
+
+    if 'municipio' in request.session:
+        params['productor__municipio'] = request.session['municipio']
+
+    if 'comunidad' in request.session:
+        params['productor__comunidad'] = request.session['comunidad']
+
+    if 'sexo' in request.session:
+        params['productor__sexo'] = request.session['sexo']
+
+    if 'tipologia' in request.session:
+        params['productor__productor__tipologia'] = request.session['tipologia']
+
+    unvalid_keys = []
+    for key in params:
+        if not params[key]:
+            unvalid_keys.append(key)
+
+    for key in unvalid_keys:
+        del params[key]
+
+    return FichaSuelo.objects.filter(**params)
+##salidas de suelo
+
+def historial_limitaciones(request, template='guiascacao/suelo/historialLimitaciones.html'):
+    filtro = _queryset_filtrado_suelo(request)
+    numero_parcelas = filtro.count()
+
+    uso_parcela = OrderedDict()
+    for obj in CHOICE_SUELO_USO_PARCELA:
+        conteo = filtro.filter(punto1suelo__uso_parcela=obj[0]).count()
+        uso_parcela[obj[1]] = conteo
+
+    suelo_limitante = OrderedDict()
+    for obj in CHOICE_SUELO_LIMITANTES:
+        conteo = filtro.filter(punto1suelo__limitante__contains=obj[0]).count()
+        suelo_limitante[obj[1]] = conteo
+
+    suelo_orientacion = OrderedDict()
+    for obj in CHOICE_SUELO_ORIENTACION:
+        conteo = filtro.filter(punto1suelo__orientacion__contains=obj[0]).count()
+        suelo_orientacion[obj[1]] = conteo
+
+    suelo_abonos = OrderedDict()
+    for obj in CHOICE_SUELO_ABONOS:
+        conteo = filtro.filter(punto1suelo__abonos__contains=obj[0]).count()
+        suelo_abonos[obj[1]] = conteo
+
+    return render(request, template, locals())
+
+def suelo_erosion(request, template='guiascacao/suelo/sueloErosion.html'):
+    filtro = _queryset_filtrado_suelo(request)
+    numero_parcelas = filtro.count()
+
+    suelo_erosion_indi = OrderedDict()
+    for obj in CHOICE_SUELO_EROSION_OPCION:
+        suelo_erosion_indi[obj[1]] = OrderedDict()
+        for algo in CHOICE_SUELO_EROSION_RESPUESTA:
+            suelo_erosion_indi[obj[1]][algo[1]] = filtro.filter(puntoasuelo__opcion=obj[0], puntoasuelo__respuesta=algo[0]).count()
+
+    return render(request, template, locals())
+
+def suelo_obras(request, template='guiascacao/suelo/sueloObras.html'):
+    filtro = _queryset_filtrado_suelo(request)
+    numero_parcelas = filtro.count()
+
+    suelo_obras_conservacion = OrderedDict()
+    for obj in CHOICE_SUELO_CONSERVACION_OPCION:
+        suelo_obras_conservacion[obj[1]] = OrderedDict()
+        for algo in CHOICE_SUELO_CONSERVACION_RESPUESTA:
+            suelo_obras_conservacion[obj[1]][algo[1]] = filtro.filter(puntobsuelo__opcion=obj[0], puntobsuelo__respuesta=algo[0]).count()
+
+    return render(request, template, locals())
+
+def suelo_indicador_drenaje(request, template='guiascacao/suelo/sueloIndiDrenaje.html'):
+    filtro = _queryset_filtrado_suelo(request)
+    numero_parcelas = filtro.count()
+
+    suelo_indi_drenaje = OrderedDict()
+    for obj in CHOICE_SUELO_DRENAJE_OPCION:
+        suelo_indi_drenaje[obj[1]] = OrderedDict()
+        for algo in CHOICE_SUELO_EROSION_RESPUESTA:
+            suelo_indi_drenaje[obj[1]][algo[1]] = filtro.filter(punto2asuelo__opcion=obj[0], punto2asuelo__respuesta=algo[0]).count()
+
+    return render(request, template, locals())
+
+def suelo_obras_drenaje(request, template='guiascacao/suelo/sueloObrasDrenaje.html'):
+    filtro = _queryset_filtrado_suelo(request)
+    numero_parcelas = filtro.count()
+
+    suelo_indi_drenaje = OrderedDict()
+    for obj in CHOICE_SUELO_DRENAJE_OPCION2:
+        suelo_indi_drenaje[obj[1]] = OrderedDict()
+        for algo in CHOICE_SUELO_CONSERVACION_RESPUESTA:
+            suelo_indi_drenaje[obj[1]][algo[1]] = filtro.filter(punto2bsuelo__opcion=obj[0], punto2bsuelo__respuesta=algo[0]).count()
+
+    return render(request, template, locals())
+
+def suelo_salud_raices(request, template='guiascacao/suelo/sueloSaludRaices.html'):
+    filtro = _queryset_filtrado_suelo(request)
+    numero_parcelas = filtro.count()
+
+    suelo_indi_drenaje = OrderedDict()
+    for obj in CHOICE_SUELO_OPCION_PUNTOS:
+        suelo_indi_drenaje[obj[1]] = OrderedDict()
+        for algo in CHOICE_SUELO_RESPUESTA_PUNTOS:
+            punto1 = filtro.filter(punto3suelopunto1__opcion=obj[0], punto3suelopunto1__respuesta=algo[0]).count()
+            punto2 = filtro.filter(punto3suelopunto2__opcion=obj[0], punto3suelopunto2__respuesta=algo[0]).count()
+            punto3 = filtro.filter(punto3suelopunto3__opcion=obj[0], punto3suelopunto3__respuesta=algo[0]).count()
+            punto_total = punto1 + punto2 + punto3
+            suelo_indi_drenaje[obj[1]][algo[1]] = punto_total
+
+    return render(request, template, locals())
+
 
 def contact(request):
     form_class = FormularioColabora

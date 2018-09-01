@@ -1,0 +1,107 @@
+{% extends "guiascacao/base.html" %}
+
+{% load tools %}
+
+{% block extra_js %}
+<script type="text/javascript">
+{% for key, values in suelo_indi_drenaje.items %}
+$(function () {
+    // Build the chart
+    $('#grafo{{forloop.counter}}').highcharts({
+        chart: {
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false,
+            type: 'pie'
+        },
+        title: {
+            text: '{{key}}'
+        },
+        tooltip: {
+            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        },
+        plotOptions: {
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                dataLabels: {
+                    enabled: true,
+                    format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                    style: {
+                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                    }
+                }
+            }
+        },
+        series: [{
+            name: 'Opciones',
+            data: [
+                {% for k,v in values.items %}
+                {
+                    name: "{{k}}",
+                    {% if v != None %}
+                      y: {{v|floatformat:2}}
+                    {% else %}
+                      y: 0
+                    {% endif %}
+                },
+                {% endfor %}
+            ]
+        }]
+    });
+});
+{% endfor %}
+</script>
+{% endblock extra_js %}
+
+{% block contenido %}
+
+    <div class="container">
+        <div class="salidas">
+            <div class="row">
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 hidden-xs">
+                    {% include "guiascacao/menu_salidas.html" %}
+                </div>
+                <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
+                    <div class="panel panel-default panel-graficos">
+                        <div class="panel-heading  borde">
+                                <ol class="breadcrumb">
+                                    <li class="active">Suelo</li>
+                                    <li class="active">Historial</li>
+                                    <li class="active">Número de parcelas: {{numero_parcelas}}</li>
+                                </ol>
+
+                        </div>
+                        <div class="panel-body">
+                            <div class="container-fluid">
+                                {% for k,v in suelo_indi_drenaje.items %}
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div id="grafo{{forloop.counter}}" width='100%'></div>
+                                        </div>
+                                    </div>
+                                     <hr>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 hidden-xs">
+                    <div class="panel panel-default  panel-descripcion">
+                        <div class="panel-heading">
+                            Basic panel example
+                        </div>
+                        <div class="panel-body">
+                            <p>
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Provident est nemo, unde, commodi consequatur harum ad sed. Cum, omnis aperiam eveniet eligendi, blanditiis dicta ducimus qui, sequi impedit necessitatibus assumenda.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+{% endblock contenido %}

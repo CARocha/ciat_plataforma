@@ -74,6 +74,14 @@ urlpatterns = patterns('guias_cacao.views',
     url(r'^vivero/observacion/$', 'observacion_vivero', name='observacion-vivero'),
     url(r'^vivero/analisis/$', 'analisis_vivero', name='analisis-vivero'),
 
+    #urls suelo
+    url(r'^suelo/historial/$', 'historial_limitaciones', name='historial-limitantes'),
+    url(r'^suelo/erosion/$', 'suelo_erosion', name='suelo-erosion'),
+    url(r'^suelo/obras/$', 'suelo_obras', name='suelo-obras'),
+    url(r'^suelo/indicador-drenaje/$', 'suelo_indicador_drenaje', name='suelo-indicador-drenaje'),
+    url(r'^suelo/obras-drenaje/$', 'suelo_obras_drenaje', name='suelo-obras-drenaje'),
+    url(r'^suelo/salud-raices/$', 'suelo_salud_raices', name='suelo-salud-raices'),
+
     url(r'^api/productor/$', 'get_productor', name='productor-cacao'),
     url(r'^mapacacao/$', 'obtener_lista_mapa_cacao', name='obtener-lista-mapa-cacao'),
     url(r'^colabore/$', 'contact', name='contactar-cacao'),
