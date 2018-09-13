@@ -1,0 +1,709 @@
+{% extends "guiascacao/base.html" %}
+
+{% load tools %}
+
+{% block extra_js %}
+<script type="text/javascript">
+$(function () {
+$('#grafo1').highcharts({
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: 'Acciones potenciales'
+        },
+        subtitle: {
+            text: ''
+        },
+        xAxis: {
+            type: 'category'
+        },
+        yAxis: {
+            title: {
+                text: 'Frecuencia (conteo)'
+            }
+
+        },
+        legend: {
+            enabled: false
+        },
+        plotOptions: {
+            series: {
+                borderWidth: 0,
+                dataLabels: {
+                    enabled: true,
+                    format: '{point.y:.1f}'
+                }
+            }
+        },
+
+        tooltip: {
+            headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+            pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}</b> of total<br/>'
+        },
+
+        series: [{
+            name: '',
+            colorByPoint: true,
+            data: [
+            {% for k,v in suelo_erosion_acciones.items %}
+                {
+                    name: '{{k}}',
+                    y: {{v|default:0}},
+                },
+            {% endfor %}
+
+            ]
+        }]
+    });
+});
+
+$(function () {
+    // Build the chart
+    $('#grafo2').highcharts({
+        chart: {
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false,
+            type: 'pie'
+        },
+        title: {
+            text: 'Donde'
+        },
+        tooltip: {
+            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        },
+        plotOptions: {
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                dataLabels: {
+                    enabled: true,
+                    format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                    style: {
+                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                    }
+                }
+            }
+        },
+        series: [{
+            name: 'Opciones',
+            data: [
+                {% for k,v in suelo_erosion_donde.items %}
+                {
+                    name: "{{k}}",
+                    {% if v != None %}
+                      y: {{v|floatformat:2}}
+                    {% else %}
+                      y: 0
+                    {% endif %}
+                },
+                {% endfor %}
+            ]
+        }]
+    });
+});
+
+$(function () {
+$('#grafo3').highcharts({
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: 'Acciones potenciales'
+        },
+        subtitle: {
+            text: ''
+        },
+        xAxis: {
+            type: 'category'
+        },
+        yAxis: {
+            title: {
+                text: 'Frecuencia (conteo)'
+            }
+
+        },
+        legend: {
+            enabled: false
+        },
+        plotOptions: {
+            series: {
+                borderWidth: 0,
+                dataLabels: {
+                    enabled: true,
+                    format: '{point.y:.1f}'
+                }
+            }
+        },
+
+        tooltip: {
+            headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+            pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}</b> of total<br/>'
+        },
+
+        series: [{
+            name: '',
+            colorByPoint: true,
+            data: [
+            {% for k,v in suelo_drenaje_acciones.items %}
+                {
+                    name: '{{k}}',
+                    y: {{v|default:0}},
+                },
+            {% endfor %}
+
+            ]
+        }]
+    });
+});
+
+$(function () {
+    // Build the chart
+    $('#grafo4').highcharts({
+        chart: {
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false,
+            type: 'pie'
+        },
+        title: {
+            text: 'Donde'
+        },
+        tooltip: {
+            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        },
+        plotOptions: {
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                dataLabels: {
+                    enabled: true,
+                    format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                    style: {
+                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                    }
+                }
+            }
+        },
+        series: [{
+            name: 'Opciones',
+            data: [
+                {% for k,v in suelo_drenaje_donde.items %}
+                {
+                    name: "{{k}}",
+                    {% if v != None %}
+                      y: {{v|floatformat:2}}
+                    {% else %}
+                      y: 0
+                    {% endif %}
+                },
+                {% endfor %}
+            ]
+        }]
+    });
+});
+
+$(function () {
+$('#grafo5').highcharts({
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: 'Acciones potenciales'
+        },
+        subtitle: {
+            text: ''
+        },
+        xAxis: {
+            type: 'category'
+        },
+        yAxis: {
+            title: {
+                text: 'Frecuencia (conteo)'
+            }
+
+        },
+        legend: {
+            enabled: false
+        },
+        plotOptions: {
+            series: {
+                borderWidth: 0,
+                dataLabels: {
+                    enabled: true,
+                    format: '{point.y:.1f}'
+                }
+            }
+        },
+
+        tooltip: {
+            headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+            pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}</b> of total<br/>'
+        },
+
+        series: [{
+            name: '',
+            colorByPoint: true,
+            data: [
+            {% for k,v in suelo_nutrientes_acciones.items %}
+                {
+                    name: '{{k}}',
+                    y: {{v|default:0}},
+                },
+            {% endfor %}
+
+            ]
+        }]
+    });
+});
+$(function () {
+    // Build the chart
+    $('#grafo6').highcharts({
+        chart: {
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false,
+            type: 'pie'
+        },
+        title: {
+            text: 'Donde'
+        },
+        tooltip: {
+            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        },
+        plotOptions: {
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                dataLabels: {
+                    enabled: true,
+                    format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                    style: {
+                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                    }
+                }
+            }
+        },
+        series: [{
+            name: 'Opciones',
+            data: [
+                {% for k,v in suelo_nutrientes_donde.items %}
+                {
+                    name: "{{k}}",
+                    {% if v != None %}
+                      y: {{v|floatformat:2}}
+                    {% else %}
+                      y: 0
+                    {% endif %}
+                },
+                {% endfor %}
+            ]
+        }]
+    });
+});
+
+$(function () {
+$('#grafo7').highcharts({
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: 'Acciones potenciales'
+        },
+        subtitle: {
+            text: ''
+        },
+        xAxis: {
+            type: 'category'
+        },
+        yAxis: {
+            title: {
+                text: 'Frecuencia (conteo)'
+            }
+
+        },
+        legend: {
+            enabled: false
+        },
+        plotOptions: {
+            series: {
+                borderWidth: 0,
+                dataLabels: {
+                    enabled: true,
+                    format: '{point.y:.1f}'
+                }
+            }
+        },
+
+        tooltip: {
+            headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+            pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}</b> of total<br/>'
+        },
+
+        series: [{
+            name: '',
+            colorByPoint: true,
+            data: [
+            {% for k,v in suelo_exceso_acciones.items %}
+                {
+                    name: '{{k}}',
+                    y: {{v|default:0}},
+                },
+            {% endfor %}
+
+            ]
+        }]
+    });
+});
+$(function () {
+    // Build the chart
+    $('#grafo8').highcharts({
+        chart: {
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false,
+            type: 'pie'
+        },
+        title: {
+            text: 'Donde'
+        },
+        tooltip: {
+            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        },
+        plotOptions: {
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                dataLabels: {
+                    enabled: true,
+                    format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                    style: {
+                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                    }
+                }
+            }
+        },
+        series: [{
+            name: 'Opciones',
+            data: [
+                {% for k,v in suelo_exceso_donde.items %}
+                {
+                    name: "{{k}}",
+                    {% if v != None %}
+                      y: {{v|floatformat:2}}
+                    {% else %}
+                      y: 0
+                    {% endif %}
+                },
+                {% endfor %}
+            ]
+        }]
+    });
+});
+
+$(function () {
+$('#grafo9').highcharts({
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: 'Acciones potenciales'
+        },
+        subtitle: {
+            text: ''
+        },
+        xAxis: {
+            type: 'category'
+        },
+        yAxis: {
+            title: {
+                text: 'Frecuencia (conteo)'
+            }
+
+        },
+        legend: {
+            enabled: false
+        },
+        plotOptions: {
+            series: {
+                borderWidth: 0,
+                dataLabels: {
+                    enabled: true,
+                    format: '{point.y:.1f}'
+                }
+            }
+        },
+
+        tooltip: {
+            headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+            pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}</b> of total<br/>'
+        },
+
+        series: [{
+            name: '',
+            colorByPoint: true,
+            data: [
+            {% for k,v in suelo_desbalance_acciones.items %}
+                {
+                    name: '{{k}}',
+                    y: {{v|default:0}},
+                },
+            {% endfor %}
+
+            ]
+        }]
+    });
+});
+$(function () {
+    // Build the chart
+    $('#grafo10').highcharts({
+        chart: {
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false,
+            type: 'pie'
+        },
+        title: {
+            text: 'Donde'
+        },
+        tooltip: {
+            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        },
+        plotOptions: {
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                dataLabels: {
+                    enabled: true,
+                    format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                    style: {
+                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                    }
+                }
+            }
+        },
+        series: [{
+            name: 'Opciones',
+            data: [
+                {% for k,v in suelo_desbalance_donde.items %}
+                {
+                    name: "{{k}}",
+                    {% if v != None %}
+                      y: {{v|floatformat:2}}
+                    {% else %}
+                      y: 0
+                    {% endif %}
+                },
+                {% endfor %}
+            ]
+        }]
+    });
+});
+
+$(function () {
+$('#grafo11').highcharts({
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: 'Acciones potenciales'
+        },
+        subtitle: {
+            text: ''
+        },
+        xAxis: {
+            type: 'category'
+        },
+        yAxis: {
+            title: {
+                text: 'Frecuencia (conteo)'
+            }
+
+        },
+        legend: {
+            enabled: false
+        },
+        plotOptions: {
+            series: {
+                borderWidth: 0,
+                dataLabels: {
+                    enabled: true,
+                    format: '{point.y:.1f}'
+                }
+            }
+        },
+
+        tooltip: {
+            headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+            pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}</b> of total<br/>'
+        },
+
+        series: [{
+            name: '',
+            colorByPoint: true,
+            data: [
+            {% for k,v in suelo_enfermedades_acciones.items %}
+                {
+                    name: '{{k}}',
+                    y: {{v|default:0}},
+                },
+            {% endfor %}
+
+            ]
+        }]
+    });
+});
+$(function () {
+    // Build the chart
+    $('#grafo12').highcharts({
+        chart: {
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false,
+            type: 'pie'
+        },
+        title: {
+            text: 'Donde'
+        },
+        tooltip: {
+            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        },
+        plotOptions: {
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                dataLabels: {
+                    enabled: true,
+                    format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                    style: {
+                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                    }
+                }
+            }
+        },
+        series: [{
+            name: 'Opciones',
+            data: [
+                {% for k,v in suelo_enfermedades_donde.items %}
+                {
+                    name: "{{k}}",
+                    {% if v != None %}
+                      y: {{v|floatformat:2}}
+                    {% else %}
+                      y: 0
+                    {% endif %}
+                },
+                {% endfor %}
+            ]
+        }]
+    });
+});
+</script>
+{% endblock extra_js %}
+
+{% block contenido %}
+
+    <div class="container">
+        <div class="salidas">
+            <div class="row">
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 hidden-xs">
+                    {% include "guiascacao/menu_salidas.html" %}
+                </div>
+                <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
+                    <div class="panel panel-default panel-graficos">
+                        <div class="panel-heading  borde">
+                                <ol class="breadcrumb">
+                                    <li class="active">Suelo</li>
+                                    <li class="active">Toma de desición</li>
+                                    <li class="active">Número de parcelas: {{numero_parcelas}}</li>
+                                </ol>
+
+                        </div>
+                        <div class="panel-body">
+                            <div class="container-fluid">
+
+                                    <div class="row">
+                                        <h2>Toma de decisión con base en las observaciones de eroción</h2>
+                                        <div class="col-md-12">
+                                            <div id="grafo1" width='100%'></div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div id="grafo2" width='100%'></div>
+                                        </div>
+                                    </div>
+                                     <hr>
+                                     <div class="row">
+                                        <h2>Toma de decisión con base en las observaciones de mal drenaje</h2>
+                                        <div class="col-md-12">
+                                            <div id="grafo3" width='100%'></div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div id="grafo4" width='100%'></div>
+                                        </div>
+                                    </div>
+                                     <hr>
+                                     <div class="row">
+                                        <h2>Toma de decisión con base en las observaciones de deficiencia nutrientes</h2>
+                                        <div class="col-md-12">
+                                            <div id="grafo5" width='100%'></div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div id="grafo6" width='100%'></div>
+                                        </div>
+                                    </div>
+                                     <hr>
+                                     <div class="row">
+                                        <h2>Toma de decisión con base en las observaciones de exceso de nutrientes</h2>
+                                        <div class="col-md-12">
+                                            <div id="grafo7" width='100%'></div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div id="grafo8" width='100%'></div>
+                                        </div>
+                                    </div>
+                                     <hr>
+                                     <div class="row">
+                                        <h2>Toma de decisión con base en las observaciones de desbalance de nutrientes</h2>
+                                        <div class="col-md-12">
+                                            <div id="grafo9" width='100%'></div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div id="grafo10" width='100%'></div>
+                                        </div>
+                                    </div>
+                                     <hr>
+                                     <div class="row">
+                                        <h2>Toma de decisión con base en las observaciones de desbalance de enfermedades y plagas</h2>
+                                        <div class="col-md-12">
+                                            <div id="grafo11" width='100%'></div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div id="grafo12" width='100%'></div>
+                                        </div>
+                                    </div>
+                                     <hr>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 hidden-xs">
+                    <div class="panel panel-default  panel-descripcion">
+                        <div class="panel-heading">
+                            Basic panel example
+                        </div>
+                        <div class="panel-body">
+                            <p>
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Provident est nemo, unde, commodi consequatur harum ad sed. Cum, omnis aperiam eveniet eligendi, blanditiis dicta ducimus qui, sequi impedit necessitatibus assumenda.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+{% endblock contenido %}

@@ -2947,6 +2947,78 @@ def suelo_salud_raices(request, template='guiascacao/suelo/sueloSaludRaices.html
 
     return render(request, template, locals())
 
+def suelo_varios(request, template='guiascacao/suelo/sueloVarios.html'):
+    filtro = _queryset_filtrado_suelo(request)
+    numero_parcelas = filtro.count()
+
+    #erosio de suelo
+    suelo_erosion_acciones = OrderedDict()
+    for obj in CHOICE_PUNTO9_LIMITACION_1_ACCION:
+        conteo = filtro.filter(punto9erosion__acciones__contains=obj[0]).count()
+        suelo_erosion_acciones[obj[1]] = conteo
+
+    suelo_erosion_donde = OrderedDict()
+    for obj in CHOICE_PUNTO9_DONDE:
+        conteo = filtro.filter(punto9erosion__donde=obj[0]).count()
+        suelo_erosion_donde[obj[1]] = conteo
+
+    #mal drenaje y encharamiento
+    suelo_drenaje_acciones = OrderedDict()
+    for obj in CHOICE_PUNTO9_LIMITACION_2_ACCION:
+        conteo = filtro.filter(punto9drenaje__acciones__contains=obj[0]).count()
+        suelo_drenaje_acciones[obj[1]] = conteo
+
+    suelo_drenaje_donde = OrderedDict()
+    for obj in CHOICE_PUNTO9_DONDE:
+        conteo = filtro.filter(punto9drenaje__donde=obj[0]).count()
+        suelo_drenaje_donde[obj[1]] = conteo
+
+    #Nutrientes
+    suelo_nutrientes_acciones = OrderedDict()
+    for obj in CHOICE_PUNTO9_LIMITACION_3_ACCION:
+        conteo = filtro.filter(punto9nutrientes__acciones__contains=obj[0]).count()
+        suelo_nutrientes_acciones[obj[1]] = conteo
+
+    suelo_nutrientes_donde = OrderedDict()
+    for obj in CHOICE_PUNTO9_DONDE:
+        conteo = filtro.filter(punto9nutrientes__donde=obj[0]).count()
+        suelo_nutrientes_donde[obj[1]] = conteo
+
+    #excesos
+    suelo_exceso_acciones = OrderedDict()
+    for obj in CHOICE_PUNTO9_LIMITACION_4_ACCION:
+        conteo = filtro.filter(punto9exceso__acciones__contains=obj[0]).count()
+        suelo_exceso_acciones[obj[1]] = conteo
+
+    suelo_exceso_donde = OrderedDict()
+    for obj in CHOICE_PUNTO9_DONDE:
+        conteo = filtro.filter(punto9exceso__donde=obj[0]).count()
+        suelo_exceso_donde[obj[1]] = conteo
+
+    #desbalance
+    suelo_desbalance_acciones = OrderedDict()
+    for obj in CHOICE_PUNTO9_LIMITACION_5_ACCION:
+        conteo = filtro.filter(punto9desbalance__acciones__contains=obj[0]).count()
+        suelo_desbalance_acciones[obj[1]] = conteo
+
+    suelo_desbalance_donde = OrderedDict()
+    for obj in CHOICE_PUNTO9_DONDE:
+        conteo = filtro.filter(punto9desbalance__donde=obj[0]).count()
+        suelo_desbalance_donde[obj[1]] = conteo
+
+    #enfermedades
+    suelo_enfermedades_acciones = OrderedDict()
+    for obj in CHOICE_PUNTO9_LIMITACION_6_ACCION:
+        conteo = filtro.filter(punto9enfermedades__acciones__contains=obj[0]).count()
+        suelo_enfermedades_acciones[obj[1]] = conteo
+
+    suelo_enfermedades_donde = OrderedDict()
+    for obj in CHOICE_PUNTO9_DONDE:
+        conteo = filtro.filter(punto9enfermedades__donde=obj[0]).count()
+        suelo_enfermedades_donde[obj[1]] = conteo
+
+    return render(request, template, locals())
+
 
 def contact(request):
     form_class = FormularioColabora
