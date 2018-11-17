@@ -3020,6 +3020,75 @@ def suelo_varios(request, template='guiascacao/suelo/sueloVarios.html'):
     return render(request, template, locals())
 
 
+def suelo_salidas(request, template='guiascacao/suelo/sueloSalidas.html'):
+    filtro = _queryset_filtrado_suelo(request)
+    numero_parcelas = filtro.count()
+
+    salidas = OrderedDict()
+    total_n = 0
+    total_p = 0
+    total_k = 0
+    total_s = 0
+    total_ca = 0
+    total_mg = 0
+    for obj in CHOICE_SUELO_PRODUCTO_COSECHA:
+        if obj[0] == 1:
+            cantidad = filtro.filter(punto4suelocosecha__producto=obj[0]).aggregate(pro=Avg('punto4suelocosecha__cantidad'))['pro']
+            n = int(cantidad) * 2
+            p = int(cantidad) * 0.4
+            k = int(cantidad) * 1
+            s = int(cantidad) * 0.14
+            ca = int(cantidad) * 0.12
+            mg = int(cantidad) * 0.34
+        elif obj[0] == 2:
+            cantidad = filtro.filter(punto4suelocosecha__producto=obj[0]).aggregate(pro=Avg('punto4suelocosecha__cantidad'))['pro']
+            n = int(cantidad) * 1.1
+            p = int(cantidad) * 1
+            k = int(cantidad) * 0.6
+            s =  0
+            ca =  0
+            mg =  0
+        elif obj[0] == 3:
+            cantidad = filtro.filter(punto4suelocosecha__producto=obj[0]).aggregate(pro=Avg('punto4suelocosecha__cantidad'))['pro']
+            n = int(cantidad) * 0.068
+            p = int(cantidad) * 0.009
+            k = int(cantidad) * 0.234
+            s = 0
+            ca = 0
+            mg = 0
+        total_n += n
+        total_p += p
+        total_k += k
+        total_s += s
+        total_ca += ca
+        total_mg += mg
+        salidas[obj[1]] = (cantidad, n, p, k, s,ca,mg)
+
+    tabla_analisis = OrderedDict()
+    for obj in DatosAnalisis.objects.all().exclude(id=9):
+        valor = filtro.filter(punto6analisissuelo__variable=obj).aggregate(pro=Avg('punto6analisissuelo__valor'))['pro']
+        tabla_analisis[obj] = [valor, obj.unidad,obj.valor_critico]
+
+    densidad_aparente = tabla_analisis.values()[0][0]  #C4
+    MO = tabla_analisis.values()[1][0]
+    Nitro_n = tabla_analisis.values()[2][0]
+    Fosfo_p = tabla_analisis.values()[3][0]
+    Pota_k = tabla_analisis.values()[4][0]
+    azu_s = tabla_analisis.values()[5][0]
+    cal_ca = tabla_analisis.values()[6][0]
+    mag_mg = tabla_analisis.values()[7][0]
+
+    ideal_rango = (cal_ca + mag_mg) / float(Pota_k)
+
+    disponible_N = ((10000*0.3*densidad_aparente*1000)*(Nitro_n/float(100)))*0.01*(2.2*0.7072)
+    disponible_P = ((((1000*3000*densidad_aparente)*Fosfo_p)/float(1000000))*2.2*0.7072)
+    disponible_K = 780*densidad_aparente*Pota_k*2.2*0.7
+    disponible_CA = 400*densidad_aparente*cal_ca*2.2*0.7026
+    disponible_MG = 240*densidad_aparente*mag_mg*2.2*0.7026
+    disponible_S  = ((((1000*3000*1.15)*azu_s)/float(1000000))*2.2*0.7072)
+
+    return render(request, template, locals())
+
 def contact(request):
     form_class = FormularioColabora
     if request.method == 'POST':

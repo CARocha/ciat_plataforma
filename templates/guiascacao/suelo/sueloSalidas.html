@@ -1,0 +1,220 @@
+{% extends "guiascacao/base.html" %}
+
+{% load tools %}
+
+{% block extra_js %}
+{% endblock %}
+
+{% block contenido %}
+
+<div class="container">
+        <div class="salidas">
+            <div class="row">
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 hidden-xs">
+                    {% include "guiascacao/menu_salidas.html" %}
+                </div>
+                <div class="col-xs-12 col-sm-10 col-md-10 col-lg-10">
+                <div class="panel panel-default panel-graficos">
+                        <div class="panel-heading  borde">
+                                <ol class="breadcrumb">
+                                    <li class="active">Suelo</li>
+                                    <li class="active">salidas</li>
+                                    <li class="active">Número de parcelas: {{numero_parcelas}}</li>
+                                </ol>
+                        </div>
+                    <div class="table-responsive tabla-poda">
+                    <table class="table table-bordered table-striped">
+                        <caption>Salidas</caption>
+                      <thead>
+                        <tr>
+                          <th colspan="2"></th>
+                          <th colspan="6">Nutrientes Cosechas(lbs/mz/año)</th>
+                       </tr>
+                        <tr>
+                          <th>Producto (unidad)</th>
+                          <th>Cantidad</th>
+                          <th>N</th>
+                          <th>P</th>
+                          <th>K</th>
+                          <th>S</th>
+                          <th>Ca</th>
+                          <th>Mg</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                    {% for k, v in salidas.items %}
+                        <tr>
+                          <th>{{k}}</th>
+                          <th>{{v.0|floatformat:1}}</th>
+                          <td>{{v.1}}</td>
+                          <td>{{v.2}}</td>
+                          <th>{{v.3}}</th>
+                          <td>{{v.4}}</td>
+                          <td>{{v.5}}</td>
+                          <td>{{v.6}}</td>
+                        </tr>
+                    {% endfor %}
+                        <tr>
+                          <th>Total</th>
+                           <td></td>
+                          <td>{{total_n}}</td>
+                          <td>{{total_p}}</td>
+                          <td>{{total_k}}</td>
+                          <td>{{total_s}}</td>
+                          <td>{{total_ca}}</td>
+                          <td>{{total_mg}}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                </div>
+                <div class="table-responsive tabla-poda">
+                    <table class="table table-bordered table-striped">
+                        <caption>Contenido de nutrientes</caption>
+                      <thead>
+                        <tr>
+                            <th></th>
+                          <th>N</th>
+                          <th>P</th>
+                          <th>K</th>
+                          <th>S</th>
+                          <th>Ca</th>
+                          <th>Mg</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>Grano de Cacao (lb/qq seco)</td>
+                          <td>2</td>
+                          <td>0.4</td>
+                          <th>1</th>
+                          <td>0.14</td>
+                          <td>0.12</td>
+                          <td>0.34</td>
+                        </tr>
+                        <tr>
+                          <td>Cascara (lb /qq seco)</td>
+                          <td>1.5</td>
+                          <td>0.2</td>
+                          <th>5</th>
+                          <td>0.14</td>
+                          <td>0.43</td>
+                          <td>0.24</td>
+                        </tr>
+                        <tr>
+                          <td>Leña (lb/carga de 125lb)</td>
+                          <td>1.1</td>
+                          <td>1</td>
+                          <th>0.6</th>
+                          <td>0</td>
+                          <td>0</td>
+                          <td>0</td>
+                        </tr>
+                        <tr>
+                          <td>Cabezas de Banano (lb/Cabeza)</td>
+                          <td>0.068</td>
+                          <td>0.009</td>
+                          <th>0.234</th>
+                          <td>0</td>
+                          <td>0</td>
+                          <td>0</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                </div>
+                <hr>
+                <br>
+                <h3>Resultado de analisis de suelo</h3>
+                <div class="table-responsive tabla-poda">
+                    <table class="table table-bordered table-striped">
+                      <thead>
+                        <tr>
+                            <th>Nutrientes</th>
+                          <th>Valor</th>
+                          <th>Unidad</th>
+                          <th>Valor critico</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {% for k, v in tabla_analisis.items %}
+                        <tr>
+                          <td>{{k}}</td>
+                          <td>{{v.0}}</td>
+                          <td>{{v.1}}</td>
+                          <th>{{v.2}}</th>
+                        </tr>
+                        {% endfor %}
+                      </tbody>
+                    </table>
+                </div>
+                <br><br>
+                <ul>
+                    <li>(Ca + Mg)/k <span class="badge">{{ideal_rango}}</span></li>
+                    <li>Rango ideal entre 10-40</li>
+                </ul>
+
+                <div class="table-responsive tabla-poda">
+                    <table class="table table-bordered table-striped">
+                        <caption>Cantidad de nutrientes disponibles</caption>
+                      <thead>
+                        <tr>
+                          <th></th>
+                          <th>Disponible lbs/mz</th>
+                          <th>Estimacion Eficiencia lbs/mz (Ultisol/suelo rojo)</th>
+                          <th>Estimacion Eficiencia lbs/mz (Vertisoles)</th>
+                          <th>Estimacion Eficiencia lbs/mz (Andisoles o Volca.)</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>N</td>
+                          <td>{{disponible_N|floatformat:2}}</td>
+                          <td>{{v.1}}</td>
+                          <th>{{v.2}}</th>
+                          <th>{{v.2}}</th>
+                        </tr>
+                        <tr>
+                          <td>P</td>
+                          <td>{{disponible_P|floatformat:2}}</td>
+                          <td>{{v.1}}</td>
+                          <th>{{v.2}}</th>
+                          <th>{{v.2}}</th>
+                        </tr>
+                        <tr>
+                          <td>K</td>
+                          <td>{{disponible_K|floatformat:2}}</td>
+                          <td>{{v.1}}</td>
+                          <th>{{v.2}}</th>
+                          <th>{{v.2}}</th>
+                        </tr>
+                        <tr>
+                          <td>Ca</td>
+                          <td>{{disponible_CA|floatformat:2}}</td>
+                          <td>{{v.1}}</td>
+                          <th>{{v.2}}</th>
+                          <th>{{v.2}}</th>
+                        </tr>
+                        <tr>
+                          <td>Mg</td>
+                          <td>{{disponible_MG|floatformat:2}}</td>
+                          <td>{{v.1}}</td>
+                          <th>{{v.2}}</th>
+                          <th>{{v.2}}</th>
+                        </tr>
+                        <tr>
+                          <td>S</td>
+                          <td>{{disponible_S|floatformat:2}}</td>
+                          <td>{{v.1}}</td>
+                          <th>{{v.2}}</th>
+                          <th>{{v.2}}</th>
+                        </tr>
+
+                      </tbody>
+                    </table>
+                </div>
+
+                </div>
+                </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
