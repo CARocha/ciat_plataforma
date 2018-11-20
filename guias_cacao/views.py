@@ -3087,6 +3087,31 @@ def suelo_salidas(request, template='guiascacao/suelo/sueloSalidas.html'):
     disponible_MG = 240*densidad_aparente*mag_mg*2.2*0.7026
     disponible_S  = ((((1000*3000*1.15)*azu_s)/float(1000000))*2.2*0.7072)
 
+    #----------------- salidas de versitoles --------------------
+    vertisoles_N =  (disponible_N * 60) / float(100)
+    vertisoles_P = (disponible_P * 50) / float(100)
+    vertisoles_K = (disponible_K * 65) / float(100)
+    vertisoles_CA = (disponible_CA * 65) / float(100)
+    vertisoles_MG = (disponible_MG * 65) / float(100)
+    vertisoles_S = (disponible_S * 70) / float(100)
+
+    #----------salidas de Andisoles ---------------
+    andisoles_N =  (disponible_N * 65) / float(100)
+    andisoles_P = (disponible_P * 35) / float(100)
+    andisoles_K = (disponible_K * 80) / float(100)
+    andisoles_CA = (disponible_CA * 80) / float(100)
+    andisoles_MG = (disponible_MG * 80) / float(100)
+    andisoles_S = (disponible_S * 70) / float(100)
+
+    #----------salidas de ultisoles -------------------
+    ultisoles_N =  (disponible_N * 55) / float(100)
+    ultisoles_P = (disponible_P * 40) / float(100)
+    ultisoles_K = (disponible_K * 70) / float(100)
+    ultisoles_CA = (disponible_CA * 70) / float(100)
+    ultisoles_MG = (disponible_MG * 70) / float(100)
+    ultisoles_S = (disponible_S * 70) / float(100)
+
+
     return render(request, template, locals())
 
 def contact(request):
